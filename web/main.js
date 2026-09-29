@@ -23,7 +23,7 @@ es: {
   "hero.sub": "Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.",
   "hero.cta1": "Explorar el benchmark ↓", "hero.cta2": "Ver en GitHub ↗",
   "kpi.series": "Series evaluadas", "kpi.avg": "Mediana MAPE · TimesFM-3",
-  "kpi.wins": "Victorias TimesFM-3", "kpi.train": "Entrenamiento por serie",
+  "kpi.wins": "Series con MAPE <10%", "kpi.train": "Entrenamiento por serie",
   "about.p": "Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.",
   "about.details": "¿Cómo funciona el pronóstico zero-shot?",
   "about.body": "<p>El modelo se pre-entrenó con miles de millones de puntos de series de todos los dominios, y pronostica una serie nueva <b>sin entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a cambio de ser menos interpretable y más conservador en rupturas.</p>",
@@ -80,7 +80,7 @@ en: {
   "hero.sub": "An empirical benchmark of Google's TimesFM foundation models across real-world time series.",
   "hero.cta1": "Explore the benchmark ↓", "hero.cta2": "View on GitHub ↗",
   "kpi.series": "Series evaluated", "kpi.avg": "Median MAPE · TimesFM-3",
-  "kpi.wins": "TimesFM-3 wins", "kpi.train": "Per-series training",
+  "kpi.wins": "Series with MAPE <10%", "kpi.train": "Per-series training",
   "about.p": "Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.",
   "about.details": "How does zero-shot forecasting work?",
   "about.body": "<p>The model was pretrained on billions of time-series points from every domain, and forecasts a new series <b>without training on it</b> — like an LLM answering without fine-tuning. Unlike <b>ARIMA</b> (classical statistics: one fitted model per series, assumes linearity, needs enough history) and Meta's <b>Prophet</b> (additive trend + seasonality + holidays model, also fitted per series with manual setup), here there is <b>a single model for everything</b>, at the cost of lower interpretability and more conservative behavior on breaks.</p>",
@@ -540,12 +540,13 @@ function buildCompare() {
     (d) => d.v3.mape != null && d.v25.mape != null);
   if (!both.length) return;
   const wins = both.filter((d) => d.v3.mape <= d.v25.mape).length;
+  const u10 = both.filter((d) => d.v3.mape < 10).length;
   const med3 = median(both.map((d) => d.v3.mape));
   const med25 = median(both.map((d) => d.v25.mape));
   cmpStats = { avg3: +med3.toFixed(2), avg25: +med25.toFixed(2) };
   kpi("kpis", cmpData.datasets.length, t("kpi.series"));
   kpi("kpis", med3.toFixed(2) + "%", t("kpi.avg"));
-  kpi("kpis", `${wins} / ${both.length}`, t("kpi.wins"));
+  kpi("kpis", Math.round(100 * u10 / both.length) + "%", t("kpi.wins"));
   kpi("kpis", "0", t("kpi.train"));
   kpi("cmp-kpis", med3.toFixed(2) + "%", t("cmp.avg3"));
   kpi("cmp-kpis", med25.toFixed(2) + "%", t("cmp.avg25"));
