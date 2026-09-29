@@ -87,7 +87,7 @@ except ValueError:
 
 - [ ] **Step 2: Correrlos y verlos fallar**
 
-Run: `python tests/test_normalize.py && python tests/test_schema.py && python tests/test_registry.py`
+Run: `PYTHONPATH=. python tests/test_normalize.py && PYTHONPATH=. python tests/test_schema.py && PYTHONPATH=. python tests/test_registry.py`
 Expected: FAIL (`ModuleNotFoundError: pipeline` o archivo inexistente).
 
 - [ ] **Step 3: Implementar `registry.py`, `fetch.py`, `normalize.py`, `schema.py`, `pipeline/run.py` (stub), `datasets/_example.yaml`, `Makefile`, `.gitignore`**
@@ -96,7 +96,7 @@ YAML con `yaml` de stdlib no existe → usar dict literal en `_example.yaml` no 
 
 - [ ] **Step 4: Correr checks + stub end-to-end**
 
-Run: `python tests/test_registry.py && python tests/test_fetch.py && python tests/test_normalize.py && python tests/test_schema.py && make forecasts`
+Run: `PYTHONPATH=. python tests/test_registry.py && python tests/test_fetch.py && python tests/test_normalize.py && python tests/test_schema.py && make forecasts`
 Expected: los 4 PASS silenciosos; `make forecasts` genera `web/public/data/_example.json` + `manifest.json` válido.
 
 - [ ] **Step 5: Commit en la rama**
@@ -134,7 +134,7 @@ assert abs(mae([1.0, 2.0, 3.0], [1.0, 2.0, 4.0]) - 1/3) < 1e-9
 
 - [ ] **Step 2: Verlo fallar**
 
-Run: `python tests/test_evaluate.py`
+Run: `PYTHONPATH=. python tests/test_evaluate.py`
 Expected: FAIL (`ModuleNotFoundError`).
 
 - [ ] **Step 3: Implementar `forecast.py`, `evaluate.py`, `run.py` real, `requirements.txt`**
@@ -143,7 +143,7 @@ Expected: FAIL (`ModuleNotFoundError`).
 
 - [ ] **Step 4: Verificar check + smoke test con serie sintética**
 
-Run: `python tests/test_evaluate.py && python -m pipeline.run --dataset _example --no-forecast`
+Run: `PYTHONPATH=. python tests/test_evaluate.py && python -m pipeline.run --dataset _example --no-forecast`
 Expected: PASS; el segundo comando regenera el artefacto stub sin tocar el modelo.
 
 - [ ] **Step 5: Commit**

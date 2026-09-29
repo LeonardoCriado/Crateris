@@ -1,0 +1,28 @@
+"""Lee el registry: un JSON por dataset en datasets/ (sin dependencias)."""
+import glob
+import json
+import os
+
+REQUIRED = ("id", "name", "description", "source", "date_col",
+            "value_col", "freq", "horizon")
+
+
+def load(path: str) -> dict:
+    with open(path, encoding="utf-8") as f:
+        cfg = json.load(f)
+    missing = [k for k in REQUIRED if k not in cfg]
+    if missing:
+        raise ValueError(f"registry {path}: faltan claves {missing}")
+    cfg.setdefault("covariates", [])
+    cfg.setdefault("category", "general")
+    return cfg
+
+
+def list_all(directory: str = "datasets") -> list:
+    """Todos los datasets salvo los que empiezan con _ (solo dev)."""
+    cfgs = []
+    for p in sorted(glob.glob(os.path.join(directory, "*.json"))):
+        if os.path.basename(p).startswith("_"):
+            continue
+        cfgs.append(load(p))
+    return cfgs

@@ -1,0 +1,11 @@
+{
+  "id": "_example",
+  "name": "Example (smoke test)",
+  "description": "Dataset mínimo offline para probar el pipeline sin modelo.",
+  "source": {"url": "tests/fixtures/demo.csv", "license": "public-domain"},
+  "date_col": "d",
+  "value_col": "v",
+  "freq": "D",
+  "horizon": 3,
+  "covariates": []
+}

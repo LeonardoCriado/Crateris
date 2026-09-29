@@ -31,3 +31,9 @@ Thumbs.db
 
 # OpenCode (cache local, no config)
 .opencode/cache/
+
+# Pipeline / web
+data/raw/
+.venv/
+web/dist/
+web/node_modules/
