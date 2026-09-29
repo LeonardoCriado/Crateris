@@ -42,10 +42,13 @@ def to_series(cfg: dict, raw_path: str) -> list:
     else:
         dc, vc = cfg["date_col"], cfg["value_col"]
         rows = []
+        start = cfg.get("start_from")  # salta filas anteriores (vacías líder)
         with open(raw_path, newline="", encoding="utf-8-sig") as f:
             for _ in range(cfg.get("skip_lines", 0)):
                 next(f, None)
             for row in csv.DictReader(f):
+                if start and (row.get(dc) or "") < start:
+                    continue
                 try:
                     rows.append((_parse(row[dc], freq), float(row[vc])))
                 except (KeyError, ValueError) as e:

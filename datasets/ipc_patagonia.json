@@ -3,10 +3,14 @@
   "name": "IPC Patagonia mensual (INDEC)",
   "description": "Índice de Precios al Consumidor Patagonia, base dic-2016. INDEC vía datos.gob.ar.",
   "category": "inflacion",
-  "source": {"url": "https://infra.datos.gob.ar/catalog/sspm/dataset/145/distribution/145.3/download/indice-precios-al-consumidor-nivel-general-base-diciembre-2016-mensual.csv", "license": "CC-BY-4.0 (datos.gob.ar)"},
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/145/distribution/145.3/download/indice-precios-al-consumidor-nivel-general-base-diciembre-2016-mensual.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
   "date_col": "indice_tiempo",
   "value_col": "ipc_ng_patagonia",
   "freq": "M",
   "horizon": 12,
-  "covariates": []
+  "covariates": [],
+  "theme": "Argentina · Precios"
 }

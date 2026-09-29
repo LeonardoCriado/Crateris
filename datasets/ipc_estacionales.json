@@ -1,0 +1,17 @@
+{
+  "id": "ipc_estacionales",
+  "name": "IPC estacionales (INDEC)",
+  "description": "IPC por categorías, tasa mensual. INDEC vía datos.gob.ar.",
+  "category": "inflacion",
+  "theme": "Argentina · Precios",
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/173/distribution/173.1/download/ipc-categorias-tasas-variacionmensual-basedic-2016.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
+  "date_col": "indice_tiempo",
+  "value_col": "estacionales",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": [],
+  "start_from": "2017-01-01"
+}

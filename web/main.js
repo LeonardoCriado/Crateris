@@ -124,7 +124,7 @@ async function load() {
   const m = await (await fetch("data/manifest.json")).json();
   const sel = $("ds");
   const groups = {};
-  m.datasets.forEach((d) => { (groups[d.category] ||= []).push(d); });
+  m.datasets.forEach((d) => { (groups[d.theme || d.category] ||= []).push(d); });
   Object.entries(groups).forEach(([cat, ds]) => {
     const g = document.createElement("optgroup");
     g.label = cat;

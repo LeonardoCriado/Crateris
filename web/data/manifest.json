@@ -5,6 +5,7 @@
       "name": "Pr\u00e9stamos hipotecarios para construcci\u00f3n de viviendas",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 12,
       "file": "data/ar_1113_prestamos_hipotecarios_para_cons.json",
       "mape": 11.854334406328977
@@ -14,6 +15,7 @@
       "name": "Pr\u00e9stamos hipotecarios para compra de nuevas viviendas",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 12,
       "file": "data/ar_1115_prestamos_hipotecarios_para_comp.json",
       "mape": 23.88378772682319
@@ -23,6 +25,7 @@
       "name": "Tasa de inter\u00e9s de adelantos en cuenta corriente a tasa fija",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 12,
       "file": "data/ar_1199_tasa_de_interes_de_adelantos_en.json",
       "mape": 57.16543594555539
@@ -32,6 +35,7 @@
       "name": "Tasa de inter\u00e9s de pr\u00e9stamos entre entidades financiera privadas (BAIBAR)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_11_tasa_de_interes_de_prestamos_ent.json",
       "mape": 20.36116799570005
@@ -41,6 +45,7 @@
       "name": "Efectivo en moneda extranjera en entidades financieras",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/ar_1200_efectivo_en_moneda_extranjera_en.json",
       "mape": 4.048844895081931
@@ -50,6 +55,7 @@
       "name": "L\u00edneas del exterior comerciales (obligaciones de las entidades financieras con e",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_1201_lineas_del_exterior_comerciales.json",
       "mape": 1.2073935212388702
@@ -59,6 +65,7 @@
       "name": "L\u00edneas del exterior financieras (obligaciones de las entidades financieras con e",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_1202_lineas_del_exterior_financieras.json",
       "mape": 5.493912174841641
@@ -68,6 +75,7 @@
       "name": "Tasas de inter\u00e9s de dep\u00f3sitos en cajas de ahorro",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_1203_tasas_de_interes_de_depositos_en.json",
       "mape": 3.4787001824432555
@@ -77,6 +85,7 @@
       "name": "Tasa de inter\u00e9s del total de dep\u00f3sitos a plazo fijo",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_1204_tasa_de_interes_del_total_de_dep.json",
       "mape": 4.1380431330169465
@@ -86,6 +95,7 @@
       "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 7 a 59 d\u00edas",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_1205_tasa_de_interes_de_depositos_a_p.json",
       "mape": 3.080621810149718
@@ -95,6 +105,7 @@
       "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 30 d\u00edas",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_1207_tasa_de_interes_de_depositos_a_p.json",
       "mape": 2.5271919188605008
@@ -104,6 +115,7 @@
       "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 60 d\u00edas o m\u00e1s",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_1208_tasa_de_interes_de_depositos_a_p.json",
       "mape": 11.608929127811185
@@ -113,6 +125,7 @@
       "name": "Tasa de inter\u00e9s de documentos a sola firma a tasa fija",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 12,
       "file": "data/ar_1216_tasa_de_interes_de_documentos_a.json",
       "mape": 45.01774884333554
@@ -122,6 +135,7 @@
       "name": "Reservas internacionales",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/ar_1244_reservas_internacionales.json",
       "mape": 1.6388475118871833
@@ -131,6 +145,7 @@
       "name": "Oro, divisas, colocaciones a plazo y otros activos incluidos en las reservas int",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/ar_1245_oro__divisas__colocaciones_a_pla.json",
       "mape": 1.6388475118871833
@@ -140,6 +155,7 @@
       "name": "Pasivos monetarios (base monetaria + dep\u00f3sitos y otros pasivos monetarios en mon",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_1247_pasivos_monetarios__base_monetar.json",
       "mape": 2.0794830195848166
@@ -149,6 +165,7 @@
       "name": "Base monetaria",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_1248_base_monetaria.json",
       "mape": 2.5949653884960937
@@ -158,6 +175,7 @@
       "name": "Circulaci\u00f3n monetaria",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_1249_circulacion_monetaria.json",
       "mape": 1.1918623048658652
@@ -167,6 +185,7 @@
       "name": "Efectivo en entidades financieras",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1271_efectivo_en_entidades_financiera.json",
       "mape": 4.507817454315247
@@ -176,6 +195,7 @@
       "name": "Dep\u00f3sitos de las entidades financieras en entidades financieras",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1272_depositos_de_las_entidades_finan.json",
       "mape": 3.1821163997544915
@@ -185,6 +205,7 @@
       "name": "T\u00edtulos valores en cartera de las entidades financieras",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1273_titulos_valores_en_cartera_de_la.json",
       "mape": 1.5888139244737465
@@ -194,6 +215,7 @@
       "name": "Certificados de participaci\u00f3n en fideicomisos financieros",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1274_certificados_de_participacion_en.json",
       "mape": 5.433672087220246
@@ -203,6 +225,7 @@
       "name": "Total de pr\u00e9stamos otorgados al total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1275_total_de_prestamos_otorgados_al.json",
       "mape": 0.7573211742907684
@@ -212,6 +235,7 @@
       "name": "Tasa de inter\u00e9s de dep\u00f3sitos a 30 d\u00edas de plazo en entidades financieras",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_12_tasa_de_interes_de_depositos_a_3.json",
       "mape": 2.5271919188605008
@@ -221,6 +245,7 @@
       "name": "Dep\u00f3sitos totales del total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1369_depositos_totales_del_total_de_s.json",
       "mape": 0.94495657095917
@@ -230,6 +255,7 @@
       "name": "Dep\u00f3sitos totales de efectivo del total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1370_depositos_totales_de_efectivo_de.json",
       "mape": 0.9523293137134949
@@ -239,6 +265,7 @@
       "name": "Cuentas corrientes del total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1371_cuentas_corrientes_del_total_de.json",
       "mape": 3.495150297099545
@@ -248,6 +275,7 @@
       "name": "Cuentas a la vista  del total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1373_cuentas_a_la_vista__del_total_de.json",
       "mape": 0.9816929858317571
@@ -257,6 +285,7 @@
       "name": "Cajas de ahorro del total de sectores",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/ar_1375_cajas_de_ahorro_del_total_de_sec.json",
       "mape": 2.4586734286975913
@@ -266,6 +295,7 @@
       "name": "Tasa de inter\u00e9s por adelantos en cuenta corriente",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_13_tasa_de_interes_por_adelantos_en.json",
       "mape": 16.28874422787269
@@ -275,6 +305,7 @@
       "name": "Base monetaria",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1606_base_monetaria.json",
       "mape": 10.201722323047441
@@ -284,6 +315,7 @@
       "name": "Circulaci\u00f3n monetaria",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1607_circulacion_monetaria.json",
       "mape": 3.8848480659502673
@@ -293,6 +325,7 @@
       "name": "Billetes y monedas en poder del p\u00fablico",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1608_billetes_y_monedas_en_poder_del.json",
       "mape": 4.013522295340159
@@ -302,6 +335,7 @@
       "name": "Efectivo en entidades financieras",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1609_efectivo_en_entidades_financiera.json",
       "mape": 9.699346195251895
@@ -311,6 +345,7 @@
       "name": "Dep\u00f3sitos de las entidades financieras en cuenta corriente en el BCRA",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1610_depositos_de_las_entidades_finan.json",
       "mape": 11.128987630299392
@@ -320,6 +355,7 @@
       "name": "M1 en moneda local y extranjera (BCRA)",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 12,
       "file": "data/ar_1611_m1.json",
       "mape": 10.763543582137913
@@ -329,6 +365,7 @@
       "name": "Total de factores de explicaci\u00f3n de la base monetaria",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_46_total_de_factores_de_explicacion.json",
       "mape": 98.30547533705557
@@ -338,6 +375,7 @@
       "name": "Efecto monetario de las compras netas de divisas al sector privado y otros",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_47_efecto_monetario_de_las_compras.json",
       "mape": null
@@ -347,6 +385,7 @@
       "name": "Efecto monetario de las compras netas de divisas al tesoro nacional",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_48_efecto_monetario_de_las_compras.json",
       "mape": null
@@ -356,6 +395,7 @@
       "name": "Efecto monetario de los adelantos transitorios al tesoro nacional",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_49_efecto_monetario_de_los_adelanto.json",
       "mape": null
@@ -365,6 +405,7 @@
       "name": "Tipo de cambio minorista (promedio vendedor)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/ar_4_tipo_de_cambio_minorista__promed.json",
       "mape": 0.4481252594195115
@@ -374,6 +415,7 @@
       "name": "Efecto monetario de las transferencia de utilidades al tesoro nacional",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Agregados",
       "horizon": 28,
       "file": "data/ar_50_efecto_monetario_de_las_transfer.json",
       "mape": null
@@ -383,6 +425,7 @@
       "name": "Tasa de inter\u00e9s TM20 de bancos privados",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/ar_8_tasa_de_interes_tm20_de_bancos_p.json",
       "mape": 3.7123532660343947
@@ -392,6 +435,7 @@
       "name": "Tasa BADLAR \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Tasas",
       "horizon": 28,
       "file": "data/badlar.json",
       "mape": 3.0564136409695886
@@ -401,6 +445,7 @@
       "name": "Bono EEUU 10Y mensual",
       "category": "finanzas",
       "freq": "M",
+      "theme": "finanzas",
       "horizon": 12,
       "file": "data/bonds10y_monthly.json",
       "mape": 4.990874986009731
@@ -410,15 +455,147 @@
       "name": "Petr\u00f3leo Brent diario",
       "category": "energia",
       "freq": "B",
+      "theme": "energia",
       "horizon": 28,
       "file": "data/brent_daily.json",
       "mape": 12.09950910768726
+    },
+    {
+      "id": "cap_caucho_plastico",
+      "name": "Capacidad: caucho_plastico (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_caucho_plastico.json",
+      "mape": 6.987239152549171
+    },
+    {
+      "id": "cap_edicion_impresion",
+      "name": "Capacidad: edicion_impresion (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_edicion_impresion.json",
+      "mape": 6.665712142859262
+    },
+    {
+      "id": "cap_industrias_metalicas_basicas",
+      "name": "Capacidad: industrias_metalicas_basicas (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_industrias_metalicas_basicas.json",
+      "mape": 13.94782121170387
+    },
+    {
+      "id": "cap_metalmecanica_no_industria_a",
+      "name": "Capacidad: metalmecanica_no_industria_automotriz (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_metalmecanica_no_industria_a.json",
+      "mape": 6.577707772190576
+    },
+    {
+      "id": "cap_minerales_no_metalicos",
+      "name": "Capacidad: minerales_no_metalicos (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_minerales_no_metalicos.json",
+      "mape": 3.24875354349341
+    },
+    {
+      "id": "cap_nivel_general",
+      "name": "Capacidad: nivel_general (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_nivel_general.json",
+      "mape": 2.9849250117992066
+    },
+    {
+      "id": "cap_papel_carton",
+      "name": "Capacidad: papel_carton (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_papel_carton.json",
+      "mape": 5.539360004217412
+    },
+    {
+      "id": "cap_productos_alimenticios_bebid",
+      "name": "Capacidad: productos_alimenticios_bebidas (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_productos_alimenticios_bebid.json",
+      "mape": 4.221693378396805
+    },
+    {
+      "id": "cap_productos_tabaco",
+      "name": "Capacidad: productos_tabaco (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_productos_tabaco.json",
+      "mape": 10.758351774885105
+    },
+    {
+      "id": "cap_productos_textiles",
+      "name": "Capacidad: productos_textiles (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_productos_textiles.json",
+      "mape": 8.270049139928966
+    },
+    {
+      "id": "cap_refinacion_petroleo",
+      "name": "Capacidad: refinacion_petroleo (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_refinacion_petroleo.json",
+      "mape": 3.23146111124299
+    },
+    {
+      "id": "cap_sustancias_productos_quimico",
+      "name": "Capacidad: sustancias_productos_quimicos (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_sustancias_productos_quimico.json",
+      "mape": 6.000418744871922
+    },
+    {
+      "id": "cap_vehiculosautomotores",
+      "name": "Capacidad: vehiculosautomotores (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/cap_vehiculosautomotores.json",
+      "mape": 21.94266467816183
     },
     {
       "id": "co2_monthly",
       "name": "CO\u2082 Mauna Loa mensual",
       "category": "tierra",
       "freq": "M",
+      "theme": "tierra",
       "horizon": 12,
       "file": "data/co2_monthly.json",
       "mape": 0.08856304606995169
@@ -428,6 +605,7 @@
       "name": "IPC Reino Unido mensual",
       "category": "inflacion",
       "freq": "M",
+      "theme": "inflacion",
       "horizon": 12,
       "file": "data/cpi_gb_monthly.json",
       "mape": 1.8621375088063927
@@ -437,6 +615,7 @@
       "name": "Dep\u00f3sitos en caja de ahorro \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/dep_ahorro_ar.json",
       "mape": 1.8489593439228096
@@ -446,6 +625,7 @@
       "name": "Dep\u00f3sitos en cuenta corriente \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/dep_cc_ar.json",
       "mape": 4.505620796919045
@@ -455,6 +635,7 @@
       "name": "Dep\u00f3sitos a plazo fijo \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 Dep\u00f3sitos y pr\u00e9stamos",
       "horizon": 28,
       "file": "data/dep_plazo_ar.json",
       "mape": 1.3790246844669558
@@ -464,6 +645,7 @@
       "name": "Dep\u00f3sitos en d\u00f3lares \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/dep_usd_ar.json",
       "mape": 0.4482437337249888
@@ -473,6 +655,7 @@
       "name": "D\u00f3lar mayorista \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/dolar_mayorista.json",
       "mape": 0.38945772193704925
@@ -482,24 +665,187 @@
       "name": "EMAE mensual (INDEC)",
       "category": "actividad",
       "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
       "horizon": 12,
       "file": "data/emae.json",
       "mape": 2.3872534330426705
+    },
+    {
+      "id": "emae_actividades_inmobiliarias_em",
+      "name": "EMAE actividades_inmobiliarias_empresariales_ (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_actividades_inmobiliarias_em.json",
+      "mape": 0.9466354119957924
+    },
+    {
+      "id": "emae_admin_publica_planes_segurid",
+      "name": "EMAE admin_publica_planes_seguridad_social_af (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_admin_publica_planes_segurid.json",
+      "mape": 1.3300309500732785
+    },
+    {
+      "id": "emae_agricultura_ganaderia_caza_s",
+      "name": "EMAE agricultura_ganaderia_caza_silvicultura (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_agricultura_ganaderia_caza_s.json",
+      "mape": 11.7029944912655
+    },
+    {
+      "id": "emae_comercio_mayorista_minorista",
+      "name": "EMAE comercio_mayorista_minorista_reparacione (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_comercio_mayorista_minorista.json",
+      "mape": 2.7968984185800574
+    },
+    {
+      "id": "emae_construccion",
+      "name": "EMAE construccion (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_construccion.json",
+      "mape": 2.4572547683784944
     },
     {
       "id": "emae_desest",
       "name": "EMAE desestacionalizada (INDEC)",
       "category": "actividad",
       "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
       "horizon": 12,
       "file": "data/emae_desest.json",
       "mape": 1.599200173229978
+    },
+    {
+      "id": "emae_electricidad_gas_agua",
+      "name": "EMAE electricidad_gas_agua (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_electricidad_gas_agua.json",
+      "mape": 1.8264166425217485
+    },
+    {
+      "id": "emae_ensenianza",
+      "name": "EMAE ensenianza (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_ensenianza.json",
+      "mape": 1.0221484894131514
+    },
+    {
+      "id": "emae_explotacion_minas_canteras",
+      "name": "EMAE explotacion_minas_canteras (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_explotacion_minas_canteras.json",
+      "mape": 3.879256457848653
+    },
+    {
+      "id": "emae_hoteles_restaurantes",
+      "name": "EMAE hoteles_restaurantes (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_hoteles_restaurantes.json",
+      "mape": 1.5407444822183674
+    },
+    {
+      "id": "emae_impuestos_netos_subsidios",
+      "name": "EMAE impuestos_netos_subsidios (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_impuestos_netos_subsidios.json",
+      "mape": 2.518027701671343
+    },
+    {
+      "id": "emae_industria_manufacturera",
+      "name": "EMAE industria_manufacturera (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_industria_manufacturera.json",
+      "mape": 2.5441247642182
+    },
+    {
+      "id": "emae_intermediacion_financiera",
+      "name": "EMAE intermediacion_financiera (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_intermediacion_financiera.json",
+      "mape": 3.8833824707665214
+    },
+    {
+      "id": "emae_otras_actividades_servicios_",
+      "name": "EMAE otras_actividades_servicios_comunitarias (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_otras_actividades_servicios_.json",
+      "mape": 2.6024140480196736
+    },
+    {
+      "id": "emae_pesca",
+      "name": "EMAE pesca (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_pesca.json",
+      "mape": 33.45563873992489
+    },
+    {
+      "id": "emae_servicios_sociales_salud",
+      "name": "EMAE servicios_sociales_salud (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_servicios_sociales_salud.json",
+      "mape": 0.530317347239705
+    },
+    {
+      "id": "emae_transporte_comunicaciones",
+      "name": "EMAE transporte_comunicaciones (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/emae_transporte_comunicaciones.json",
+      "mape": 1.380830886996571
     },
     {
       "id": "gold_monthly",
       "name": "Oro mensual (LBMA)",
       "category": "finanzas",
       "freq": "M",
+      "theme": "finanzas",
       "horizon": 12,
       "file": "data/gold_monthly.json",
       "mape": 20.9379166631345
@@ -509,15 +855,27 @@
       "name": "Inflaci\u00f3n mensual \u2014 Argentina (BCRA)",
       "category": "argentina",
       "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
       "horizon": 12,
       "file": "data/inflacion_ar_monthly.json",
       "mape": 27.08150044537099
+    },
+    {
+      "id": "ipc_estacionales",
+      "name": "IPC estacionales (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
+      "horizon": 12,
+      "file": "data/ipc_estacionales.json",
+      "mape": 445.1739763640767
     },
     {
       "id": "ipc_gba",
       "name": "IPC GBA mensual (INDEC)",
       "category": "inflacion",
       "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
       "horizon": 12,
       "file": "data/ipc_gba.json",
       "mape": 5.9126246983281385
@@ -527,24 +885,77 @@
       "name": "IPC Nacional mensual (INDEC)",
       "category": "inflacion",
       "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
       "horizon": 12,
       "file": "data/ipc_nacional.json",
       "mape": 5.657932581720467
+    },
+    {
+      "id": "ipc_n\u00facleo",
+      "name": "IPC n\u00facleo (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
+      "horizon": 12,
+      "file": "data/ipc_n\u00facleo.json",
+      "mape": 21.229076168388303
     },
     {
       "id": "ipc_patagonia",
       "name": "IPC Patagonia mensual (INDEC)",
       "category": "inflacion",
       "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
       "horizon": 12,
       "file": "data/ipc_patagonia.json",
       "mape": 5.330139537246835
+    },
+    {
+      "id": "ipc_regulados",
+      "name": "IPC regulados (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Precios",
+      "horizon": 12,
+      "file": "data/ipc_regulados.json",
+      "mape": 23.58705044830638
+    },
+    {
+      "id": "isac_desestacionalizado",
+      "name": "ISAC desestacionalizado (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/isac_desestacionalizado.json",
+      "mape": 6.303074796400939
+    },
+    {
+      "id": "isac_general",
+      "name": "ISAC general (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/isac_general.json",
+      "mape": 6.693075892716223
+    },
+    {
+      "id": "isac_tendencia",
+      "name": "ISAC tendencia (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Actividad",
+      "horizon": 12,
+      "file": "data/isac_tendencia.json",
+      "mape": 8.453773445852857
     },
     {
       "id": "natgas_monthly",
       "name": "Gas natural mensual (Henry Hub)",
       "category": "energia",
       "freq": "M",
+      "theme": "energia",
       "horizon": 12,
       "file": "data/natgas_monthly.json",
       "mape": 14.861690542587866
@@ -554,15 +965,47 @@
       "name": "Reservas internacionales \u2014 BCRA",
       "category": "argentina",
       "freq": "B",
+      "theme": "Argentina \u00b7 D\u00f3lar y reservas",
       "horizon": 28,
       "file": "data/reservas_bcra.json",
       "mape": 1.4634038135670462
+    },
+    {
+      "id": "salario_privado",
+      "name": "Salario privado (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Salarios",
+      "horizon": 12,
+      "file": "data/salario_privado.json",
+      "mape": 4.992963632666986
+    },
+    {
+      "id": "salario_p\u00fablico",
+      "name": "Salario p\u00fablico (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Salarios",
+      "horizon": 12,
+      "file": "data/salario_p\u00fablico.json",
+      "mape": 4.6526880348063235
+    },
+    {
+      "id": "salario_registrado",
+      "name": "Salario registrado (INDEC)",
+      "category": "salarios",
+      "freq": "M",
+      "theme": "Argentina \u00b7 Salarios",
+      "horizon": 12,
+      "file": "data/salario_registrado.json",
+      "mape": 3.6773882773356035
     },
     {
       "id": "temp_berlin_hourly",
       "name": "Temperatura horaria \u2014 Berl\u00edn",
       "category": "clima",
       "freq": "H",
+      "theme": "clima",
       "horizon": 24,
       "file": "data/temp_berlin_hourly.json",
       "mape": 12.619700450323796
@@ -572,6 +1015,7 @@
       "name": "Temperatura horaria \u2014 Buenos Aires",
       "category": "clima",
       "freq": "H",
+      "theme": "Argentina \u00b7 Clima",
       "horizon": 24,
       "file": "data/temp_bsas_hourly.json",
       "mape": 9.741603369892339
@@ -581,10 +1025,11 @@
       "name": "VIX diario",
       "category": "finanzas",
       "freq": "B",
+      "theme": "finanzas",
       "horizon": 28,
       "file": "data/vix_daily.json",
       "mape": 5.164408991412682
     }
   ],
-  "generated_at": "2026-09-29T21:05:17.033099+00:00"
+  "generated_at": "2026-09-29T21:21:52.298633+00:00"
 }

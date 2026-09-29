@@ -68,6 +68,7 @@ def main() -> None:
         manifest["datasets"].append({
             "id": cfg["id"], "name": cfg["name"],
             "category": cfg["category"], "freq": cfg["freq"],
+            "theme": cfg.get("theme") or cfg["category"],
             "horizon": cfg["horizon"], "file": f"data/{cfg['id']}.json",
             "mape": art["metrics"].get("mape")})
     with open(os.path.join(OUT, "manifest.json"), "w",

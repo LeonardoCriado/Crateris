@@ -18,6 +18,7 @@ def load(path: str) -> dict:
         raise ValueError(f"registry {path}: faltan claves {missing}")
     cfg.setdefault("covariates", [])
     cfg.setdefault("category", "general")
+    cfg.setdefault("theme", None)
     cfg.setdefault("skip_lines", 0)
     return cfg
 

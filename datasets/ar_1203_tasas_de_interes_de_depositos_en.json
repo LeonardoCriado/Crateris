@@ -10,5 +10,6 @@
   },
   "freq": "B",
   "horizon": 28,
-  "covariates": []
+  "covariates": [],
+  "theme": "Argentina · Tasas"
 }

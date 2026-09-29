@@ -1,0 +1,16 @@
+{
+  "id": "isac_general",
+  "name": "ISAC general (INDEC)",
+  "description": "Actividad de la construcción base 2004. INDEC vía datos.gob.ar.",
+  "category": "actividad",
+  "theme": "Argentina · Actividad",
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
+  "date_col": "indice_tiempo",
+  "value_col": "isac_nivel_general",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}
