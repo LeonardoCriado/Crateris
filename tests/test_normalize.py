@@ -9,4 +9,8 @@ try:
     raise AssertionError("debió fallar")
 except ValueError as e:
     assert "gap" in str(e)
+bcra = to_series({"id": "bcra", "freq": "M",
+                  "source": {"format": "bcra-json"}},
+                 "tests/fixtures/bcra.json")
+assert [d for d, _ in bcra] == ["2026-06-01", "2026-07-01", "2026-08-01"]
 print("test_normalize OK")

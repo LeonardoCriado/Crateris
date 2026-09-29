@@ -3,18 +3,22 @@ import glob
 import json
 import os
 
-REQUIRED = ("id", "name", "description", "source", "date_col",
-            "value_col", "freq", "horizon")
+REQUIRED = ("id", "name", "description", "source", "freq", "horizon")
+PER_FORMAT = {"bcra-json": (), None: ("date_col", "value_col")}
 
 
 def load(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         cfg = json.load(f)
     missing = [k for k in REQUIRED if k not in cfg]
+    fmt = (cfg.get("source") or {}).get("format")
+    missing += [k for k in PER_FORMAT.get(fmt, PER_FORMAT[None])
+                if k not in cfg]
     if missing:
         raise ValueError(f"registry {path}: faltan claves {missing}")
     cfg.setdefault("covariates", [])
     cfg.setdefault("category", "general")
+    cfg.setdefault("skip_lines", 0)
     return cfg
 
 
