@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crateris — Can one foundation model forecast dozens of time series?</title>
-<meta name="description" content="Crateris is an empirical benchmark of Google's TimesFM foundation models across 100+ real-world time series. Zero-shot forecasting with backtesting.">
-<meta property="og:title" content="Crateris — Can one foundation model forecast dozens of time series?">
-<meta property="og:description" content="An empirical benchmark of Google's TimesFM foundation models across real-world time series.">
+<title data-i18n="meta.title">Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?</title>
+<meta name="description" data-i18n-content="meta.desc" content="Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales. Pronóstico zero-shot con backtesting.">
+<meta property="og:title" data-i18n-content="meta.title" content="Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?">
+<meta property="og:description" data-i18n-content="meta.desc" content="Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://leonardocriado.github.io/Crateris/">
 <meta name="theme-color" content="#0a0a0a">
@@ -62,7 +62,7 @@
   details.about summary { cursor: pointer; color: var(--text); }
   .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
   label.row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-bottom: .8rem; }
-  select { font-size: 1rem; padding: .45rem .6rem; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; max-width: 100%; }
+  select, input[type="search"] { font-size: 1rem; padding: .45rem .6rem; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; max-width: 100%; }
   #chart { width: 100%; height: 440px; }
   .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; margin-top: .9rem; }
   .fact { border-top: 1px solid var(--line); padding-top: .45rem; }
@@ -114,41 +114,45 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#benchmark">Skip to benchmark</a>
+<a class="skip" href="#benchmark" data-i18n="nav.skip">Saltar al benchmark</a>
 <header class="nav">
   <span class="brand">Crateris 🏆</span>
   <nav>
     <a class="btn" href="https://github.com/LeonardoCriado/Crateris">GitHub ↗</a>
-    <button class="btn" id="theme" aria-pressed="true" aria-label="Toggle color theme">◐ Theme</button>
+    <button class="btn" id="lang" aria-label="Switch language">EN</button>
+    <button class="btn" id="theme" aria-pressed="true" data-i18n-aria="nav.theme" aria-label="Cambiar tema">◐ <span data-i18n="nav.themeLabel">Tema</span></button>
   </nav>
 </header>
 
 <main>
 <section class="hero">
-  <p class="eyebrow">ML research showcase</p>
-  <h1>Can one foundation model forecast dozens of time series without per-series training?</h1>
-  <p class="sub">An empirical benchmark of Google's TimesFM foundation models across real-world time series.</p>
+  <p class="eyebrow" data-i18n="hero.eyebrow">Showcase de investigación ML</p>
+  <h1 data-i18n="hero.h1">¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?</h1>
+  <p class="sub" data-i18n="hero.sub">Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.</p>
   <div class="kpis" id="kpis" aria-live="polite"></div>
   <p class="context-line"><code>TimesFM-3 vs TimesFM-2.5 · zero-shot forecasting · backtesting</code></p>
   <div class="cta-row">
-    <a class="btn primary" href="#benchmark">Explore the benchmark ↓</a>
-    <a class="btn" href="https://github.com/LeonardoCriado/Crateris">View on GitHub ↗</a>
+    <a class="btn primary" href="#benchmark" data-i18n="hero.cta1">Explorar el benchmark ↓</a>
+    <a class="btn" href="https://github.com/LeonardoCriado/Crateris" data-i18n="hero.cta2">Ver en GitHub ↗</a>
   </div>
 </section>
 
 <section class="block" id="about">
-  <p style="max-width:44rem;margin:0">Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.</p>
+  <p style="max-width:44rem;margin:0" data-i18n="about.p">Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.</p>
   <details class="about">
-    <summary><strong>How does zero-shot forecasting work?</strong></summary>
-    <p>The model was pretrained on billions of time-series points across domains, and forecasts a new series <b>without training on it</b> — like an LLM answering without fine-tuning. The difference with <b>ARIMA</b> (classical statistics: one fitted model per series, linearity assumptions, needs enough history) and Meta's <b>Prophet</b> (additive trend + seasonality + holidays model, also fitted per series with manual configuration) is that here there is <b>a single model for everything</b>, at the cost of lower interpretability and more conservative behavior on regime breaks.</p>
+    <summary><strong data-i18n="about.details">¿Cómo funciona el pronóstico zero-shot?</strong></summary>
+    <div data-i18n="about.body">
+    <p>El modelo se pre-entrenó con miles de millones de puntos de series de todos los dominios, y pronostica una serie nueva <b>sin entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a cambio de ser menos interpretable y más conservador en rupturas.</p>
+    </div>
   </details>
 </section>
 
 <section class="block" id="benchmark">
-  <h2>Benchmark</h2>
+  <h2 data-i18n="bench.h2">Benchmark</h2>
   <p class="sub2"><code>TimesFM-3 vs TimesFM-2.5 on the same series, same backtest and zero tuning.</code></p>
-  <label class="row" for="ds"><strong>Series</strong><select id="ds"></select></label>
-  <div class="panel"><div id="chart" role="img" aria-label="Historical series with forecast and prediction interval"></div></div>
+  <label class="row" for="ds"><strong data-i18n="bench.series">Serie</strong><select id="ds"></select></label>
+  <label class="row" for="q"><strong data-i18n="bench.filter">Filtro</strong><input id="q" type="search" data-i18n-ph="bench.searchPh" placeholder="buscar serie…" data-i18n-aria="bench.searchAria" aria-label="Filtrar series"></label>
+  <div class="panel"><div id="chart" role="img" data-i18n-aria="bench.chartAria" aria-label="Serie histórica con pronóstico e intervalo de predicción"></div></div>
   <div class="facts" id="facts"></div>
   <p class="meta" id="meta" style="color:var(--muted);font-size:.82rem"></p>
 </section>
@@ -157,77 +161,66 @@
   <h2>TimesFM-3 vs TimesFM-2.5</h2>
   <p class="sub2"><code>Same data. Same backtest. Zero tuning.</code></p>
   <div class="kpis" id="cmp-kpis"></div>
-  <div class="panel"><div id="cmp-visual" role="img" aria-label="Average MAPE comparison chart"></div></div>
-  <div class="table-wrap"><div id="compare"></div></div>
+  <div class="panel"><div id="cmp-visual" role="img" data-i18n-aria="cmp.visualAria" aria-label="Gráfico comparativo de MAPE promedio"></div></div>
+  <div class="table-wrap"><div id="compare-table"></div></div>
 </section>
 
 <section class="block" id="top10">
-  <h2>Best-performing series</h2>
-  <p class="sub2">Top 10 by MAPE. Select any series to inspect it in the benchmark above.</p>
+  <h2 data-i18n="top.h2">Series con mejor desempeño</h2>
+  <p class="sub2" data-i18n="top.sub">Top 10 por MAPE. Elegí una serie para verla en el benchmark.</p>
   <div id="ranking"></div>
   <p id="unavailable"></p>
 </section>
 
 <section class="block" id="learn">
-  <h2>What did we learn?</h2>
+  <h2 data-i18n="learn.h2">¿Qué aprendimos?</h2>
   <div class="learn-grid">
-    <div class="panel"><h3>The result</h3><p id="learn-result"></p></div>
-    <div class="panel"><h3>The comparison</h3><p id="learn-compare"></p></div>
-    <div class="panel"><h3>The trade-offs</h3>
+    <div class="panel"><h3 data-i18n="learn.resultH">El resultado</h3><p id="learn-result"></p></div>
+    <div class="panel"><h3 data-i18n="learn.compareH">La comparación</h3><p id="learn-compare"></p></div>
+    <div class="panel"><h3 data-i18n="learn.tradeH">Los trade-offs</h3>
       <ul>
-        <li>Fewer individual models to maintain</li>
-        <li>Less manual configuration</li>
-        <li>Multiple frequencies out of the box</li>
-        <li>Lower interpretability</li>
-        <li>Weaker reaction to regime breaks</li>
-        <li>Higher compute cost per forecast</li>
+        <li data-i18n="learn.t1">Menos modelos individuales que mantener</li>
+        <li data-i18n="learn.t2">Menos configuración manual</li>
+        <li data-i18n="learn.t3">Múltiples frecuencias directo de caja</li>
+        <li data-i18n="learn.t4">Menor interpretabilidad</li>
+        <li data-i18n="learn.t5">Peor reacción ante rupturas</li>
+        <li data-i18n="learn.t6">Mayor costo computacional por forecast</li>
       </ul>
     </div>
   </div>
 </section>
 
 <section class="block" id="methodology">
-  <h2>Methodology</h2>
+  <h2 data-i18n="method.h2">Metodología</h2>
   <details class="method" open>
-    <summary>How the numbers are produced</summary>
-    <ol class="pipe">
-      <li>DATA</li><li>→</li><li>SERIES</li><li>→</li><li>ZERO-SHOT FORECAST</li><li>→</li><li>BACKTEST</li><li>→</li><li>METRICS</li><li>→</li><li>MODEL COMPARISON</li>
-    </ol>
-    <dl class="defs">
-      <dt>Backtest</dt><dd>Train on all but the last N points, forecast, compare against observed values (N = published horizon).</dd>
-      <dt>Horizon</dt><dd>12 steps monthly, 28 business days daily, 24 hours hourly.</dd>
-      <dt>Context</dt><dd>Truncated to the most recent 512 points per series.</dd>
-      <dt>MAE</dt><dd>Mean absolute error, in series units. Lower is better.</dd>
-      <dt>RMSE</dt><dd>Root mean squared error; penalizes large errors more than MAE.</dd>
-      <dt>MAPE</dt><dd>Mean absolute percentage error. Unreliable near zero; shown as “—” when undefined.</dd>
-      <dt>Inference</dt><dd>Local CPU, no GPUs, no per-series training.</dd>
-      <dt>Coverage</dt><dd id="method-coverage">Loading…</dd>
-    </dl>
+    <summary data-i18n="method.sum">Cómo se producen los números</summary>
+    <ol class="pipe" id="pipe"></ol>
+    <dl class="defs" id="defs"></dl>
   </details>
 </section>
 
 <section class="block" id="licenses">
-  <h2>Licenses</h2>
+  <h2 data-i18n="lic.h2">Licencias</h2>
   <div class="lic-grid">
     <div class="panel"><h3 style="margin-top:0">TimesFM-2.5</h3><p>Apache-2.0</p>
-      <p style="color:var(--muted);font-size:.88rem">The <i>weights</i> of TimesFM-2.5 (the model parameters, i.e. the files you download to use it) are published under the Apache-2.0 license, which allows commercial use in any country, including Argentina.</p></div>
-    <div class="panel"><h3 style="margin-top:0">TimesFM-3</h3><p>Non-commercial license</p>
-      <p style="color:var(--muted);font-size:.88rem">The weights of TimesFM-3 carry a Google license for non-commercial use only.</p></div>
+      <p style="color:var(--muted);font-size:.88rem" data-i18n="lic.v25">Los <i>pesos</i> de TimesFM-2.5 (los parámetros del modelo, es decir, los archivos que se descargan para usarlo) están publicados bajo licencia Apache-2.0, que permite el uso comercial en cualquier país, incluida Argentina.</p></div>
+    <div class="panel"><h3 style="margin-top:0">TimesFM-3</h3><p data-i18n="lic.v3t">Licencia no-comercial</p>
+      <p style="color:var(--muted);font-size:.88rem" data-i18n="lic.v3">Los pesos de TimesFM-3 tienen una licencia de Google solo para uso no-comercial.</p></div>
   </div>
-  <p style="color:var(--muted);font-size:.85rem">Disclaimer: this is not legal advice. Before production, verify the license of the exact checkpoint you download, as code and weights may carry different licenses.</p>
+  <p style="color:var(--muted);font-size:.85rem" data-i18n="lic.disclaimer">Disclaimer: esto no es asesoramiento legal. Antes de producción, verificá la licencia del checkpoint exacto que descargues, porque el código y los pesos pueden tener licencias distintas.</p>
 </section>
 
-<section class="block" id="linkedin">
-  <h2>Conclusion</h2>
-  <div class="panel" id="linkedin-body"></div>
+<section class="block" id="conclusion">
+  <h2 data-i18n="concl.h2">Conclusión</h2>
+  <div class="panel" id="conclusion-body"></div>
 </section>
 
 </main>
 
 <footer>
-  <p><b>Sources.</b> Weather: Open-Meteo Archive API (CC-BY-4.0). Finance, energy and commodities: DataHub Core (ODC-PDDL). Argentine series: BCRA Statistics API (public use). INDEC via datos.gob.ar (CC-BY-4.0).</p>
-  <p><b>Built with</b> ECharts · TimesFM · GitHub Pages. No backend, no build step.</p>
-  <p>Leonardo Criado — code and data at <a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a></p>
+  <p><b data-i18n="foot.sourcesH">Fuentes.</b> <span data-i18n="foot.sources">Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).</span></p>
+  <p><b>Built with</b> ECharts · TimesFM · GitHub Pages. <span data-i18n="foot.built">Sin backend, sin paso de build.</span></p>
+  <p>Leonardo Criado — <span data-i18n="foot.code">código y datos en</span> <a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a></p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>

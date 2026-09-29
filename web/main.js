@@ -1,22 +1,143 @@
-/* Crateris showcase. Static, no build. Stats computed live from
-   data/manifest.json + data/compare.json — never hardcoded.
+/* Crateris showcase. Static, no build. ES default, EN toggle.
+   Stats computed live from data/manifest.json + data/compare.json.
    Forecast dates projected in UTC (ponytail: freq B labels may land on
    weekends; the upgrade is calendar-aware projection). */
 const $ = (id) => document.getElementById(id);
 const NEED = ["meta", "history", "forecast", "quantiles", "metrics", "generated_at"];
 const valid = (a) => a && NEED.every((k) => k in a);
-const FREQ = { M: "Monthly", D: "Daily", H: "Hourly", B: "Business-daily" };
-const HELP = {
-  mae: "Mean absolute error: average error in series units. Lower is better.",
-  rmse: "Root mean squared error: like MAE but penalizes large errors more.",
-  mape: "Mean absolute percentage error. Unreliable near zero.",
-};
-let current = null;
+const pretty = (s) => String(s).replaceAll("_", " ");
+const pct = (v) => v != null ? v.toFixed(2) + "%" : "—";
+const num = (v) => v != null ? Number(v).toFixed(3) : "—";
+
+const I18N = {
+es: {
+  "nav.skip": "Saltar al benchmark", "nav.theme": "Cambiar tema", "nav.themeLabel": "Tema",
+  "hero.eyebrow": "Showcase de investigación ML",
+  "hero.h1": "¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?",
+  "hero.sub": "Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.",
+  "hero.cta1": "Explorar el benchmark ↓", "hero.cta2": "Ver en GitHub ↗",
+  "kpi.series": "Series evaluadas", "kpi.avg": "MAPE promedio · TimesFM-3",
+  "kpi.wins": "Victorias TimesFM-3", "kpi.train": "Entrenamiento por serie",
+  "about.p": "Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.",
+  "about.details": "¿Cómo funciona el pronóstico zero-shot?",
+  "bench.h2": "Benchmark", "bench.series": "Serie", "bench.filter": "Filtro",
+  "bench.searchPh": "buscar serie…", "bench.searchAria": "Filtrar series",
+  "bench.chartAria": "Serie histórica con pronóstico e intervalo de predicción",
+  "fact.series": "Serie", "fact.freq": "Frecuencia", "fact.hist": "Puntos de historia",
+  "fact.horizon": "Horizonte de pronóstico", "fact.backtest": "Horizonte de backtest",
+  "freq.M": "Mensual", "freq.D": "Diaria", "freq.H": "Horaria", "freq.B": "Días hábiles",
+  "legend.hist": "Historia", "legend.fc": "Pronóstico", "legend.band": "Intervalo",
+  "cmp.avg3": "MAPE prom. · v3", "cmp.avg25": "MAPE prom. · v2.5",
+  "cmp.wins": "Victorias v3", "cmp.nomape": "Sin MAPE",
+  "cmp.colSeries": "Serie", "cmp.cap": "MAPE por serie, mismo backtest, cero tuning",
+  "top.h2": "Series con mejor desempeño",
+  "top.sub": "Top 10 por MAPE. Elegí una serie para verla en el benchmark.",
+  "top.inspect": "Inspeccionar ↑", "top.noMape": "sin MAPE",
+  "learn.h2": "¿Qué aprendimos?", "learn.resultH": "El resultado", "learn.compareH": "La comparación",
+  "learn.tradeH": "Los trade-offs",
+  "learn.t1": "Menos modelos individuales que mantener", "learn.t2": "Menos configuración manual",
+  "learn.t3": "Múltiples frecuencias directo de caja", "learn.t4": "Menor interpretabilidad",
+  "learn.t5": "Peor reacción ante rupturas", "learn.t6": "Mayor costo computacional por forecast",
+  "method.h2": "Metodología", "method.sum": "Cómo se producen los números",
+  "method.backtest": "Backtest", "method.backtestD": "Entrena con todo menos los últimos N puntos, pronostica y compara con lo observado (N = horizonte publicado).",
+  "method.horizon": "Horizonte", "method.horizonD": "12 pasos mensual, 28 días hábiles diario, 24 horas horario.",
+  "method.context": "Contexto", "method.contextD": "Truncado a los 512 puntos más recientes por serie.",
+  "method.inference": "Inferencia", "method.inferenceD": "CPU local, sin GPUs, sin entrenamiento por serie.",
+  "lic.h2": "Licencias",
+  "lic.v25": "Los <i>pesos</i> de TimesFM-2.5 (los parámetros del modelo, es decir, los archivos que se descargan para usarlo) están publicados bajo licencia Apache-2.0, que permite el uso comercial en cualquier país, incluida Argentina.",
+  "lic.v3t": "Licencia no-comercial",
+  "lic.v3": "Los pesos de TimesFM-3 tienen una licencia de Google solo para uso no-comercial.",
+  "lic.disclaimer": "Disclaimer: esto no es asesoramiento legal. Antes de producción, verificá la licencia del checkpoint exacto que descargues, porque el código y los pesos pueden tener licencias distintas.",
+  "concl.h2": "Conclusión",
+  "foot.sourcesH": "Fuentes.",
+  "foot.sources": "Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).",
+  "foot.built": "Sin backend, sin paso de build.", "foot.code": "código y datos en",
+  "meta.title": "Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?",
+  "meta.desc": "Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales. Pronóstico zero-shot con backtesting.",
+  "unavailable": "Serie no disponible", "noSeries": "Sin series disponibles",
+  "help.mae": "Error absoluto medio: promedio de los errores en las mismas unidades de la serie. Menor es mejor.",
+  "help.rmse": "Raíz del error cuadrático medio: como el MAE pero penaliza más los errores grandes.",
+  "help.mape": "Error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
+},
+en: {
+  "nav.skip": "Skip to benchmark", "nav.theme": "Toggle color theme", "nav.themeLabel": "Theme",
+  "hero.eyebrow": "ML research showcase",
+  "hero.h1": "Can one foundation model forecast dozens of time series without per-series training?",
+  "hero.sub": "An empirical benchmark of Google's TimesFM foundation models across real-world time series.",
+  "hero.cta1": "Explore the benchmark ↓", "hero.cta2": "View on GitHub ↗",
+  "kpi.series": "Series evaluated", "kpi.avg": "Average MAPE · TimesFM-3",
+  "kpi.wins": "TimesFM-3 wins", "kpi.train": "Per-series training",
+  "about.p": "Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.",
+  "about.details": "How does zero-shot forecasting work?",
+  "bench.h2": "Benchmark", "bench.series": "Series", "bench.filter": "Filter",
+  "bench.searchPh": "search series…", "bench.searchAria": "Filter series",
+  "bench.chartAria": "Historical series with forecast and prediction interval",
+  "fact.series": "Series", "fact.freq": "Frequency", "fact.hist": "History points",
+  "fact.horizon": "Forecast horizon", "fact.backtest": "Backtest horizon",
+  "freq.M": "Monthly", "freq.D": "Daily", "freq.H": "Hourly", "freq.B": "Business-daily",
+  "legend.hist": "Historical", "legend.fc": "Forecast", "legend.band": "Prediction interval",
+  "cmp.avg3": "Avg MAPE · v3", "cmp.avg25": "Avg MAPE · v2.5",
+  "cmp.wins": "v3 wins", "cmp.nomape": "No MAPE",
+  "cmp.colSeries": "Series", "cmp.cap": "Per-series MAPE, same backtest, zero tuning",
+  "top.h2": "Best-performing series",
+  "top.sub": "Top 10 by MAPE. Select any series to inspect it in the benchmark above.",
+  "top.inspect": "Inspect ↑", "top.noMape": "no MAPE",
+  "learn.h2": "What did we learn?", "learn.resultH": "The result", "learn.compareH": "The comparison",
+  "learn.tradeH": "The trade-offs",
+  "learn.t1": "Fewer individual models to maintain", "learn.t2": "Less manual configuration",
+  "learn.t3": "Multiple frequencies out of the box", "learn.t4": "Lower interpretability",
+  "learn.t5": "Weaker reaction to regime breaks", "learn.t6": "Higher compute cost per forecast",
+  "method.h2": "Methodology", "method.sum": "How the numbers are produced",
+  "method.backtest": "Backtest", "method.backtestD": "Train on all but the last N points, forecast, compare against observed values (N = published horizon).",
+  "method.horizon": "Horizon", "method.horizonD": "12 steps monthly, 28 business days daily, 24 hours hourly.",
+  "method.context": "Context", "method.contextD": "Truncated to the most recent 512 points per series.",
+  "method.inference": "Inference", "method.inferenceD": "Local CPU, no GPUs, no per-series training.",
+  "lic.h2": "Licenses",
+  "lic.v25": "The <i>weights</i> of TimesFM-2.5 (the model parameters, i.e. the files you download to use it) are published under the Apache-2.0 license, which allows commercial use in any country, including Argentina.",
+  "lic.v3t": "Non-commercial license",
+  "lic.v3": "The weights of TimesFM-3 carry a Google license for non-commercial use only.",
+  "lic.disclaimer": "Disclaimer: this is not legal advice. Before production, verify the license of the exact checkpoint you download, as code and weights may carry different licenses.",
+  "concl.h2": "Conclusion",
+  "foot.sourcesH": "Sources.",
+  "foot.sources": "Weather: Open-Meteo Archive API (CC-BY-4.0). Finance, energy and commodities: DataHub Core (ODC-PDDL). Argentine series: BCRA Statistics API (public use). INDEC via datos.gob.ar (CC-BY-4.0).",
+  "foot.built": "No backend, no build step.", "foot.code": "code and data at",
+  "meta.title": "Crateris — Can one foundation model forecast dozens of time series?",
+  "meta.desc": "Crateris is an empirical benchmark of Google's TimesFM foundation models across 100+ real-world time series. Zero-shot forecasting with backtesting.",
+  "unavailable": "Series unavailable", "noSeries": "No series available",
+  "help.mae": "Mean absolute error: average error in series units. Lower is better.",
+  "help.rmse": "Root mean squared error: like MAE but penalizes large errors more.",
+  "help.mape": "Mean absolute percentage error. Unreliable near zero.",
+}};
+let LANG = "es";
+const t = (k) => (I18N[LANG] && I18N[LANG][k]) || I18N.en[k] || k;
+const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
+
+const CONCL = {
+es: [
+  "<b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó {N} series sin un minuto de entrenamiento por serie</b>, con MAPE medio {AVG}% y un mejor caso de {BEST}%. Frente a ARIMA/Prophet las ventajas son operativas: cero modelos que mantener (uno solo), cero supuestos de estacionariedad, cero configuración manual de estacionalidad, múltiples frecuencias directo de caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad, peor reacción a rupturas y más cómputo por forecast (amortizado al escalar).",
+  "Probé los dos modelos fundacionales de series de Google en las mismas {BOTH} series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana {W3}–{W25} y el MAPE medio es {A3}% vs {A25}%</b>. El modelo nuevo no aplasta al anterior.",
+],
+en: [
+  "<b>Did we answer the question?</b> Yes: <b>one model forecast {N} series with zero per-series training</b>, at {AVG}% average MAPE and a best case of {BEST}%. Against ARIMA/Prophet the advantages are operational: zero models to maintain (just one), zero stationarity assumptions, zero manual seasonality configuration, multiple frequencies out of the box and quantile bands included. The cost: lower interpretability, weaker reaction to breaks and more compute per forecast (amortized at scale).",
+  "I ran both Google time-series foundation models on the same {BOTH} comparable series, same backtest, zero tuning: <b>TimesFM-3 wins {W3}–{W25} with {A3}% vs {A25}% average MAPE</b>. Newer does not crush older.",
+]};
+
+let current = null, currentFile = null;
 const sparks = [];
-let cmpChart = null, cmpStats = null;
+let cmpChart = null, cmpStats = null, cmpData = null, manifestData = null;
+const rankData = [];
 
 const css = (name) => getComputedStyle(document.documentElement)
   .getPropertyValue(name).trim();
+
+let HOLIDAYS = new Set();
+async function loadHolidays() {
+  try {
+    const all = await Promise.all([2026, 2027, 2028].map((y) =>
+      fetch(`https://api.argentinadatos.com/v1/feriados/${y}`).then((r) => r.json())));
+    all.flat().forEach((f) => f.fecha && HOLIDAYS.add(f.fecha));
+  } catch { /* sin feriados: solo fines de semana */ }
+}
 
 function projectDates(last, freq, n) {
   const iso = last.length === 7 ? last + "-01" : last;
@@ -27,8 +148,12 @@ function projectDates(last, freq, n) {
     if (freq === "M") d.setUTCMonth(d.getUTCMonth() + 1);
     else if (freq === "H") d.setUTCHours(d.getUTCHours() + 1);
     else d.setUTCDate(d.getUTCDate() + 1);
-    if (freq === "B") while (d.getUTCDay() === 0 || d.getUTCDay() === 6)
-      d.setUTCDate(d.getUTCDate() + 1);
+    if (freq === "B") {
+      let guard = 0;
+      while ((d.getUTCDay() === 0 || d.getUTCDay() === 6 ||
+              HOLIDAYS.has(d.toISOString().slice(0, 10))) && guard++ < 10)
+        d.setUTCDate(d.getUTCDate() + 1);
+    }
     out.push(d.toISOString().slice(0, freq === "H" ? 13 : 10) +
       (freq === "H" ? ":00" : ""));
   }
@@ -36,31 +161,34 @@ function projectDates(last, freq, n) {
 }
 
 function seriesFor(a, hist) {
-  const h = a.forecast.length;
   const last = hist[hist.length - 1][1];
   const blanks = new Array(hist.length).fill(null);
   const pad = [...new Array(hist.length - 1).fill(null), last, ...a.forecast];
   const q = a.quantiles;
-  return { pad, ql: [...blanks, ...q.map((r) => r[0])],
-    qu: [...blanks, ...q.map((r) => r[8] - r[0])] };
+  const bands = [];
+  for (let i = 0; i < 8; i++) {
+    const edge = Math.min(i, 7 - i);
+    bands.push({ data: [...blanks, ...q.map((r) => r[i + 1] - r[i])],
+      opacity: [0.08, 0.13, 0.19, 0.26][edge] });
+  }
+  return { pad, bands };
 }
 
 function tipFmt(ps) {
   let s = `<b>${ps[0].axisValue}</b>`;
   ps.forEach((p) => {
-    if ((p.seriesName === "Historical" || p.seriesName === "Forecast") &&
+    if ((p.seriesName === t("legend.hist") || p.seriesName === t("legend.fc")) &&
         p.value != null)
       s += `<br/>${p.marker} ${p.seriesName}: <b>${p.value}</b>`;
   });
   return s;
 }
 
-// framed: ranking zoom start; full: main chart with slider.
 function optionFor(a, hist, framed, keep) {
   const h = a.forecast.length;
   const hx = hist.map((p) => p[0]);
   const fx = projectDates(hx[hx.length - 1], a.meta.freq, h);
-  const { pad, ql, qu } = seriesFor(a, hist);
+  const { pad, bands } = seriesFor(a, hist);
   const init = keep || { start: 0, end: 100 };
   const zoom = framed
     ? [{ type: "inside", xAxisIndex: 0, ...init }]
@@ -80,14 +208,16 @@ function optionFor(a, hist, framed, keep) {
       splitLine: { lineStyle: { color: css("--grid") } } },
     dataZoom: zoom,
     series: [
-      { name: "Historical", type: "line", showSymbol: false,
+      { name: t("legend.hist"), type: "line", showSymbol: false,
         data: hist.map((p) => p[1]), color: css("--hist") },
-      { name: "Prediction interval", type: "line", showSymbol: false,
-        lineStyle: { opacity: 0 }, stack: "b", data: ql, color: css("--muted") },
-      { name: "Prediction interval", type: "line", showSymbol: false,
-        lineStyle: { opacity: 0 }, areaStyle: { opacity: 0.25 }, stack: "b",
-        data: qu, color: css("--muted") },
-      { name: "Forecast", type: "line", showSymbol: false,
+      ...bands.map((b, i) => ({
+        name: t("legend.band"), type: "line", showSymbol: false,
+        lineStyle: { opacity: 0 }, stack: "fan",
+        areaStyle: { opacity: i === 0 ? 0 : b.opacity },
+        data: i === 0 ? [...new Array(hist.length).fill(null),
+          ...a.quantiles.map((r) => r[0])] : b.data,
+        color: css("--muted") })),
+      { name: t("legend.fc"), type: "line", showSymbol: false,
         data: pad, color: css("--fc"), lineStyle: { width: 2 } },
     ],
   };
@@ -120,11 +250,6 @@ function keepZoom(chart) {
   } catch { return null; }
 }
 
-function themeColors() {
-  return { text: css("--text"), accent: css("--accent"),
-    grid: css("--grid") };
-}
-
 function renderAll() {
   if (current) window.__main.setOption(optionFor(
     current.a, current.hist, false, keepZoom(window.__main)));
@@ -132,17 +257,37 @@ function renderAll() {
   if (cmpChart && cmpStats) cmpChart.setOption(cmpBarOption(cmpStats));
 }
 
-function setTheme(t) {
-  document.documentElement.dataset.theme = t;
-  const btn = $("theme");
-  btn.setAttribute("aria-pressed", t === "dark" ? "true" : "false");
-  try { localStorage.setItem("crateris-theme", t); } catch {}
-  renderAll();
+function applyI18n() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) =>
+    el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  document.querySelectorAll("[data-i18n-ph]").forEach((el) =>
+    el.setAttribute("placeholder", t(el.dataset.i18nPh)));
+  document.querySelectorAll("[data-i18n-content]").forEach((el) =>
+    el.setAttribute("content", t(el.dataset.i18nContent)));
+  document.title = t("meta.title");
+  $("lang").textContent = LANG === "es" ? "EN" : "ES";
+  if (currentFile) show(currentFile);
+  buildRanking();
+  buildCompare();
+  buildMethod();
 }
 
-const pretty = (s) => String(s).replaceAll("_", " ");
-const pct = (v) => v != null ? v.toFixed(2) + "%" : "—";
-const num = (v) => v != null ? Number(v).toFixed(3) : "—";
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem("crateris-lang", l); } catch {}
+  applyI18n();
+}
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  $("theme").setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  try { localStorage.setItem("crateris-theme", theme); } catch {}
+  renderAll();
+}
 
 function kpi(el, value, label) {
   const d = document.createElement("div");
@@ -152,36 +297,83 @@ function kpi(el, value, label) {
 }
 
 async function show(file) {
+  currentFile = file;
   $("unavailable").textContent = "";
   let a;
   try {
     a = await (await fetch(file)).json();
-  } catch { return void ($("unavailable").textContent = "Series unavailable"); }
-  if (!valid(a)) return void ($("unavailable").textContent = "Series unavailable");
+  } catch { return void ($("unavailable").textContent = t("unavailable")); }
+  if (!valid(a)) return void ($("unavailable").textContent = t("unavailable"));
   current = { a, hist: a.history.slice(-2000) };
   window.__main.setOption(optionFor(a, current.hist, false), true);
   const mt = a.metrics || {};
   const facts = [
-    ["Dataset", pretty(a.meta.name), ""],
-    ["Frequency", FREQ[a.meta.freq] || a.meta.freq, ""],
-    ["History points", current.hist.length, ""],
-    ["Forecast horizon", `${a.forecast.length} steps`, ""],
-    ["Backtest horizon", `${a.forecast.length} steps`, ""],
-    ["MAPE", mt.mape != null ? mt.mape.toFixed(2) + "%" : "—", HELP.mape],
-    ["MAE", num(mt.mae), HELP.mae],
-    ["RMSE", num(mt.rmse), HELP.rmse],
+    [t("fact.series"), pretty(a.meta.name), ""],
+    [t("fact.freq"), t("freq." + a.meta.freq) || a.meta.freq, ""],
+    [t("fact.hist"), current.hist.length, ""],
+    [t("fact.horizon"), `${a.forecast.length} steps`, ""],
+    [t("fact.backtest"), `${a.forecast.length} steps`, ""],
+    ["MAPE", mt.mape != null ? mt.mape.toFixed(2) + "%" : "—", t("help.mape")],
+    ["MAE", num(mt.mae), t("help.mae")],
+    ["RMSE", num(mt.rmse), t("help.rmse")],
   ];
-  $("facts").innerHTML = facts.map(([k, w, t]) =>
+  $("facts").innerHTML = facts.map(([k, w, h]) =>
     `<div class="fact"><div class="k">${k}</div>` +
-    `<div class="w"${t ? ` title="${t}"` : ""}>${w}</div></div>`).join("");
+    `<div class="w"${h ? ` title="${h}"` : ""}>${w}</div></div>`).join("");
   $("meta").textContent =
     `Source: ${a.meta.source.url} (${a.meta.source.license}) · ` +
     `Model: ${a.meta.model || "pending"} · Generated: ${a.generated_at} · ` +
     `TimesFM-3 weights under non-commercial license (showcase only).`;
 }
 
+function buildRanking() {
+  const rank = $("ranking");
+  rank.innerHTML = "";
+  sparks.length = 0;
+  if (!manifestData) return;
+  const top = manifestData.datasets
+    .filter((d) => d.file)
+    .sort((x, y) => (x.mape ?? Infinity) - (y.mape ?? Infinity))
+    .slice(0, 10);
+  let i = 0;
+  const jobs = top.map(async (d) => {
+    let a;
+    try {
+      a = await (await fetch(d.file)).json();
+    } catch { return null; }
+    return valid(a) ? { d, a } : null;
+  });
+  Promise.all(jobs).then((res) => {
+    res.forEach((r) => {
+      if (!r) return;
+      i++;
+      const { d, a } = r;
+      const mt = a.metrics || {};
+      const sec = document.createElement("section");
+      sec.className = "item";
+      sec.innerHTML =
+        `<div><h3>#${i} ${pretty(a.meta.name)}<span class="badge">${mt.mape != null ? "MAPE " + Number(mt.mape).toFixed(2) + "%" : t("top.noMape")}</span></h3>` +
+        `<p class="meta">MAE ${num(mt.mae)} · RMSE ${num(mt.rmse)} · ${t("freq." + a.meta.freq) || ""} · ${a.forecast.length} steps</p>` +
+        `<button class="btn open" data-file="${d.file}">${t("top.inspect")}</button></div>` +
+        `<div class="spark" role="img" aria-label="${pretty(a.meta.name)}"></div>`;
+      rank.appendChild(sec);
+      const chart = echarts.init(sec.querySelector(".spark"));
+      sparks.push({ chart, a });
+      chart.setOption(sparkOption(a));
+    });
+    rank.querySelectorAll(".open").forEach((b) => {
+      b.onclick = () => {
+        $("ds").value = b.dataset.file;
+        show(b.dataset.file);
+        $("benchmark").scrollIntoView({ behavior: "smooth" });
+      };
+    });
+    if (!i) $("unavailable").textContent = t("noSeries");
+  });
+}
+
 function cmpBarOption(st) {
-  const c = themeColors();
+  const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
   return {
     animation: false, backgroundColor: "transparent",
     textStyle: { color: c.text },
@@ -199,16 +391,91 @@ function cmpBarOption(st) {
   };
 }
 
+function buildCompare() {
+  const div = $("compare-table");
+  div.innerHTML = "";
+  $("kpis").innerHTML = "";
+  $("cmp-kpis").innerHTML = "";
+  $("cmp-kpis").innerHTML = "";
+  if (!cmpData || !cmpData.datasets || !cmpData.datasets.length) return;
+  const both = cmpData.datasets.filter(
+    (d) => d.v3.mape != null && d.v25.mape != null);
+  if (!both.length) return;
+  const wins = both.filter((d) => d.v3.mape <= d.v25.mape).length;
+  const avg3 = both.reduce((s, d) => s + d.v3.mape, 0) / both.length;
+  const avg25 = both.reduce((s, d) => s + d.v25.mape, 0) / both.length;
+  cmpStats = { avg3: +avg3.toFixed(2), avg25: +avg25.toFixed(2) };
+  kpi("kpis", cmpData.datasets.length, t("kpi.series"));
+  kpi("kpis", avg3.toFixed(2) + "%", t("kpi.avg"));
+  kpi("kpis", `${wins} / ${both.length}`, t("kpi.wins"));
+  kpi("kpis", "0", t("kpi.train"));
+  kpi("cmp-kpis", avg3.toFixed(2) + "%", t("cmp.avg3"));
+  kpi("cmp-kpis", avg25.toFixed(2) + "%", t("cmp.avg25"));
+  kpi("cmp-kpis", `${wins} / ${both.length}`, t("cmp.wins"));
+  kpi("cmp-kpis", cmpData.datasets.length - both.length, t("cmp.nomape"));
+  if (!cmpChart) cmpChart = echarts.init($("cmp-visual"));
+  cmpChart.setOption(cmpBarOption(cmpStats));
+  const rows = [...cmpData.datasets].sort(
+    (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
+  let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th><th scope="col">v3 MAPE</th>` +
+    `<th scope="col">2.5 MAPE</th><th scope="col">${LANG === "es" ? "Mejor" : "Better"}</th></tr>`;
+  for (const d of rows) {
+    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
+    html += `<tr><td>${pretty(d.name)}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
+      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
+      `<td>${w}</td></tr>`;
+  }
+  div.innerHTML = html + "</table>";
+  // Learn + conclusion paragraphs (dynamic numbers).
+  const best = Math.min(...both.map((d) => d.v3.mape));
+  const o = { N: cmpData.datasets.length, BOTH: both.length,
+    W3: wins, W25: both.length - wins, A3: avg3.toFixed(2),
+    A25: avg25.toFixed(2), AVG: avg3.toFixed(2), BEST: best.toFixed(2) };
+  $("learn-result").textContent = fmt(LANG === "es"
+    ? "Un solo modelo pronosticó {N} series con cero entrenamiento por serie. MAPE medio {AVG}%, mejor caso {BEST}%. La estacionalidad fuerte pronostica bien; las rupturas de régimen no."
+    : "One model forecast {N} series with zero per-series training. Average MAPE {AVG}%, best case {BEST}%. Strong seasonality forecasts well; regime breaks do not.", o);
+  $("learn-compare").textContent = fmt(LANG === "es"
+    ? "TimesFM-3 le gana a 2.5 {W3}–{W25} en MAPE, {A3}% vs {A25}% en promedio. Lo nuevo no aplasta a lo anterior."
+    : "TimesFM-3 beats 2.5 {W3}–{W25} on MAPE, {A3}% vs {A25}% on average. Newer does not crush older.", o);
+  $("conclusion-body").innerHTML = CONCL[LANG].map((p) =>
+    `<p>${fmt(p, o)}</p>`).join("");
+}
+
+function buildMethod() {
+  const steps = LANG === "es"
+    ? ["DATOS", "SERIES", "PRONÓSTICO ZERO-SHOT", "BACKTEST", "MÉTRICAS", "COMPARACIÓN"]
+    : ["DATA", "SERIES", "ZERO-SHOT FORECAST", "BACKTEST", "METRICS", "MODEL COMPARISON"];
+  $("pipe").innerHTML = steps.map((s) => `<li>${s}</li>`).join("<li aria-hidden='true'>→</li>");
+  const defs = [
+    [t("method.backtest"), t("method.backtestD")],
+    [t("method.horizon"), t("method.horizonD")],
+    [t("method.context"), t("method.contextD")],
+    ["MAE", t("help.mae")], ["RMSE", t("help.rmse")], ["MAPE", t("help.mape")],
+    [t("method.inference"), t("method.inferenceD")],
+  ];
+  $("defs").innerHTML = defs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("") +
+    (manifestData ? `<dt>${LANG === "es" ? "Cobertura" : "Coverage"}</dt><dd>${manifestData.datasets.length} artifacts · ${cmpData ? cmpData.datasets.length : 0} compared</dd>` : "");
+}
+
 async function load() {
+  try { LANG = localStorage.getItem("crateris-lang") || "es"; } catch {}
   let saved = "dark";
   try { saved = localStorage.getItem("crateris-theme") || "dark"; } catch {}
   document.documentElement.dataset.theme = saved;
   $("theme").onclick = () => setTheme(
     document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   $("theme").setAttribute("aria-pressed", saved === "dark" ? "true" : "false");
+  $("lang").onclick = () => setLang(LANG === "es" ? "en" : "es");
   window.__main = echarts.init($("chart"));
 
   const m = await (await fetch("data/manifest.json")).json();
+  manifestData = m;
+  try {
+    cmpData = await (await fetch("data/compare.json")).json();
+  } catch { cmpData = null; }
+  await loadHolidays();
+  applyI18n();
   const sel = $("ds");
   const groups = {};
   m.datasets.forEach((d) => { (groups[d.theme || d.category] ||= []).push(d); });
@@ -222,87 +489,23 @@ async function load() {
     sel.appendChild(g);
   });
   sel.onchange = () => show(sel.value);
+  const q = $("q");
+  if (q) q.oninput = () => {
+    const s = q.value.toLowerCase();
+    sel.querySelectorAll("optgroup").forEach((g) => {
+      let n = 0;
+      g.querySelectorAll("option").forEach((o) => {
+        const hit = (o.textContent + " " + g.label).toLowerCase().includes(s);
+        o.hidden = !hit;
+        if (hit) n++;
+      });
+      g.hidden = n === 0;
+    });
+  };
   if (m.datasets.length) await show(m.datasets[0].file);
-
-  // Top 10 by MAPE with sparklines.
-  const top = m.datasets
-    .filter((d) => d.file)
-    .sort((x, y) => (x.mape ?? Infinity) - (y.mape ?? Infinity))
-    .slice(0, 10);
-  const rank = $("ranking");
-  let i = 0;
-  for (const d of top) {
-    let a;
-    try {
-      a = await (await fetch(d.file)).json();
-    } catch { continue; }
-    if (!valid(a)) continue;
-    i++;
-    const mt = a.metrics || {};
-    const sec = document.createElement("section");
-    sec.className = "item";
-    sec.innerHTML =
-      `<div><h3>#${i} ${a.meta.name}<span class="badge">${mt.mape != null ? "MAPE " + Number(mt.mape).toFixed(2) + "%" : "no MAPE"}</span></h3>` +
-      `<p class="meta">MAE ${num(mt.mae)} · RMSE ${num(mt.rmse)} · ${FREQ[a.meta.freq] || ""} · ${a.forecast.length} steps</p>` +
-      `<button class="btn open" data-file="${d.file}">Inspect ↑</button></div>` +
-      `<div class="spark" role="img" aria-label="Mini chart for ${a.meta.name}"></div>`;
-    rank.appendChild(sec);
-    const chart = echarts.init(sec.querySelector(".spark"));
-    sparks.push({ chart, a });
-    chart.setOption(sparkOption(a));
-  }
-  rank.querySelectorAll(".open").forEach((b) => {
-    b.onclick = () => {
-      sel.value = b.dataset.file;
-      show(b.dataset.file);
-      $("benchmark").scrollIntoView({ behavior: "smooth" });
-    };
-  });
-  if (!i) $("unavailable").textContent = "No series available";
-
-  // Comparison (dynamic from compare.json).
-  try {
-    const c = await (await fetch("data/compare.json")).json();
-    const both = c.datasets.filter(
-      (d) => d.v3.mape != null && d.v25.mape != null);
-    if (both.length) {
-      const wins = both.filter((d) => d.v3.mape <= d.v25.mape).length;
-      const avg3 = both.reduce((s, d) => s + d.v3.mape, 0) / both.length;
-      const avg25 = both.reduce((s, d) => s + d.v25.mape, 0) / both.length;
-      cmpStats = { avg3: +avg3.toFixed(2), avg25: +avg25.toFixed(2) };
-      kpi("kpis", c.datasets.length, "Series evaluated");
-      kpi("kpis", avg3.toFixed(2) + "%", "Average MAPE · TimesFM-3");
-      kpi("kpis", `${wins} / ${both.length}`, "TimesFM-3 wins");
-      kpi("kpis", "0", "Per-series training");
-      kpi("cmp-kpis", avg3.toFixed(2) + "%", "Avg MAPE · v3");
-      kpi("cmp-kpis", avg25.toFixed(2) + "%", "Avg MAPE · v2.5");
-      kpi("cmp-kpis", `${wins} / ${both.length}`, "v3 wins");
-      kpi("cmp-kpis", c.datasets.length - both.length, "Without MAPE");
-      cmpChart = echarts.init($("cmp-visual"));
-      cmpChart.setOption(cmpBarOption(cmpStats));
-      const rows = [...c.datasets].sort(
-        (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
-      let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">Per-series MAPE, same backtest, zero tuning</caption><tr><th scope="col">Series</th><th scope="col">v3 MAPE</th>` +
-        `<th scope="col">2.5 MAPE</th><th scope="col">Better</th></tr>`;
-      for (const d of rows) {
-        const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
-        html += `<tr><td>${pretty(d.name)}</td>` +
-          `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
-          `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
-          `<td>${w}</td></tr>`;
-      }
-      $("compare").innerHTML = html + "</table>";
-      $("learn-result").textContent =
-        `One model forecast ${c.datasets.length} series with zero per-series training. ` +
-        `Average MAPE ${avg3.toFixed(2)}%, best case ${Math.min(...both.map((d) => d.v3.mape)).toFixed(2)}%. ` +
-        `Strong seasonality forecasts well; regime breaks do not.`;
-      $("learn-compare").textContent =
-        `TimesFM-3 beats 2.5 ${wins}–${both.length - wins} on MAPE, ` +
-        `${avg3.toFixed(2)}% vs ${avg25.toFixed(2)}% on average. Newer does not crush older.`;
-      $("method-coverage").textContent =
-        `${m.datasets.length} artifacts published · ${c.datasets.length} series compared across both models.`;
-    }
-  } catch { /* compare.json missing: sections stay empty */ }
+  buildRanking();
+  buildCompare();
+  buildMethod();
 }
 
 load();
