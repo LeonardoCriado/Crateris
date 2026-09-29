@@ -6,11 +6,12 @@ de Google, sin entrenar por serie.
 
 **Demo:** https://leonardocriado.github.io/Crateris/
 
-## Datasets (10)
+## Datasets (65)
 
 Clima (temperatura horaria Berlín y Buenos Aires, Open-Meteo), CO₂ Mauna Loa,
-oro, gas natural, Brent, bonos EEUU 10Y, VIX (DataHub), IPC UK (DataHub) e
-inflación mensual argentina ([BCRA](https://api.bcra.gob.ar), variable 27).
+oro, gas natural, Brent, bonos EEUU 10Y, VIX (DataHub), IPC UK (DataHub),
+actividad e inflación INDEC (datos.gob.ar) y 50+ series argentinas del
+BCRA (inflación, dólar, reservas, tasas, depósitos, préstamos, agregados).
 
 ## Cómo agregar un dataset
 

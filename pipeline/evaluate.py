@@ -18,10 +18,10 @@ def rmse(actual: list, predicted: list) -> float:
             / len(actual)) ** 0.5
 
 
-def mape(actual: list, predicted: list) -> float:
+def mape(actual: list, predicted: list) -> float | None:
     _check(actual, predicted)
     if any(x == 0 for x in actual):
-        raise ValueError("mape: actual contiene ceros")
+        return None  # MAPE indefinido con ceros; la web muestra "—"
     return sum(abs((x - y) / x) for x, y in zip(actual, predicted)) \
         / len(actual) * 100
 

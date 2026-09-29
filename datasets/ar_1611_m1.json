@@ -1,0 +1,10 @@
+{
+  "id": "ar_1611_m1",
+  "name": "M1 en moneda local y extranjera (BCRA)",
+  "description": "Agregado monetario M1. API del BCRA.",
+  "category": "argentina",
+  "source": {"url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1611", "license": "BCRA (uso público)", "format": "bcra-json"},
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

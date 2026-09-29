@@ -1,0 +1,12 @@
+{
+  "id": "ipc_nacional",
+  "name": "IPC Nacional mensual (INDEC)",
+  "description": "Índice de Precios al Consumidor nacional, base dic-2016. INDEC vía datos.gob.ar.",
+  "category": "inflacion",
+  "source": {"url": "https://infra.datos.gob.ar/catalog/sspm/dataset/145/distribution/145.3/download/indice-precios-al-consumidor-nivel-general-base-diciembre-2016-mensual.csv", "license": "CC-BY-4.0 (datos.gob.ar)"},
+  "date_col": "indice_tiempo",
+  "value_col": "ipc_ng_nacional",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

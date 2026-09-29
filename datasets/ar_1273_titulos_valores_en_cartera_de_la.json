@@ -1,0 +1,14 @@
+{
+  "id": "ar_1273_titulos_valores_en_cartera_de_la",
+  "name": "Títulos valores en cartera de las entidades financieras",
+  "description": "Títulos valores en cartera de las entidades financieras API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1273",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

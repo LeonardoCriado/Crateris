@@ -1,0 +1,14 @@
+{
+  "id": "ar_1610_depositos_de_las_entidades_finan",
+  "name": "Depósitos de las entidades financieras en cuenta corriente en el BCRA",
+  "description": "Depósitos de las entidades financieras en cuenta corriente en el BCRA API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1610",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

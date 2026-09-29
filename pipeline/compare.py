@@ -9,6 +9,10 @@ from pipeline import evaluate, fetch, forecast25, normalize, registry
 OUT = "web/data/compare.json"
 
 
+def pct(v):
+    return f"{v:.2f}%" if v is not None else "—"
+
+
 def main() -> None:
     rows = []
     for cfg in registry.list_all():
@@ -21,8 +25,8 @@ def main() -> None:
                                 predict=forecast25.predict)
         rows.append({"id": cfg["id"], "name": cfg["name"],
                      "v3": art["metrics"], "v25": v25})
-        print(f"{cfg['id']}: v3={art['metrics']['mape']:.2f}% "
-              f"v25={v25['mape']:.2f}%", flush=True)
+        print(f"{cfg['id']}: v3={pct(art['metrics']['mape'])} "
+              f"v25={pct(v25['mape'])}", flush=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump({"models": [
             {"id": "v3", "label": "TimesFM-3 (330M)"},

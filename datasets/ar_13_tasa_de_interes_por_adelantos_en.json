@@ -1,0 +1,14 @@
+{
+  "id": "ar_13_tasa_de_interes_por_adelantos_en",
+  "name": "Tasa de interés por adelantos en cuenta corriente",
+  "description": "Tasa de interés por adelantos en cuenta corriente API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/13",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

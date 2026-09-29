@@ -1,0 +1,14 @@
+{
+  "id": "ar_1244_reservas_internacionales",
+  "name": "Reservas internacionales",
+  "description": "Reservas internacionales API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1244",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

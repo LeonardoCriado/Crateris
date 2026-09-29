@@ -1,0 +1,14 @@
+{
+  "id": "ar_1608_billetes_y_monedas_en_poder_del",
+  "name": "Billetes y monedas en poder del público",
+  "description": "Billetes y monedas en poder del público API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1608",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

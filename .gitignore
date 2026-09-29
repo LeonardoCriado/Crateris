@@ -35,6 +35,7 @@ Thumbs.db
 # Pipeline / web
 data/raw/
 .venv/
+.venv25/
 web/dist/
 web/node_modules/
 __pycache__/

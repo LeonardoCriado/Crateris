@@ -45,6 +45,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", default=None)
     ap.add_argument("--no-forecast", action="store_true")
+    ap.add_argument("--skip-existing", action="store_true",
+                    help="no regenera artefactos que ya existen")
     args = ap.parse_args()
     if args.dataset:
         cfgs = [registry.load(f"datasets/{args.dataset}.json")]
@@ -54,10 +56,15 @@ def main() -> None:
     manifest = {"datasets": [], "generated_at": datetime.now(
         timezone.utc).isoformat()}
     for cfg in cfgs:
-        art = build(cfg, do_forecast=not args.no_forecast)
         path = os.path.join(OUT, cfg["id"] + ".json")
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(art, f)
+        if args.skip_existing and os.path.exists(path):
+            print(f"salteo (existe): {cfg['id']}")
+            with open(path, encoding="utf-8") as f:
+                art = json.load(f)
+        else:
+            art = build(cfg, do_forecast=not args.no_forecast)
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(art, f)
         manifest["datasets"].append({
             "id": cfg["id"], "name": cfg["name"],
             "category": cfg["category"], "freq": cfg["freq"],

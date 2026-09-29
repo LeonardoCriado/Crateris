@@ -1,6 +1,393 @@
 {
   "datasets": [
     {
+      "id": "ar_1113_prestamos_hipotecarios_para_cons",
+      "name": "Pr\u00e9stamos hipotecarios para construcci\u00f3n de viviendas",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1113_prestamos_hipotecarios_para_cons.json",
+      "mape": 11.854334406328977
+    },
+    {
+      "id": "ar_1115_prestamos_hipotecarios_para_comp",
+      "name": "Pr\u00e9stamos hipotecarios para compra de nuevas viviendas",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1115_prestamos_hipotecarios_para_comp.json",
+      "mape": 23.88378772682319
+    },
+    {
+      "id": "ar_1199_tasa_de_interes_de_adelantos_en",
+      "name": "Tasa de inter\u00e9s de adelantos en cuenta corriente a tasa fija",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1199_tasa_de_interes_de_adelantos_en.json",
+      "mape": 57.16543594555539
+    },
+    {
+      "id": "ar_11_tasa_de_interes_de_prestamos_ent",
+      "name": "Tasa de inter\u00e9s de pr\u00e9stamos entre entidades financiera privadas (BAIBAR)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_11_tasa_de_interes_de_prestamos_ent.json",
+      "mape": 20.36116799570005
+    },
+    {
+      "id": "ar_1200_efectivo_en_moneda_extranjera_en",
+      "name": "Efectivo en moneda extranjera en entidades financieras",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1200_efectivo_en_moneda_extranjera_en.json",
+      "mape": 4.048844895081931
+    },
+    {
+      "id": "ar_1201_lineas_del_exterior_comerciales",
+      "name": "L\u00edneas del exterior comerciales (obligaciones de las entidades financieras con e",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1201_lineas_del_exterior_comerciales.json",
+      "mape": 1.2073935212388702
+    },
+    {
+      "id": "ar_1202_lineas_del_exterior_financieras",
+      "name": "L\u00edneas del exterior financieras (obligaciones de las entidades financieras con e",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1202_lineas_del_exterior_financieras.json",
+      "mape": 5.493912174841641
+    },
+    {
+      "id": "ar_1203_tasas_de_interes_de_depositos_en",
+      "name": "Tasas de inter\u00e9s de dep\u00f3sitos en cajas de ahorro",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1203_tasas_de_interes_de_depositos_en.json",
+      "mape": 3.4787001824432555
+    },
+    {
+      "id": "ar_1204_tasa_de_interes_del_total_de_dep",
+      "name": "Tasa de inter\u00e9s del total de dep\u00f3sitos a plazo fijo",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1204_tasa_de_interes_del_total_de_dep.json",
+      "mape": 4.1380431330169465
+    },
+    {
+      "id": "ar_1205_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 7 a 59 d\u00edas",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1205_tasa_de_interes_de_depositos_a_p.json",
+      "mape": 3.080621810149718
+    },
+    {
+      "id": "ar_1207_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 30 d\u00edas",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1207_tasa_de_interes_de_depositos_a_p.json",
+      "mape": 2.5271919188605008
+    },
+    {
+      "id": "ar_1208_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 60 d\u00edas o m\u00e1s",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1208_tasa_de_interes_de_depositos_a_p.json",
+      "mape": 11.608929127811185
+    },
+    {
+      "id": "ar_1216_tasa_de_interes_de_documentos_a",
+      "name": "Tasa de inter\u00e9s de documentos a sola firma a tasa fija",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1216_tasa_de_interes_de_documentos_a.json",
+      "mape": 45.01774884333554
+    },
+    {
+      "id": "ar_1244_reservas_internacionales",
+      "name": "Reservas internacionales",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1244_reservas_internacionales.json",
+      "mape": 1.6388475118871833
+    },
+    {
+      "id": "ar_1245_oro__divisas__colocaciones_a_pla",
+      "name": "Oro, divisas, colocaciones a plazo y otros activos incluidos en las reservas int",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1245_oro__divisas__colocaciones_a_pla.json",
+      "mape": 1.6388475118871833
+    },
+    {
+      "id": "ar_1247_pasivos_monetarios__base_monetar",
+      "name": "Pasivos monetarios (base monetaria + dep\u00f3sitos y otros pasivos monetarios en mon",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1247_pasivos_monetarios__base_monetar.json",
+      "mape": 2.0794830195848166
+    },
+    {
+      "id": "ar_1248_base_monetaria",
+      "name": "Base monetaria",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1248_base_monetaria.json",
+      "mape": 2.5949653884960937
+    },
+    {
+      "id": "ar_1249_circulacion_monetaria",
+      "name": "Circulaci\u00f3n monetaria",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1249_circulacion_monetaria.json",
+      "mape": 1.1918623048658652
+    },
+    {
+      "id": "ar_1271_efectivo_en_entidades_financiera",
+      "name": "Efectivo en entidades financieras",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1271_efectivo_en_entidades_financiera.json",
+      "mape": 4.507817454315247
+    },
+    {
+      "id": "ar_1272_depositos_de_las_entidades_finan",
+      "name": "Dep\u00f3sitos de las entidades financieras en entidades financieras",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1272_depositos_de_las_entidades_finan.json",
+      "mape": 3.1821163997544915
+    },
+    {
+      "id": "ar_1273_titulos_valores_en_cartera_de_la",
+      "name": "T\u00edtulos valores en cartera de las entidades financieras",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1273_titulos_valores_en_cartera_de_la.json",
+      "mape": 1.5888139244737465
+    },
+    {
+      "id": "ar_1274_certificados_de_participacion_en",
+      "name": "Certificados de participaci\u00f3n en fideicomisos financieros",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1274_certificados_de_participacion_en.json",
+      "mape": 5.433672087220246
+    },
+    {
+      "id": "ar_1275_total_de_prestamos_otorgados_al",
+      "name": "Total de pr\u00e9stamos otorgados al total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1275_total_de_prestamos_otorgados_al.json",
+      "mape": 0.7573211742907684
+    },
+    {
+      "id": "ar_12_tasa_de_interes_de_depositos_a_3",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a 30 d\u00edas de plazo en entidades financieras",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_12_tasa_de_interes_de_depositos_a_3.json",
+      "mape": 2.5271919188605008
+    },
+    {
+      "id": "ar_1369_depositos_totales_del_total_de_s",
+      "name": "Dep\u00f3sitos totales del total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1369_depositos_totales_del_total_de_s.json",
+      "mape": 0.94495657095917
+    },
+    {
+      "id": "ar_1370_depositos_totales_de_efectivo_de",
+      "name": "Dep\u00f3sitos totales de efectivo del total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1370_depositos_totales_de_efectivo_de.json",
+      "mape": 0.9523293137134949
+    },
+    {
+      "id": "ar_1371_cuentas_corrientes_del_total_de",
+      "name": "Cuentas corrientes del total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1371_cuentas_corrientes_del_total_de.json",
+      "mape": 3.495150297099545
+    },
+    {
+      "id": "ar_1373_cuentas_a_la_vista__del_total_de",
+      "name": "Cuentas a la vista  del total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1373_cuentas_a_la_vista__del_total_de.json",
+      "mape": 0.9816929858317571
+    },
+    {
+      "id": "ar_1375_cajas_de_ahorro_del_total_de_sec",
+      "name": "Cajas de ahorro del total de sectores",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_1375_cajas_de_ahorro_del_total_de_sec.json",
+      "mape": 2.4586734286975913
+    },
+    {
+      "id": "ar_13_tasa_de_interes_por_adelantos_en",
+      "name": "Tasa de inter\u00e9s por adelantos en cuenta corriente",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_13_tasa_de_interes_por_adelantos_en.json",
+      "mape": 16.28874422787269
+    },
+    {
+      "id": "ar_1606_base_monetaria",
+      "name": "Base monetaria",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1606_base_monetaria.json",
+      "mape": 10.201722323047441
+    },
+    {
+      "id": "ar_1607_circulacion_monetaria",
+      "name": "Circulaci\u00f3n monetaria",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1607_circulacion_monetaria.json",
+      "mape": 3.8848480659502673
+    },
+    {
+      "id": "ar_1608_billetes_y_monedas_en_poder_del",
+      "name": "Billetes y monedas en poder del p\u00fablico",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1608_billetes_y_monedas_en_poder_del.json",
+      "mape": 4.013522295340159
+    },
+    {
+      "id": "ar_1609_efectivo_en_entidades_financiera",
+      "name": "Efectivo en entidades financieras",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1609_efectivo_en_entidades_financiera.json",
+      "mape": 9.699346195251895
+    },
+    {
+      "id": "ar_1610_depositos_de_las_entidades_finan",
+      "name": "Dep\u00f3sitos de las entidades financieras en cuenta corriente en el BCRA",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1610_depositos_de_las_entidades_finan.json",
+      "mape": 11.128987630299392
+    },
+    {
+      "id": "ar_1611_m1",
+      "name": "M1 en moneda local y extranjera (BCRA)",
+      "category": "argentina",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ar_1611_m1.json",
+      "mape": 10.763543582137913
+    },
+    {
+      "id": "ar_46_total_de_factores_de_explicacion",
+      "name": "Total de factores de explicaci\u00f3n de la base monetaria",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_46_total_de_factores_de_explicacion.json",
+      "mape": 98.30547533705557
+    },
+    {
+      "id": "ar_47_efecto_monetario_de_las_compras",
+      "name": "Efecto monetario de las compras netas de divisas al sector privado y otros",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_47_efecto_monetario_de_las_compras.json",
+      "mape": null
+    },
+    {
+      "id": "ar_48_efecto_monetario_de_las_compras",
+      "name": "Efecto monetario de las compras netas de divisas al tesoro nacional",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_48_efecto_monetario_de_las_compras.json",
+      "mape": null
+    },
+    {
+      "id": "ar_49_efecto_monetario_de_los_adelanto",
+      "name": "Efecto monetario de los adelantos transitorios al tesoro nacional",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_49_efecto_monetario_de_los_adelanto.json",
+      "mape": null
+    },
+    {
+      "id": "ar_4_tipo_de_cambio_minorista__promed",
+      "name": "Tipo de cambio minorista (promedio vendedor)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_4_tipo_de_cambio_minorista__promed.json",
+      "mape": 0.4481252594195115
+    },
+    {
+      "id": "ar_50_efecto_monetario_de_las_transfer",
+      "name": "Efecto monetario de las transferencia de utilidades al tesoro nacional",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_50_efecto_monetario_de_las_transfer.json",
+      "mape": null
+    },
+    {
+      "id": "ar_8_tasa_de_interes_tm20_de_bancos_p",
+      "name": "Tasa de inter\u00e9s TM20 de bancos privados",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/ar_8_tasa_de_interes_tm20_de_bancos_p.json",
+      "mape": 3.7123532660343947
+    },
+    {
       "id": "badlar",
       "name": "Tasa BADLAR \u2014 Argentina (BCRA)",
       "category": "argentina",
@@ -91,6 +478,24 @@
       "mape": 0.38945772193704925
     },
     {
+      "id": "emae",
+      "name": "EMAE mensual (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/emae.json",
+      "mape": 2.3872534330426705
+    },
+    {
+      "id": "emae_desest",
+      "name": "EMAE desestacionalizada (INDEC)",
+      "category": "actividad",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/emae_desest.json",
+      "mape": 1.599200173229978
+    },
+    {
       "id": "gold_monthly",
       "name": "Oro mensual (LBMA)",
       "category": "finanzas",
@@ -107,6 +512,33 @@
       "horizon": 12,
       "file": "data/inflacion_ar_monthly.json",
       "mape": 27.08150044537099
+    },
+    {
+      "id": "ipc_gba",
+      "name": "IPC GBA mensual (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ipc_gba.json",
+      "mape": 5.9126246983281385
+    },
+    {
+      "id": "ipc_nacional",
+      "name": "IPC Nacional mensual (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ipc_nacional.json",
+      "mape": 5.657932581720467
+    },
+    {
+      "id": "ipc_patagonia",
+      "name": "IPC Patagonia mensual (INDEC)",
+      "category": "inflacion",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/ipc_patagonia.json",
+      "mape": 5.330139537246835
     },
     {
       "id": "natgas_monthly",
@@ -154,5 +586,5 @@
       "mape": 5.164408991412682
     }
   ],
-  "generated_at": "2026-09-29T17:48:32.281849+00:00"
+  "generated_at": "2026-09-29T21:05:17.033099+00:00"
 }

@@ -1,0 +1,14 @@
+{
+  "id": "ar_1370_depositos_totales_de_efectivo_de",
+  "name": "Depósitos totales de efectivo del total de sectores",
+  "description": "Depósitos totales de efectivo del total de sectores API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1370",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

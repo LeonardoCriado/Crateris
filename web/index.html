@@ -75,17 +75,17 @@ cambio de ser menos interpretable y más conservador en rupturas.</p>
 <div id="compare"></div>
 <h2>Conclusión</h2>
 <div class="item" id="linkedin">
-<p><b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó las 17
-series sin un minuto de entrenamiento por serie</b>, con MAPE medio ~7% y un
+<p><b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó 65
+series sin un minuto de entrenamiento por serie</b>, con MAPE medio ~9% y un
 mejor caso de 0.09%. Frente a ARIMA/Prophet las ventajas son operativas:
 cero modelos que mantener (uno solo), cero supuestos de estacionariedad,
 cero configuración manual de estacionalidad, múltiples frecuencias directo de
 caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad,
 peor reacción a rupturas y más cómputo por forecast (amortizado al escalar a
 cientos de series, donde el pipeline ya está listo).</p>
-<p>Probé los dos modelos fundacionales de series de Google en las mismas 17
-series reales, mismo backtest, cero tuning: <b>TimesFM-3 gana 10–7 pero el MAPE
-medio empata (7.21% vs 7.26%)</b>. El modelo nuevo no aplasta al anterior.</p>
+<p>Probé los dos modelos fundacionales de series de Google en las mismas 61
+series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana 32–29 y el
+MAPE medio es 8.88% vs 9.89%</b>. El modelo nuevo no aplasta al anterior.</p>
 <p class="meta">Metodología: backtest sobre los últimos N puntos de cada serie
 (N = horizonte publicado), métricas MAE/RMSE/MAPE, contexto truncado a 512,
 inferencia en CPU local. Pesos v3 bajo licencia no-comercial; v2.5 Apache-2.0.</p>

@@ -1,0 +1,14 @@
+{
+  "id": "ar_1202_lineas_del_exterior_financieras",
+  "name": "Líneas del exterior financieras (obligaciones de las entidades financieras con e",
+  "description": "Líneas del exterior financieras (obligaciones de las entidades financieras con entidades del exterior) API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1202",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

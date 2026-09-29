@@ -1,0 +1,14 @@
+{
+  "id": "ar_8_tasa_de_interes_tm20_de_bancos_p",
+  "name": "Tasa de interés TM20 de bancos privados",
+  "description": "Tasa de interés TM20 de bancos privados API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/8",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

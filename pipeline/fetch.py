@@ -14,7 +14,9 @@ def download(cfg: dict, dest: str) -> str:
         if os.path.exists(url):  # fixture local u offline
             shutil.copyfile(url, dest)
             return dest
-        with urllib.request.urlopen(url, timeout=60) as r, \
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Crateris/1.0"})
+        with urllib.request.urlopen(req, timeout=60) as r, \
                 open(dest, "wb") as f:
             shutil.copyfileobj(r, f)
         return dest

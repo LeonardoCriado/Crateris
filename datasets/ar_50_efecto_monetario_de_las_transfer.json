@@ -1,0 +1,14 @@
+{
+  "id": "ar_50_efecto_monetario_de_las_transfer",
+  "name": "Efecto monetario de las transferencia de utilidades al tesoro nacional",
+  "description": "Efecto monetario de las transferencia de utilidades al tesoro nacional API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/50",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

@@ -1,0 +1,14 @@
+{
+  "id": "ar_4_tipo_de_cambio_minorista__promed",
+  "name": "Tipo de cambio minorista (promedio vendedor)",
+  "description": "Tipo de cambio minorista (promedio vendedor) API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/4",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}
