@@ -30,7 +30,7 @@ function projectDates(last, freq, n) {
   return out;
 }
 
-// framed=true: zoom inicial 50/50 (ranking). false: vista completa (general).
+// framed=true: vista completa inicial (ranking). false: vista completa (general).
 // keep={start,end}: conserva el zoom actual (cambio de tema).
 function optionFor(a, hist, framed, keep) {
   const h = a.forecast.length;
@@ -40,9 +40,7 @@ function optionFor(a, hist, framed, keep) {
   const pad = (vals) => [...new Array(hist.length - 1).fill(null),
     hist[hist.length - 1][1], ...vals];
   const blanks = new Array(hist.length).fill(null);
-  const L = hist.length + h;
-  const init = keep || { start: framed
-    ? Math.max(0, (L - 2 * h) / L * 100) : 0, end: 100 };
+  const init = keep || { start: 0, end: 100 }; // zoom-out máximo inicial
   const zoom = framed
     ? [{ type: "inside", xAxisIndex: 0, ...init }]
     : [{ type: "inside", xAxisIndex: 0 },
