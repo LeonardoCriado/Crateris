@@ -57,6 +57,15 @@ se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
 <i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
 un techo: con covariables y contexto completo (soportado por el modelo) hay
 margen real de mejora.
+<br><br>
+<b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
+puntos de series de todos los dominios, y pronostica una serie nueva <b>sin
+entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia
+con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume
+linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo
+aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y
+con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a
+cambio de ser menos interpretable y más conservador en rupturas.
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
