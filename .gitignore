@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.*
+
+# Build
+dist/
+build/
+out/
+.next/
+.nuxt/
+.coverage/
+
+# Env y secretos
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# OS / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# OpenCode (cache local, no config)
+.opencode/cache/
