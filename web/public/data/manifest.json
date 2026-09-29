@@ -1,0 +1,13 @@
+{
+  "datasets": [
+    {
+      "id": "_example",
+      "name": "Example (smoke test)",
+      "category": "general",
+      "freq": "D",
+      "horizon": 3,
+      "file": "data/_example.json"
+    }
+  ],
+  "generated_at": "2026-09-29T01:38:16.234940+00:00"
+}
