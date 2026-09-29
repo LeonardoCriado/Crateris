@@ -3,110 +3,230 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crateris — Forecasts TimesFM-3 vs 2.5</title>
+<title data-i18n="meta.title">Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?</title>
+<meta name="description" data-i18n-content="meta.desc" content="Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales. Pronóstico zero-shot con backtesting.">
+<meta property="og:title" data-i18n-content="meta.title" content="Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?">
+<meta property="og:description" data-i18n-content="meta.desc" content="Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://leonardocriado.github.io/Crateris/">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://leonardocriado.github.io/Crateris/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%2300e676' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2300e676'/%3E%3C/svg%3E">
 <style>
   :root, [data-theme="dark"] {
-    --bg: #0a0a0a; --panel: #141414; --line: #2a2a2a;
-    --text: #e6e6e6; --muted: #8a8a8a; --accent: #00e676;
-    --hist: #00e676; --fc: #c6ff4d; --grid: #262626;
+    --bg: #0a0a0a; --panel: #121212; --line: #262626;
+    --text: #e8e8e8; --muted: #9a9a9a; --accent: #00e676;
+    --hist: #00e676; --fc: #c6ff4d; --grid: #242424; --win: #00e676;
+    color-scheme: dark;
   }
   [data-theme="light"] {
-    --bg: #ffffff; --panel: #f4f4f4; --line: #d8d8d8;
-    --text: #161616; --muted: #5f5f5f; --accent: #00753a;
-    --hist: #00753a; --fc: #8a9400; --grid: #e4e4e4;
+    --bg: #ffffff; --panel: #f4f4f4; --line: #d9d9d9;
+    --text: #161616; --muted: #5c5c5c; --accent: #00753a;
+    --hist: #00753a; --fc: #7a8600; --grid: #e3e3e3; --win: #00753a;
+    color-scheme: light;
   }
-  body { font-family: system-ui, sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; background: var(--bg); color: var(--text); }
-  select, button { font-size: 1rem; padding: .4rem; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; }
-  button { cursor: pointer; }
-  button:hover { border-color: var(--accent); }
-  #chart { width: 100%; height: 420px; margin-top: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .5rem; box-sizing: border-box; }
-  .item .chart { background: transparent; border: none; padding: 0; }
-  .item { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem; margin-top: 1.2rem; }
-  .item h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
-  .item h3 .badge { color: var(--accent); font-weight: normal; font-size: .9rem; margin-left: .5rem; }
-  .item .chart { width: 100%; height: 240px; }
-  .item .meta { margin: .4rem 0 0; }
-  table.cmp { width: 100%; border-collapse: collapse; margin-top: .6rem; font-size: .9rem; }
-  table.cmp th, table.cmp td { padding: .35rem .5rem; border-bottom: 1px solid var(--line); text-align: right; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    max-width: 1020px; margin: 0 auto; padding: 0 1.25rem 3rem;
+    background: var(--bg); color: var(--text);
+    font-variant-numeric: tabular-nums; line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 1rem; top: 1rem; background: var(--panel); padding: .5rem 1rem; z-index: 10; }
+  header.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  header.nav .brand { font-weight: 700; font-size: 1.1rem; }
+  header.nav nav { display: flex; gap: .6rem; align-items: center; }
+  .hero { padding: 3.5rem 0 2.5rem; background-image: radial-gradient(circle, rgba(0,230,118,.07) 1px, transparent 1.5px); background-size: 26px 26px; }
+  .eyebrow { color: var(--accent); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .8rem; }
+  h1 { font-size: clamp(1.7rem, 4.5vw, 2.7rem); line-height: 1.15; margin: 0 0 1rem; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 1.05rem; max-width: 42rem; margin: 0 0 1.6rem; }
+  .context-line { color: var(--muted); font-size: .85rem; margin: 1.4rem 0 0; }
+  .cta-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.4rem; }
+  .btn { display: inline-block; padding: .6rem 1.2rem; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--text); text-decoration: none; font-size: .95rem; cursor: pointer; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #06130c; font-weight: 700; }
+  [data-theme="light"] .btn.primary { color: #fff; }
+  .btn:hover { filter: brightness(1.12); }
+  button.btn { font: inherit; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; margin: 0 0 2.5rem; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .kpi .v { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 750; color: var(--accent); line-height: 1.1; }
+  .kpi .l { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+  section.block { margin: 2.8rem 0; }
+  section.block > h2 { font-size: 1.5rem; margin: 0 0 .3rem; letter-spacing: -0.01em; }
+  section.block > .sub2 { color: var(--muted); font-size: .92rem; margin: 0 0 1.2rem; }
+  details.about { margin: 0 0 1rem; color: var(--muted); }
+  details.about summary { cursor: pointer; color: var(--text); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+  label.row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-bottom: .8rem; }
+  select, input[type="search"] { font-size: 1rem; padding: .45rem .6rem; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; max-width: 100%; }
+  #chart { width: 100%; height: 440px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; margin-top: .9rem; }
+  .fact { border-top: 1px solid var(--line); padding-top: .45rem; }
+  .fact .k { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .fact .w { font-size: 1rem; }
+  .fact .w[title] { cursor: help; border-bottom: 1px dotted var(--muted); }
+  #cmp-visual { width: 100%; height: 240px; }
+  .table-wrap { overflow-x: auto; }
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: .8rem; font-size: .88rem; min-width: 560px; }
+  table.cmp th, table.cmp td { padding: .4rem .55rem; border-bottom: 1px solid var(--line); text-align: right; }
   table.cmp th:first-child, table.cmp td:first-child { text-align: left; }
-  table.cmp td.win { color: var(--accent); font-weight: bold; }
-  .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-  .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
-  .card b { display: block; font-size: 1.2rem; color: var(--accent); }
-  .meta { color: var(--muted); font-size: .85rem; margin-top: 1rem; }
-  footer { color: var(--muted); font-size: .85rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  table.cmp td.win { color: var(--win); font-weight: 700; }
+  #ranking { display: grid; gap: .9rem; }
+  .item { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1rem; display: grid; grid-template-columns: 1fr 220px; gap: 1rem; align-items: center; }
+  .item h3 { margin: 0 0 .35rem; font-size: 1rem; font-weight: 600; }
+  .item h3 .badge { color: var(--accent); font-weight: 600; font-size: .85rem; margin-left: .5rem; white-space: nowrap; }
+  .item .spark { width: 220px; height: 72px; }
+  .item .meta { margin: .45rem 0 .6rem; color: var(--muted); font-size: .82rem; }
+  .item .open { justify-self: start; }
+  .learn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+  .learn-grid .panel h3 { margin: 0 0 .5rem; font-size: 1rem; }
+  .learn-grid .panel p, .learn-grid .panel ul { font-size: .9rem; color: var(--muted); margin: 0; padding-left: 1.1rem; }
+  .learn-grid .panel p { padding-left: 0; }
+  .learn-grid .panel li { margin-bottom: .3rem; }
+  details.method { margin-top: 1rem; }
+  details.method summary { cursor: pointer; font-weight: 600; }
+  ol.pipe { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+  ol.pipe li { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .25rem .6rem; font-size: .8rem; }
+  dl.defs { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; font-size: .9rem; }
+  dl.defs dt { font-weight: 700; }
+  dl.defs dd { margin: 0; color: var(--muted); }
+  .lic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
   footer b { color: var(--text); }
   #unavailable { color: #f66; }
-  .top { display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  @media (max-width: 760px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .learn-grid { grid-template-columns: 1fr; }
+    .lic-grid { grid-template-columns: 1fr; }
+    .item { grid-template-columns: 1fr; }
+    .item .spark { width: 100%; }
+    #chart { height: 320px; }
+    .hero { padding: 2.2rem 0 1.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
 </style>
 </head>
 <body>
-<div class="top">
-  <h1>Crateris 🏆 — forecasts zero-shot con TimesFM-3 y 2.5</h1>
-  <button id="theme" title="Cambiar tema">◐ tema</button>
-</div>
-<details open>
-<summary>¿Qué es esto?</summary>
-<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i> cuyo objetivo es
-validar si <b>un solo modelo puede pronosticar eficientemente un número alto de
-series temporales a la vez</b>: un pipeline descarga series públicas y les aplica
-<a href="https://github.com/google-research/timesfm">TimesFM-3</a> y
-<a href="https://huggingface.co/collections/google/timesfm-release-66e4be5fdb56e960c1e482a6">TimesFM-2.5</a>,
-los modelos fundacionales de series de Google, que pronostican <b>sin
-entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
-de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
-<p><b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
-puntos de series de todos los dominios, y pronostica una serie nueva <b>sin
-entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia
-con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume
-linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo
-aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y
-con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a
-cambio de ser menos interpretable y más conservador en rupturas.</p>
-</details>
-<label>Dataset: <select id="ds"></select></label>
-<div id="chart"></div>
-<div class="cards" id="cards"></div>
-<p class="meta" id="meta"></p>
-<h2>Top 10 forecasts por MAPE</h2>
-<div id="ranking"></div>
-<p id="unavailable"></p>
-<h2 id="cmp-title" style="display:none">Comparativa TimesFM-3 vs 2.5 (MAPE %)</h2>
-<div id="compare"></div>
-<h2>Conclusión</h2>
-<div class="item" id="linkedin">
-<p><b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó 65
-series sin un minuto de entrenamiento por serie</b>, con MAPE medio ~9% y un
-mejor caso de 0.09%. Frente a ARIMA/Prophet las ventajas son operativas:
-cero modelos que mantener (uno solo), cero supuestos de estacionariedad,
-cero configuración manual de estacionalidad, múltiples frecuencias directo de
-caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad,
-peor reacción a rupturas y más cómputo por forecast (amortizado al escalar a
-cientos de series, donde el pipeline ya está listo).</p>
-<p>Probé los dos modelos fundacionales de series de Google en las mismas 61
-series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana 32–29 y el
-MAPE medio es 8.88% vs 9.89%</b>. El modelo nuevo no aplasta al anterior.</p>
-<p class="meta">Metodología: backtest sobre los últimos N puntos de cada serie
-(N = horizonte publicado), métricas MAE/RMSE/MAPE, contexto truncado a 512,
-inferencia en CPU local. Pesos v3 bajo licencia no-comercial; v2.5 Apache-2.0.</p>
-</div>
-<h2>¿v2.5 para forecasting en una empresa?</h2>
-<div class="item">
-<p><b>Disclaimer de licencias:</b> los <i>pesos</i> de TimesFM-2.5 (los
-parámetros del modelo, es decir, los archivos que se descargan para usarlo)
-están publicados bajo licencia Apache-2.0, que permite el uso comercial en
-cualquier país, incluida Argentina. Los pesos de TimesFM-3, en cambio, tienen
-una licencia de Google solo para uso no-comercial. Antes de producción,
-verificá la licencia del checkpoint exacto que descargues, porque el código y
-los pesos pueden tener licencias distintas.</p>
-</div>
+<a class="skip" href="#benchmark" data-i18n="nav.skip">Saltar al benchmark</a>
+<header class="nav">
+  <span class="brand">Crateris 🏆</span>
+  <nav>
+    <a class="btn" href="https://github.com/LeonardoCriado/Crateris">GitHub ↗</a>
+    <button class="btn" id="lang" aria-label="Switch language">EN</button>
+    <button class="btn" id="theme" aria-pressed="true" data-i18n-aria="nav.theme" aria-label="Cambiar tema">◐ <span data-i18n="nav.themeLabel">Tema</span></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <p class="eyebrow" data-i18n="hero.eyebrow">Showcase de investigación ML</p>
+  <h1 data-i18n="hero.h1">¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?</h1>
+  <p class="sub" data-i18n="hero.sub">Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.</p>
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+  <p class="context-line"><code>TimesFM-3 vs TimesFM-2.5 · zero-shot forecasting · backtesting</code></p>
+  <div class="cta-row">
+    <a class="btn primary" href="#benchmark" data-i18n="hero.cta1">Explorar el benchmark ↓</a>
+    <a class="btn" href="https://github.com/LeonardoCriado/Crateris" data-i18n="hero.cta2">Ver en GitHub ↗</a>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <p style="max-width:44rem;margin:0" data-i18n="about.p">Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.</p>
+  <details class="about">
+    <summary><strong data-i18n="about.details">¿Cómo funciona el pronóstico zero-shot?</strong></summary>
+    <div data-i18n="about.body">
+    <p>El modelo se pre-entrenó con miles de millones de puntos de series de todos los dominios, y pronostica una serie nueva <b>sin entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a cambio de ser menos interpretable y más conservador en rupturas.</p>
+    </div>
+  </details>
+</section>
+
+<section class="block" id="benchmark">
+  <h2 data-i18n="bench.h2">Benchmark</h2>
+  <p class="sub2"><code>TimesFM-3 vs TimesFM-2.5 on the same series, same backtest and zero tuning.</code></p>
+  <label class="row" for="ds"><strong data-i18n="bench.series">Serie</strong><select id="ds"></select></label>
+  <label class="row" for="q"><strong data-i18n="bench.filter">Filtro</strong><input id="q" type="search" data-i18n-ph="bench.searchPh" placeholder="buscar serie…" data-i18n-aria="bench.searchAria" aria-label="Filtrar series"></label>
+  <div class="panel"><div id="chart" role="img" data-i18n-aria="bench.chartAria" aria-label="Serie histórica con pronóstico e intervalo de predicción"></div></div>
+  <div class="facts" id="facts"></div>
+  <p class="meta" id="meta" style="color:var(--muted);font-size:.82rem"></p>
+</section>
+
+<section class="block" id="compare">
+  <h2>TimesFM-3 vs TimesFM-2.5</h2>
+  <p class="sub2"><code>Same data. Same backtest. Zero tuning.</code></p>
+  <div class="kpis" id="cmp-kpis"></div>
+  <div class="panel"><div id="cmp-visual" role="img" data-i18n-aria="cmp.visualAria" aria-label="Gráfico comparativo de MAPE promedio"></div></div>
+  <div class="table-wrap"><div id="compare-table"></div></div>
+</section>
+
+<section class="block" id="top10">
+  <h2 data-i18n="top.h2">Series con mejor desempeño</h2>
+  <p class="sub2" data-i18n="top.sub">Top 10 por MAPE. Elegí una serie para verla en el benchmark.</p>
+  <div id="ranking"></div>
+  <p id="unavailable"></p>
+</section>
+
+<section class="block" id="worst5">
+  <h2 data-i18n="worst.h2">Series con peor desempeño</h2>
+  <p class="sub2" data-i18n="worst.sub">Bottom 5 por MAPE: donde el modelo sufre.</p>
+  <div id="ranking-worst"></div>
+</section>
+
+<section class="block" id="learn">
+  <h2 data-i18n="learn.h2">¿Qué aprendimos?</h2>
+  <div class="learn-grid">
+    <div class="panel"><h3 data-i18n="learn.resultH">El resultado</h3><p id="learn-result"></p></div>
+    <div class="panel"><h3 data-i18n="learn.compareH">La comparación</h3><p id="learn-compare"></p></div>
+    <div class="panel"><h3 data-i18n="learn.tradeH">Los trade-offs</h3>
+      <ul>
+        <li data-i18n="learn.t1">Menos modelos individuales que mantener</li>
+        <li data-i18n="learn.t2">Menos configuración manual</li>
+        <li data-i18n="learn.t3">Múltiples frecuencias directo de caja</li>
+        <li data-i18n="learn.t4">Menor interpretabilidad</li>
+        <li data-i18n="learn.t5">Peor reacción ante rupturas</li>
+        <li data-i18n="learn.t6">Mayor costo computacional por forecast</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="methodology">
+  <h2 data-i18n="method.h2">Metodología</h2>
+  <details class="method" open>
+    <summary data-i18n="method.sum">Cómo se producen los números</summary>
+    <ol class="pipe" id="pipe"></ol>
+    <dl class="defs" id="defs"></dl>
+  </details>
+</section>
+
+<section class="block" id="licenses">
+  <h2 data-i18n="lic.h2">Licencias</h2>
+  <div class="lic-grid">
+    <div class="panel"><h3 style="margin-top:0">TimesFM-2.5</h3><p>Apache-2.0</p>
+      <p style="color:var(--muted);font-size:.88rem" data-i18n="lic.v25">Los <i>pesos</i> de TimesFM-2.5 (los parámetros del modelo, es decir, los archivos que se descargan para usarlo) están publicados bajo licencia Apache-2.0, que permite el uso comercial en cualquier país, incluida Argentina.</p></div>
+    <div class="panel"><h3 style="margin-top:0">TimesFM-3</h3><p data-i18n="lic.v3t">Licencia no-comercial</p>
+      <p style="color:var(--muted);font-size:.88rem" data-i18n="lic.v3">Los pesos de TimesFM-3 tienen una licencia de Google solo para uso no-comercial.</p></div>
+  </div>
+  <p style="color:var(--muted);font-size:.85rem" data-i18n="lic.disclaimer">Disclaimer: esto no es asesoramiento legal. Antes de producción, verificá la licencia del checkpoint exacto que descargues, porque el código y los pesos pueden tener licencias distintas.</p>
+</section>
+
+<section class="block" id="conclusion">
+  <h2 data-i18n="concl.h2">Conclusión</h2>
+  <div class="panel" id="conclusion-body"></div>
+</section>
+
+</main>
+
 <footer>
-<b>Fuentes.</b> Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y
-materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas
-del BCRA (uso público).
-<br><br>
-Leonardo Criado — código y datos en
-<a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a>
+  <p><b data-i18n="foot.sourcesH">Fuentes.</b> <span data-i18n="foot.sources">Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).</span></p>
+  <p><b>Built with</b> ECharts · TimesFM · GitHub Pages. <span data-i18n="foot.built">Sin backend, sin paso de build.</span></p>
+  <p>Leonardo Criado — <span data-i18n="foot.code">código y datos en</span> <a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a></p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
