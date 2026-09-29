@@ -1,0 +1,10 @@
+{
+  "id": "dep_usd_ar",
+  "name": "Depósitos en dólares — Argentina (BCRA)",
+  "description": "Depósitos de los sectores público y privado, en millones de USD. API del BCRA.",
+  "category": "argentina",
+  "source": {"url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/107", "license": "BCRA (uso público)", "format": "bcra-json"},
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

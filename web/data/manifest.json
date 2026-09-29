@@ -46,6 +46,42 @@
       "mape": 1.8621375088063927
     },
     {
+      "id": "dep_ahorro_ar",
+      "name": "Dep\u00f3sitos en caja de ahorro \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/dep_ahorro_ar.json",
+      "mape": 1.8489593439228096
+    },
+    {
+      "id": "dep_cc_ar",
+      "name": "Dep\u00f3sitos en cuenta corriente \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/dep_cc_ar.json",
+      "mape": 4.505620796919045
+    },
+    {
+      "id": "dep_plazo_ar",
+      "name": "Dep\u00f3sitos a plazo fijo \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/dep_plazo_ar.json",
+      "mape": 1.3790246844669558
+    },
+    {
+      "id": "dep_usd_ar",
+      "name": "Dep\u00f3sitos en d\u00f3lares \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/dep_usd_ar.json",
+      "mape": 0.4482437337249888
+    },
+    {
       "id": "dolar_mayorista",
       "name": "D\u00f3lar mayorista \u2014 Argentina (BCRA)",
       "category": "argentina",
@@ -118,5 +154,5 @@
       "mape": 5.164408991412682
     }
   ],
-  "generated_at": "2026-09-29T16:36:50.212136+00:00"
+  "generated_at": "2026-09-29T17:48:32.281849+00:00"
 }
