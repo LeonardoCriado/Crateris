@@ -1,0 +1,12 @@
+{
+  "id": "brent_daily",
+  "name": "Petróleo Brent diario",
+  "description": "Precio spot diario (días hábiles) vía DataHub.",
+  "category": "energia",
+  "source": {"url": "https://datahub.io/core/oil-prices/r/brent-daily.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Date",
+  "value_col": "Price",
+  "freq": "B",
+  "horizon": 30,
+  "covariates": []
+}

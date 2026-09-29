@@ -1,0 +1,12 @@
+{
+  "id": "natgas_monthly",
+  "name": "Gas natural mensual (Henry Hub)",
+  "description": "Precio spot mensual vía DataHub.",
+  "category": "energia",
+  "source": {"url": "https://datahub.io/core/natural-gas/r/monthly.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Month",
+  "value_col": "Price",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

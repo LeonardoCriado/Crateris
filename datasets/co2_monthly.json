@@ -1,0 +1,12 @@
+{
+  "id": "co2_monthly",
+  "name": "CO₂ Mauna Loa mensual",
+  "description": "Concentración media mensual de CO₂, NOAA GML vía DataHub.",
+  "category": "tierra",
+  "source": {"url": "https://datahub.io/core/co2-ppm/r/co2-mm-mlo.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Date",
+  "value_col": "Average",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

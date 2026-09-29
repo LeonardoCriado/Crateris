@@ -1,0 +1,12 @@
+{
+  "id": "vix_daily",
+  "name": "VIX diario",
+  "description": "Índice de volatilidad CBOE, cierre diario (días hábiles) vía DataHub.",
+  "category": "finanzas",
+  "source": {"url": "https://datahub.io/core/finance-vix/r/vix-daily.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "DATE",
+  "value_col": "CLOSE",
+  "freq": "B",
+  "horizon": 30,
+  "covariates": []
+}

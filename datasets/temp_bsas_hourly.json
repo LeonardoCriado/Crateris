@@ -1,0 +1,13 @@
+{
+  "id": "temp_bsas_hourly",
+  "name": "Temperatura horaria — Buenos Aires",
+  "description": "Temperatura a 2m, ERA5 vía Open-Meteo Archive.",
+  "category": "clima",
+  "source": {"url": "https://archive-api.open-meteo.com/v1/archive?latitude=-34.6&longitude=-58.38&start_date=2023-01-01&end_date=2025-12-31&hourly=temperature_2m&format=csv", "license": "CC-BY-4.0 (Open-Meteo)"},
+  "date_col": "time",
+  "value_col": "temperature_2m (°C)",
+  "freq": "H",
+  "horizon": 24,
+  "skip_lines": 3,
+  "covariates": []
+}

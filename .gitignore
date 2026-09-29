@@ -37,3 +37,5 @@ data/raw/
 .venv/
 web/dist/
 web/node_modules/
+__pycache__/
+*.pyc
