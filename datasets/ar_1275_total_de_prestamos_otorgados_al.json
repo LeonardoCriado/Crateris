@@ -1,0 +1,14 @@
+{
+  "id": "ar_1275_total_de_prestamos_otorgados_al",
+  "name": "Total de préstamos otorgados al total de sectores",
+  "description": "Total de préstamos otorgados al total de sectores API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1275",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

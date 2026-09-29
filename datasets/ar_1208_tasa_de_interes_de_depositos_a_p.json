@@ -1,0 +1,14 @@
+{
+  "id": "ar_1208_tasa_de_interes_de_depositos_a_p",
+  "name": "Tasa de interés de depósitos a plazo fijo de 60 días o más",
+  "description": "Tasa de interés de depósitos a plazo fijo de 60 días o más API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1208",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

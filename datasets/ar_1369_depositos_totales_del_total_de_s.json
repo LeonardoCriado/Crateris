@@ -1,0 +1,14 @@
+{
+  "id": "ar_1369_depositos_totales_del_total_de_s",
+  "name": "Depósitos totales del total de sectores",
+  "description": "Depósitos totales del total de sectores API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1369",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

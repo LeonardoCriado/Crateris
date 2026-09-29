@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crateris — Forecasts TimesFM-3</title>
+<title>Crateris — Forecasts TimesFM-3 vs 2.5</title>
 <style>
   :root, [data-theme="dark"] {
     --bg: #0a0a0a; --panel: #141414; --line: #2a2a2a;
@@ -26,6 +26,10 @@
   .item h3 .badge { color: var(--accent); font-weight: normal; font-size: .9rem; margin-left: .5rem; }
   .item .chart { width: 100%; height: 240px; }
   .item .meta { margin: .4rem 0 0; }
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: .6rem; font-size: .9rem; }
+  table.cmp th, table.cmp td { padding: .35rem .5rem; border-bottom: 1px solid var(--line); text-align: right; }
+  table.cmp th:first-child, table.cmp td:first-child { text-align: left; }
+  table.cmp td.win { color: var(--accent); font-weight: bold; }
   .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
   .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
   .card b { display: block; font-size: 1.2rem; color: var(--accent); }
@@ -38,15 +42,17 @@
 </head>
 <body>
 <div class="top">
-  <h1>Crateris — forecasts zero-shot con TimesFM-3</h1>
+  <h1>Crateris 🏆 — forecasts zero-shot con TimesFM-3 y 2.5</h1>
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
 <details open>
 <summary>¿Qué es esto?</summary>
-<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
-descarga series temporales públicas y les aplica
-<a href="https://github.com/google-research/timesfm">TimesFM-3</a>, el modelo
-fundacional de series de Google (~330M parámetros), que pronostica <b>sin
+<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i> cuyo objetivo es
+validar si <b>un solo modelo puede pronosticar eficientemente un número alto de
+series temporales a la vez</b>: un pipeline descarga series públicas y les aplica
+<a href="https://github.com/google-research/timesfm">TimesFM-3</a> y
+<a href="https://huggingface.co/collections/google/timesfm-release-66e4be5fdb56e960c1e482a6">TimesFM-2.5</a>,
+los modelos fundacionales de series de Google, que pronostican <b>sin
 entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
 de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
 <p><b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
@@ -65,14 +71,42 @@ cambio de ser menos interpretable y más conservador en rupturas.</p>
 <h2>Top 10 forecasts por MAPE</h2>
 <div id="ranking"></div>
 <p id="unavailable"></p>
+<h2 id="cmp-title" style="display:none">Comparativa TimesFM-3 vs 2.5 (MAPE %)</h2>
+<div id="compare"></div>
+<h2>Conclusión</h2>
+<div class="item" id="linkedin">
+<p><b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó 65
+series sin un minuto de entrenamiento por serie</b>, con MAPE medio ~9% y un
+mejor caso de 0.09%. Frente a ARIMA/Prophet las ventajas son operativas:
+cero modelos que mantener (uno solo), cero supuestos de estacionariedad,
+cero configuración manual de estacionalidad, múltiples frecuencias directo de
+caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad,
+peor reacción a rupturas y más cómputo por forecast (amortizado al escalar a
+cientos de series, donde el pipeline ya está listo).</p>
+<p>Probé los dos modelos fundacionales de series de Google en las mismas 61
+series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana 32–29 y el
+MAPE medio es 8.88% vs 9.89%</b>. El modelo nuevo no aplasta al anterior.</p>
+<p class="meta">Metodología: backtest sobre los últimos N puntos de cada serie
+(N = horizonte publicado), métricas MAE/RMSE/MAPE, contexto truncado a 512,
+inferencia en CPU local. Pesos v3 bajo licencia no-comercial; v2.5 Apache-2.0.</p>
+</div>
+<h2>¿v2.5 para forecasting en una empresa?</h2>
+<div class="item">
+<p><b>Disclaimer de licencias:</b> los <i>pesos</i> de TimesFM-2.5 (los
+parámetros del modelo, es decir, los archivos que se descargan para usarlo)
+están publicados bajo licencia Apache-2.0, que permite el uso comercial en
+cualquier país, incluida Argentina. Los pesos de TimesFM-3, en cambio, tienen
+una licencia de Google solo para uso no-comercial. Antes de producción,
+verificá la licencia del checkpoint exacto que descargues, porque el código y
+los pesos pueden tener licencias distintas.</p>
+</div>
 <footer>
-<b>Conclusión.</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
-y regímenes estables (clima, CO₂: MAPE &lt;1%). Flojea ante cambios de régimen
-que no vio (rally del oro 2024–26, shocks cambiarios): ahí el pronóstico puntual
-se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
-<i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
-un techo: con covariables y contexto completo (soportado por el modelo) hay
-margen real de mejora.
+<b>Fuentes.</b> Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y
+materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas
+del BCRA (uso público).
+<br><br>
+Leonardo Criado — código y datos en
+<a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>

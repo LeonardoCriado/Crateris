@@ -137,8 +137,8 @@ async function load() {
   sel.onchange = () => show(sel.value);
   if (m.datasets.length) show(m.datasets[0].file);
   const top = m.datasets
-    .filter((d) => d.mape != null)
-    .sort((x, y) => x.mape - y.mape)
+    .filter((d) => d.file)
+    .sort((x, y) => (x.mape ?? Infinity) - (y.mape ?? Infinity))
     .slice(0, 10);
   const rank = $("ranking");
   let i = 0;
@@ -155,7 +155,7 @@ async function load() {
     sec.className = "item";
     const mt = a.metrics || {};
     sec.innerHTML =
-      `<h3>#${i} ${a.meta.name}<span class="badge">MAPE ${Number(mt.mape).toFixed(2)}%</span></h3>` +
+      `<h3>#${i} ${a.meta.name}<span class="badge">${mt.mape != null ? "MAPE " + Number(mt.mape).toFixed(2) + "%" : "sin MAPE"}</span></h3>` +
       `<div class="chart" id="c-${a.meta.dataset_id}"></div>` +
       `<p class="meta">MAE ${Number(mt.mae).toFixed(3)} · RMSE ${Number(mt.rmse).toFixed(3)} · ` +
       `fuente: ${a.meta.source.url} (${a.meta.source.license}) · modelo: ${a.meta.model}</p>`;
@@ -165,6 +165,30 @@ async function load() {
     chart.setOption(optionFor(a, hist, true));
   }
   if (!i) $("unavailable").textContent = "sin datasets disponibles";
+  await renderCompare();
+}
+
+async function renderCompare() {
+  let c;
+  try {
+    c = await (await fetch("data/compare.json")).json();
+  } catch { return; } // comparativa aún no generada
+  if (!c.datasets || !c.datasets.length) return;
+  $("cmp-title").style.display = "";
+  const rows = [...c.datasets].sort(
+    (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
+  const div = $("compare");
+  const pct = (v) => v != null ? v.toFixed(2) + "%" : "—";
+  let html = `<table class="cmp"><tr><th>Dataset</th><th>v3 MAPE</th>` +
+    `<th>2.5 MAPE</th><th>Mejor</th></tr>`;
+  for (const d of rows) {
+    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
+    html += `<tr><td>${d.name}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
+      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
+      `<td>${w}</td></tr>`;
+  }
+  div.innerHTML = html + "</table>";
 }
 
 load();

@@ -1,0 +1,925 @@
+{
+  "models": [
+    {
+      "id": "v3",
+      "label": "TimesFM-3 (330M)"
+    },
+    {
+      "id": "v25",
+      "label": "TimesFM-2.5 (200M)"
+    }
+  ],
+  "datasets": [
+    {
+      "id": "ar_1113_prestamos_hipotecarios_para_cons",
+      "name": "Pr\u00e9stamos hipotecarios para construcci\u00f3n de viviendas",
+      "v3": {
+        "mae": 40008.020833333336,
+        "rmse": 50013.15476614115,
+        "mape": 11.854334406328977
+      },
+      "v25": {
+        "mae": 132400.00651041666,
+        "rmse": 148513.8179220458,
+        "mape": 41.47355697248687
+      }
+    },
+    {
+      "id": "ar_1115_prestamos_hipotecarios_para_comp",
+      "name": "Pr\u00e9stamos hipotecarios para compra de nuevas viviendas",
+      "v3": {
+        "mae": 794147.1770833334,
+        "rmse": 904102.1778376418,
+        "mape": 23.88378772682319
+      },
+      "v25": {
+        "mae": 1572020.8541666667,
+        "rmse": 1708565.356407767,
+        "mape": 48.88599359878117
+      }
+    },
+    {
+      "id": "ar_1199_tasa_de_interes_de_adelantos_en",
+      "name": "Tasa de inter\u00e9s de adelantos en cuenta corriente a tasa fija",
+      "v3": {
+        "mae": 26.33824971516927,
+        "rmse": 27.68234892035302,
+        "mape": 57.16543594555539
+      },
+      "v25": {
+        "mae": 22.280422490437825,
+        "rmse": 24.324525686822845,
+        "mape": 49.78322624004948
+      }
+    },
+    {
+      "id": "ar_11_tasa_de_interes_de_prestamos_ent",
+      "name": "Tasa de inter\u00e9s de pr\u00e9stamos entre entidades financiera privadas (BAIBAR)",
+      "v3": {
+        "mae": 4.302253107343402,
+        "rmse": 4.383010014446901,
+        "mape": 20.36116799570005
+      },
+      "v25": {
+        "mae": 4.36321891784668,
+        "rmse": 4.473341337728918,
+        "mape": 20.682820767796965
+      }
+    },
+    {
+      "id": "ar_1200_efectivo_en_moneda_extranjera_en",
+      "name": "Efectivo en moneda extranjera en entidades financieras",
+      "v3": {
+        "mae": 165.33302525111608,
+        "rmse": 217.16076491838479,
+        "mape": 4.048844895081931
+      },
+      "v25": {
+        "mae": 191.91084507533483,
+        "rmse": 247.00200831515335,
+        "mape": 4.7044377919943825
+      }
+    },
+    {
+      "id": "ar_1201_lineas_del_exterior_comerciales",
+      "name": "L\u00edneas del exterior comerciales (obligaciones de las entidades financieras con e",
+      "v3": {
+        "mae": 24.401336669921875,
+        "rmse": 28.29191840875998,
+        "mape": 1.2073935212388702
+      },
+      "v25": {
+        "mae": 43.74328177315848,
+        "rmse": 51.77477100522353,
+        "mape": 2.1368370663841176
+      }
+    },
+    {
+      "id": "ar_1202_lineas_del_exterior_financieras",
+      "name": "L\u00edneas del exterior financieras (obligaciones de las entidades financieras con e",
+      "v3": {
+        "mae": 36.17141941615513,
+        "rmse": 46.89886299106987,
+        "mape": 5.493912174841641
+      },
+      "v25": {
+        "mae": 34.36390686035156,
+        "rmse": 44.947631555171796,
+        "mape": 5.223312846068887
+      }
+    },
+    {
+      "id": "ar_1203_tasas_de_interes_de_depositos_en",
+      "name": "Tasas de inter\u00e9s de dep\u00f3sitos en cajas de ahorro",
+      "v3": {
+        "mae": 0.1675636965887886,
+        "rmse": 0.21074713806298223,
+        "mape": 3.4787001824432555
+      },
+      "v25": {
+        "mae": 0.24782613754272462,
+        "rmse": 0.3335932721237853,
+        "mape": 5.257610896757793
+      }
+    },
+    {
+      "id": "ar_1204_tasa_de_interes_del_total_de_dep",
+      "name": "Tasa de inter\u00e9s del total de dep\u00f3sitos a plazo fijo",
+      "v3": {
+        "mae": 0.9490251622881207,
+        "rmse": 1.1679810762162441,
+        "mape": 4.1380431330169465
+      },
+      "v25": {
+        "mae": 1.0025354194641112,
+        "rmse": 1.203066140378509,
+        "mape": 4.376108982766736
+      }
+    },
+    {
+      "id": "ar_1205_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 7 a 59 d\u00edas",
+      "v3": {
+        "mae": 0.7061170196533203,
+        "rmse": 0.8896781147683523,
+        "mape": 3.080621810149718
+      },
+      "v25": {
+        "mae": 0.6744136755807058,
+        "rmse": 0.8661509118603135,
+        "mape": 2.9352476486865946
+      }
+    },
+    {
+      "id": "ar_1207_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 30 d\u00edas",
+      "v3": {
+        "mae": 0.545324505397252,
+        "rmse": 0.6740621336351197,
+        "mape": 2.5271919188605008
+      },
+      "v25": {
+        "mae": 0.5150797734941757,
+        "rmse": 0.640674800530056,
+        "mape": 2.3824058840334206
+      }
+    },
+    {
+      "id": "ar_1208_tasa_de_interes_de_depositos_a_p",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a plazo fijo de 60 d\u00edas o m\u00e1s",
+      "v3": {
+        "mae": 2.590559092930385,
+        "rmse": 2.837398192362542,
+        "mape": 11.608929127811185
+      },
+      "v25": {
+        "mae": 2.4995960017613004,
+        "rmse": 2.7395009730707893,
+        "mape": 11.200368888910472
+      }
+    },
+    {
+      "id": "ar_1216_tasa_de_interes_de_documentos_a",
+      "name": "Tasa de inter\u00e9s de documentos a sola firma a tasa fija",
+      "v3": {
+        "mae": 15.41770233154297,
+        "rmse": 16.42964565789474,
+        "mape": 45.01774884333554
+      },
+      "v25": {
+        "mae": 14.161215120951335,
+        "rmse": 15.198524357066889,
+        "mape": 41.15148634957093
+      }
+    },
+    {
+      "id": "ar_1244_reservas_internacionales",
+      "name": "Reservas internacionales",
+      "v3": {
+        "mae": 814.1883370535714,
+        "rmse": 1019.1316317148193,
+        "mape": 1.6388475118871833
+      },
+      "v25": {
+        "mae": 749.7730189732143,
+        "rmse": 849.6797309067746,
+        "mape": 1.4954836457083243
+      }
+    },
+    {
+      "id": "ar_1245_oro__divisas__colocaciones_a_pla",
+      "name": "Oro, divisas, colocaciones a plazo y otros activos incluidos en las reservas int",
+      "v3": {
+        "mae": 814.1883370535714,
+        "rmse": 1019.1316317148193,
+        "mape": 1.6388475118871833
+      },
+      "v25": {
+        "mae": 749.7730189732143,
+        "rmse": 849.6797309067746,
+        "mape": 1.4954836457083243
+      }
+    },
+    {
+      "id": "ar_1247_pasivos_monetarios__base_monetar",
+      "name": "Pasivos monetarios (base monetaria + dep\u00f3sitos y otros pasivos monetarios en mon",
+      "v3": {
+        "mae": 1451938.9285714286,
+        "rmse": 1741607.5096975167,
+        "mape": 2.0794830195848166
+      },
+      "v25": {
+        "mae": 893815.5,
+        "rmse": 1079674.1262727312,
+        "mape": 1.2718056767003165
+      }
+    },
+    {
+      "id": "ar_1248_base_monetaria",
+      "name": "Base monetaria",
+      "v3": {
+        "mae": 1197898.0357142857,
+        "rmse": 1376559.3393454747,
+        "mape": 2.5949653884960937
+      },
+      "v25": {
+        "mae": 629336.4642857143,
+        "rmse": 728589.3779172336,
+        "mape": 1.3527835594231696
+      }
+    },
+    {
+      "id": "ar_1249_circulacion_monetaria",
+      "name": "Circulaci\u00f3n monetaria",
+      "v3": {
+        "mae": 340422.71428571426,
+        "rmse": 384095.07540274825,
+        "mape": 1.1918623048658652
+      },
+      "v25": {
+        "mae": 231851.35714285713,
+        "rmse": 246413.71027733595,
+        "mape": 0.8121697791406628
+      }
+    },
+    {
+      "id": "ar_1271_efectivo_en_entidades_financiera",
+      "name": "Efectivo en entidades financieras",
+      "v3": {
+        "mae": 94497037.71428572,
+        "rmse": 110203917.91680522,
+        "mape": 4.507817454315247
+      },
+      "v25": {
+        "mae": 125831593.14285715,
+        "rmse": 140600186.6951218,
+        "mape": 5.984861875274269
+      }
+    },
+    {
+      "id": "ar_1272_depositos_de_las_entidades_finan",
+      "name": "Dep\u00f3sitos de las entidades financieras en entidades financieras",
+      "v3": {
+        "mae": 585129.9285714285,
+        "rmse": 782401.7407382311,
+        "mape": 3.1821163997544915
+      },
+      "v25": {
+        "mae": 567872.2857142857,
+        "rmse": 745506.1280183608,
+        "mape": 3.0999848171337314
+      }
+    },
+    {
+      "id": "ar_1273_titulos_valores_en_cartera_de_la",
+      "name": "T\u00edtulos valores en cartera de las entidades financieras",
+      "v3": {
+        "mae": 1641062.0714285714,
+        "rmse": 1817697.4245345204,
+        "mape": 1.5888139244737465
+      },
+      "v25": {
+        "mae": 2038471.2142857143,
+        "rmse": 2297832.918116297,
+        "mape": 1.969211356038451
+      }
+    },
+    {
+      "id": "ar_1274_certificados_de_participacion_en",
+      "name": "Certificados de participaci\u00f3n en fideicomisos financieros",
+      "v3": {
+        "mae": 61105.892857142855,
+        "rmse": 62963.332883939634,
+        "mape": 5.433672087220246
+      },
+      "v25": {
+        "mae": 35771.30357142857,
+        "rmse": 40868.031227225874,
+        "mape": 3.195082323723776
+      }
+    },
+    {
+      "id": "ar_1275_total_de_prestamos_otorgados_al",
+      "name": "Total de pr\u00e9stamos otorgados al total de sectores",
+      "v3": {
+        "mae": 840800.2142857143,
+        "rmse": 1073122.8972222346,
+        "mape": 0.7573211742907684
+      },
+      "v25": {
+        "mae": 666408.1428571428,
+        "rmse": 790054.5846732453,
+        "mape": 0.60139584843478
+      }
+    },
+    {
+      "id": "ar_12_tasa_de_interes_de_depositos_a_3",
+      "name": "Tasa de inter\u00e9s de dep\u00f3sitos a 30 d\u00edas de plazo en entidades financieras",
+      "v3": {
+        "mae": 0.545324505397252,
+        "rmse": 0.6740621336351197,
+        "mape": 2.5271919188605008
+      },
+      "v25": {
+        "mae": 0.5150797734941757,
+        "rmse": 0.640674800530056,
+        "mape": 2.3824058840334206
+      }
+    },
+    {
+      "id": "ar_1369_depositos_totales_del_total_de_s",
+      "name": "Dep\u00f3sitos totales del total de sectores",
+      "v3": {
+        "mae": 1631411.8214285714,
+        "rmse": 1787913.8638081313,
+        "mape": 0.94495657095917
+      },
+      "v25": {
+        "mae": 2295985.3214285714,
+        "rmse": 2501633.7730356837,
+        "mape": 1.3288673698379307
+      }
+    },
+    {
+      "id": "ar_1370_depositos_totales_de_efectivo_de",
+      "name": "Dep\u00f3sitos totales de efectivo del total de sectores",
+      "v3": {
+        "mae": 1640956.9642857143,
+        "rmse": 1792092.131422487,
+        "mape": 0.9523293137134949
+      },
+      "v25": {
+        "mae": 2275872.035714286,
+        "rmse": 2476877.5767442347,
+        "mape": 1.3196450426947728
+      }
+    },
+    {
+      "id": "ar_1371_cuentas_corrientes_del_total_de",
+      "name": "Cuentas corrientes del total de sectores",
+      "v3": {
+        "mae": 1212405.5357142857,
+        "rmse": 1378847.6816975134,
+        "mape": 3.495150297099545
+      },
+      "v25": {
+        "mae": 1418998.892857143,
+        "rmse": 1657896.5175474721,
+        "mape": 4.027452509419209
+      }
+    },
+    {
+      "id": "ar_1373_cuentas_a_la_vista__del_total_de",
+      "name": "Cuentas a la vista  del total de sectores",
+      "v3": {
+        "mae": 18504.941964285714,
+        "rmse": 22432.19520402132,
+        "mape": 0.9816929858317571
+      },
+      "v25": {
+        "mae": 17948.88839285714,
+        "rmse": 22503.78153630171,
+        "mape": 0.9489763128651562
+      }
+    },
+    {
+      "id": "ar_1375_cajas_de_ahorro_del_total_de_sec",
+      "name": "Cajas de ahorro del total de sectores",
+      "v3": {
+        "mae": 782980.3214285715,
+        "rmse": 951772.065720213,
+        "mape": 2.4586734286975913
+      },
+      "v25": {
+        "mae": 683179.1785714285,
+        "rmse": 824518.8584355684,
+        "mape": 2.1656074354390804
+      }
+    },
+    {
+      "id": "ar_13_tasa_de_interes_por_adelantos_en",
+      "name": "Tasa de inter\u00e9s por adelantos en cuenta corriente",
+      "v3": {
+        "mae": 4.198835533687046,
+        "rmse": 4.356900363821992,
+        "mape": 16.28874422787269
+      },
+      "v25": {
+        "mae": 3.2285152408054896,
+        "rmse": 3.390054957572696,
+        "mape": 12.548662181023671
+      }
+    },
+    {
+      "id": "ar_1606_base_monetaria",
+      "name": "Base monetaria",
+      "v3": {
+        "mae": 4358308873.583333,
+        "rmse": 4843144121.426802,
+        "mape": 10.201722323047441
+      },
+      "v25": {
+        "mae": 1565272317.5833333,
+        "rmse": 1921103386.6489449,
+        "mape": 3.6504250066840873
+      }
+    },
+    {
+      "id": "ar_1607_circulacion_monetaria",
+      "name": "Circulaci\u00f3n monetaria",
+      "v3": {
+        "mae": 974246043.0,
+        "rmse": 1079749632.4451685,
+        "mape": 3.8848480659502673
+      },
+      "v25": {
+        "mae": 1407993745.6666667,
+        "rmse": 1800946733.8476002,
+        "mape": 5.268517236995715
+      }
+    },
+    {
+      "id": "ar_1608_billetes_y_monedas_en_poder_del",
+      "name": "Billetes y monedas en poder del p\u00fablico",
+      "v3": {
+        "mae": 930703366.8333334,
+        "rmse": 1019994870.8282208,
+        "mape": 4.013522295340159
+      },
+      "v25": {
+        "mae": 1325553416.6666667,
+        "rmse": 1752675497.9489043,
+        "mape": 5.377789103487961
+      }
+    },
+    {
+      "id": "ar_1609_efectivo_en_entidades_financiera",
+      "name": "Efectivo en entidades financieras",
+      "v3": {
+        "mae": 204477341.0,
+        "rmse": 230651512.89249352,
+        "mape": 9.699346195251895
+      },
+      "v25": {
+        "mae": 217498811.66666666,
+        "rmse": 296665015.3681313,
+        "mape": 9.483615491326725
+      }
+    },
+    {
+      "id": "ar_1610_depositos_de_las_entidades_finan",
+      "name": "Dep\u00f3sitos de las entidades financieras en cuenta corriente en el BCRA",
+      "v3": {
+        "mae": 1975489399.25,
+        "rmse": 2268429126.5375214,
+        "mape": 11.128987630299392
+      },
+      "v25": {
+        "mae": 2546155212.5833335,
+        "rmse": 2786518703.173129,
+        "mape": 14.378681367871188
+      }
+    },
+    {
+      "id": "ar_1611_m1",
+      "name": "M1 en moneda local y extranjera (BCRA)",
+      "v3": {
+        "mae": 5774478644.916667,
+        "rmse": 6236425140.931786,
+        "mape": 10.763543582137913
+      },
+      "v25": {
+        "mae": 2414740239.9166665,
+        "rmse": 3518985068.1985097,
+        "mape": 4.256801936354499
+      }
+    },
+    {
+      "id": "ar_46_total_de_factores_de_explicacion",
+      "name": "Total de factores de explicaci\u00f3n de la base monetaria",
+      "v3": {
+        "mae": 599825.4063197544,
+        "rmse": 797005.1104540604,
+        "mape": 98.30547533705557
+      },
+      "v25": {
+        "mae": 597541.1616210938,
+        "rmse": 799566.9527215154,
+        "mape": 96.06888021649459
+      }
+    },
+    {
+      "id": "ar_47_efecto_monetario_de_las_compras",
+      "name": "Efecto monetario de las compras netas de divisas al sector privado y otros",
+      "v3": {
+        "mae": 29153.919140625,
+        "rmse": 36962.82423420417,
+        "mape": null
+      },
+      "v25": {
+        "mae": 27412.028236607144,
+        "rmse": 37021.66750478663,
+        "mape": null
+      }
+    },
+    {
+      "id": "ar_48_efecto_monetario_de_las_compras",
+      "name": "Efecto monetario de las compras netas de divisas al tesoro nacional",
+      "v3": {
+        "mae": 763.1888253348214,
+        "rmse": 778.5622808232368,
+        "mape": null
+      },
+      "v25": {
+        "mae": 511.0590122767857,
+        "rmse": 630.3371512423313,
+        "mape": null
+      }
+    },
+    {
+      "id": "ar_49_efecto_monetario_de_los_adelanto",
+      "name": "Efecto monetario de los adelantos transitorios al tesoro nacional",
+      "v3": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": null
+      },
+      "v25": {
+        "mae": 0.0,
+        "rmse": 0.0,
+        "mape": null
+      }
+    },
+    {
+      "id": "ar_4_tipo_de_cambio_minorista__promed",
+      "name": "Tipo de cambio minorista (promedio vendedor)",
+      "v3": {
+        "mae": 6.871951206752223,
+        "rmse": 7.816507997488372,
+        "mape": 0.4481252594195115
+      },
+      "v25": {
+        "mae": 17.732852434430804,
+        "rmse": 19.02281025942877,
+        "mape": 1.1548629339199061
+      }
+    },
+    {
+      "id": "ar_50_efecto_monetario_de_las_transfer",
+      "name": "Efecto monetario de las transferencia de utilidades al tesoro nacional",
+      "v3": {
+        "mae": 149.03641183035714,
+        "rmse": 252.63803541425665,
+        "mape": null
+      },
+      "v25": {
+        "mae": 157.52608816964286,
+        "rmse": 301.5014867120096,
+        "mape": null
+      }
+    },
+    {
+      "id": "ar_8_tasa_de_interes_tm20_de_bancos_p",
+      "name": "Tasa de inter\u00e9s TM20 de bancos privados",
+      "v3": {
+        "mae": 0.8552821023123605,
+        "rmse": 0.9808306745336768,
+        "mape": 3.7123532660343947
+      },
+      "v25": {
+        "mae": 0.8891992568969727,
+        "rmse": 1.0013026557751115,
+        "mape": 3.861612301376082
+      }
+    },
+    {
+      "id": "badlar",
+      "name": "Tasa BADLAR \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 0.6981594221932548,
+        "rmse": 0.829883169550621,
+        "mape": 3.0564136409695886
+      },
+      "v25": {
+        "mae": 0.6499747548784528,
+        "rmse": 0.7999224387548497,
+        "mape": 2.8297127737248404
+      }
+    },
+    {
+      "id": "bonds10y_monthly",
+      "name": "Bono EEUU 10Y mensual",
+      "v3": {
+        "mae": 0.21675923347473156,
+        "rmse": 0.2689332554847991,
+        "mape": 4.990874986009731
+      },
+      "v25": {
+        "mae": 0.21793002128601083,
+        "rmse": 0.25160663796237265,
+        "mape": 5.226137444651851
+      }
+    },
+    {
+      "id": "brent_daily",
+      "name": "Petr\u00f3leo Brent diario",
+      "v3": {
+        "mae": 13.971885332380024,
+        "rmse": 19.40627766749313,
+        "mape": 12.09950910768726
+      },
+      "v25": {
+        "mae": 11.790788999285017,
+        "rmse": 16.344322706980133,
+        "mape": 10.262230843929647
+      }
+    },
+    {
+      "id": "co2_monthly",
+      "name": "CO\u2082 Mauna Loa mensual",
+      "v3": {
+        "mae": 0.3801111857096326,
+        "rmse": 0.4676424874235598,
+        "mape": 0.08856304606995169
+      },
+      "v25": {
+        "mae": 0.5477730305989562,
+        "rmse": 0.7142810705751692,
+        "mape": 0.12749889368372525
+      }
+    },
+    {
+      "id": "cpi_gb_monthly",
+      "name": "IPC Reino Unido mensual",
+      "v3": {
+        "mae": 30.195029703776054,
+        "rmse": 31.884827650892962,
+        "mape": 1.8621375088063927
+      },
+      "v25": {
+        "mae": 23.765830485026054,
+        "rmse": 26.220257216300894,
+        "mape": 1.4647113646222893
+      }
+    },
+    {
+      "id": "dep_ahorro_ar",
+      "name": "Dep\u00f3sitos en caja de ahorro \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 1424720.0714285714,
+        "rmse": 1648240.2889887488,
+        "mape": 1.8489593439228096
+      },
+      "v25": {
+        "mae": 772787.5,
+        "rmse": 912661.2935998922,
+        "mape": 1.000762561642125
+      }
+    },
+    {
+      "id": "dep_cc_ar",
+      "name": "Dep\u00f3sitos en cuenta corriente \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 1568374.8214285714,
+        "rmse": 1736146.3459557595,
+        "mape": 4.505620796919045
+      },
+      "v25": {
+        "mae": 1839265.25,
+        "rmse": 2127976.472823142,
+        "mape": 5.222123064213565
+      }
+    },
+    {
+      "id": "dep_plazo_ar",
+      "name": "Dep\u00f3sitos a plazo fijo \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 1558782.4642857143,
+        "rmse": 2021648.3870697746,
+        "mape": 1.3790246844669558
+      },
+      "v25": {
+        "mae": 1226662.75,
+        "rmse": 1709605.1875239145,
+        "mape": 1.0831320079249875
+      }
+    },
+    {
+      "id": "dep_usd_ar",
+      "name": "Dep\u00f3sitos en d\u00f3lares \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 196.51813616071428,
+        "rmse": 214.71534884142216,
+        "mape": 0.4482437337249888
+      },
+      "v25": {
+        "mae": 366.1665736607143,
+        "rmse": 430.83040821368064,
+        "mape": 0.8306063926807326
+      }
+    },
+    {
+      "id": "dolar_mayorista",
+      "name": "D\u00f3lar mayorista \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 5.887380022321419,
+        "rmse": 6.90962174650188,
+        "mape": 0.38945772193704925
+      },
+      "v25": {
+        "mae": 14.154301060267853,
+        "rmse": 15.590137996430125,
+        "mape": 0.9346367146032178
+      }
+    },
+    {
+      "id": "emae",
+      "name": "EMAE mensual (INDEC)",
+      "v3": {
+        "mae": 3.7425751289078164,
+        "rmse": 4.50945734711969,
+        "mape": 2.3872534330426705
+      },
+      "v25": {
+        "mae": 6.957513372928342,
+        "rmse": 8.11714988366087,
+        "mape": 4.532371811141466
+      }
+    },
+    {
+      "id": "emae_desest",
+      "name": "EMAE desestacionalizada (INDEC)",
+      "v3": {
+        "mae": 2.4716649770886385,
+        "rmse": 2.815532456977041,
+        "mape": 1.599200173229978
+      },
+      "v25": {
+        "mae": 2.7034879446179354,
+        "rmse": 3.0812819528343436,
+        "mape": 1.7482968158440133
+      }
+    },
+    {
+      "id": "gold_monthly",
+      "name": "Oro mensual (LBMA)",
+      "v3": {
+        "mae": 946.0403580729167,
+        "rmse": 1015.1412866791219,
+        "mape": 20.9379166631345
+      },
+      "v25": {
+        "mae": 1013.621270345052,
+        "rmse": 1081.153629093185,
+        "mape": 22.46520247013366
+      }
+    },
+    {
+      "id": "inflacion_ar_monthly",
+      "name": "Inflaci\u00f3n mensual \u2014 Argentina (BCRA)",
+      "v3": {
+        "mae": 0.7222928643226623,
+        "rmse": 0.8565652322178263,
+        "mape": 27.08150044537099
+      },
+      "v25": {
+        "mae": 0.6601895729700724,
+        "rmse": 0.7849542223731006,
+        "mape": 24.83478145745743
+      }
+    },
+    {
+      "id": "ipc_gba",
+      "name": "IPC GBA mensual (INDEC)",
+      "v3": {
+        "mae": 675.5061101562501,
+        "rmse": 809.2214082310785,
+        "mape": 5.9126246983281385
+      },
+      "v25": {
+        "mae": 1682.4739705729164,
+        "rmse": 1922.302902250722,
+        "mape": 14.87414222781182
+      }
+    },
+    {
+      "id": "ipc_nacional",
+      "name": "IPC Nacional mensual (INDEC)",
+      "v3": {
+        "mae": 646.5988365885415,
+        "rmse": 770.3459914279681,
+        "mape": 5.657932581720467
+      },
+      "v25": {
+        "mae": 1688.1802026041667,
+        "rmse": 1929.4583933105341,
+        "mape": 14.90155936047126
+      }
+    },
+    {
+      "id": "ipc_patagonia",
+      "name": "IPC Patagonia mensual (INDEC)",
+      "v3": {
+        "mae": 612.3371957031253,
+        "rmse": 734.1051601199696,
+        "mape": 5.330139537246835
+      },
+      "v25": {
+        "mae": 1617.8424342447918,
+        "rmse": 1827.2241480889993,
+        "mape": 14.24570262611631
+      }
+    },
+    {
+      "id": "natgas_monthly",
+      "name": "Gas natural mensual (Henry Hub)",
+      "v3": {
+        "mae": 0.7553282968203227,
+        "rmse": 1.5061149205668234,
+        "mape": 14.861690542587866
+      },
+      "v25": {
+        "mae": 0.7476690991719565,
+        "rmse": 1.4409856470584403,
+        "mape": 15.376743337744134
+      }
+    },
+    {
+      "id": "reservas_bcra",
+      "name": "Reservas internacionales \u2014 BCRA",
+      "v3": {
+        "mae": 730.6005859375,
+        "rmse": 880.198449936787,
+        "mape": 1.4634038135670462
+      },
+      "v25": {
+        "mae": 767.5027901785714,
+        "rmse": 864.9165310606518,
+        "mape": 1.525593277052244
+      }
+    },
+    {
+      "id": "temp_berlin_hourly",
+      "name": "Temperatura horaria \u2014 Berl\u00edn",
+      "v3": {
+        "mae": 1.9811351299285889,
+        "rmse": 2.5152932674449544,
+        "mape": 12.619700450323796
+      },
+      "v25": {
+        "mae": 1.8504150867462161,
+        "rmse": 2.2590482792089883,
+        "mape": 11.760203067052188
+      }
+    },
+    {
+      "id": "temp_bsas_hourly",
+      "name": "Temperatura horaria \u2014 Buenos Aires",
+      "v3": {
+        "mae": 1.759261711438497,
+        "rmse": 1.9053478273164977,
+        "mape": 9.741603369892339
+      },
+      "v25": {
+        "mae": 2.3804110765457156,
+        "rmse": 2.7014325069487466,
+        "mape": 13.133741940630653
+      }
+    },
+    {
+      "id": "vix_daily",
+      "name": "VIX diario",
+      "v3": {
+        "mae": 0.8048750618525914,
+        "rmse": 0.97510213771584,
+        "mape": 5.164408991412682
+      },
+      "v25": {
+        "mae": 0.8209360381535121,
+        "rmse": 0.997439340533985,
+        "mape": 5.290551656638643
+      }
+    }
+  ],
+  "generated_at": "2026-09-29T21:07:09.440314+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "ar_1115_prestamos_hipotecarios_para_comp",
+  "name": "Préstamos hipotecarios para compra de nuevas viviendas",
+  "description": "Préstamos hipotecarios para compra de nuevas viviendas API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1115",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

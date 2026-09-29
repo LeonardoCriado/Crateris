@@ -1,0 +1,14 @@
+{
+  "id": "ar_1203_tasas_de_interes_de_depositos_en",
+  "name": "Tasas de interés de depósitos en cajas de ahorro",
+  "description": "Tasas de interés de depósitos en cajas de ahorro API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1203",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

@@ -1,0 +1,14 @@
+{
+  "id": "ar_1245_oro__divisas__colocaciones_a_pla",
+  "name": "Oro, divisas, colocaciones a plazo y otros activos incluidos en las reservas int",
+  "description": "Oro, divisas, colocaciones a plazo y otros activos incluidos en las reservas internacionales API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1245",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

@@ -1,0 +1,14 @@
+{
+  "id": "ar_1373_cuentas_a_la_vista__del_total_de",
+  "name": "Cuentas a la vista  del total de sectores",
+  "description": "Cuentas a la vista  del total de sectores API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1373",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

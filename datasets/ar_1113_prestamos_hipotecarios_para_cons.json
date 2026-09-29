@@ -1,0 +1,14 @@
+{
+  "id": "ar_1113_prestamos_hipotecarios_para_cons",
+  "name": "Préstamos hipotecarios para construcción de viviendas",
+  "description": "Préstamos hipotecarios para construcción de viviendas API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1113",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

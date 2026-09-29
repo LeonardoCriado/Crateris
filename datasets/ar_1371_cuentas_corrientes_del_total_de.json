@@ -1,0 +1,14 @@
+{
+  "id": "ar_1371_cuentas_corrientes_del_total_de",
+  "name": "Cuentas corrientes del total de sectores",
+  "description": "Cuentas corrientes del total de sectores API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1371",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

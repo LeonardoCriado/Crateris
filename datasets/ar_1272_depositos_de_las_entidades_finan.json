@@ -1,0 +1,14 @@
+{
+  "id": "ar_1272_depositos_de_las_entidades_finan",
+  "name": "Depósitos de las entidades financieras en entidades financieras",
+  "description": "Depósitos de las entidades financieras en entidades financieras API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1272",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

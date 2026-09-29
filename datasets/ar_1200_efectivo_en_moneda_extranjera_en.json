@@ -1,0 +1,14 @@
+{
+  "id": "ar_1200_efectivo_en_moneda_extranjera_en",
+  "name": "Efectivo en moneda extranjera en entidades financieras",
+  "description": "Efectivo en moneda extranjera en entidades financieras API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1200",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

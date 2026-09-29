@@ -1,0 +1,14 @@
+{
+  "id": "ar_1205_tasa_de_interes_de_depositos_a_p",
+  "name": "Tasa de interés de depósitos a plazo fijo de 7 a 59 días",
+  "description": "Tasa de interés de depósitos a plazo fijo de 7 a 59 días API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1205",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}

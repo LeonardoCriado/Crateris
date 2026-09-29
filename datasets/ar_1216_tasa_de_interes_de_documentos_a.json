@@ -1,0 +1,14 @@
+{
+  "id": "ar_1216_tasa_de_interes_de_documentos_a",
+  "name": "Tasa de interés de documentos a sola firma a tasa fija",
+  "description": "Tasa de interés de documentos a sola firma a tasa fija API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1216",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

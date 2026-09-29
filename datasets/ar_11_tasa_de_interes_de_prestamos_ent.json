@@ -1,0 +1,14 @@
+{
+  "id": "ar_11_tasa_de_interes_de_prestamos_ent",
+  "name": "Tasa de interés de préstamos entre entidades financiera privadas (BAIBAR)",
+  "description": "Tasa de interés de préstamos entre entidades financiera privadas (BAIBAR) API del BCRA.",
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/11",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
+  "freq": "B",
+  "horizon": 28,
+  "covariates": []
+}
