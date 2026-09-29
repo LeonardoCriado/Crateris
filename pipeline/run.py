@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from pipeline import fetch, normalize, registry, schema
 
-OUT = "web/public/data"
+OUT = "web/data"
 
 
 def build(cfg: dict, do_forecast: bool) -> dict:
