@@ -26,6 +26,7 @@ es: {
   "kpi.wins": "Victorias TimesFM-3", "kpi.train": "Entrenamiento por serie",
   "about.p": "Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.",
   "about.details": "¿Cómo funciona el pronóstico zero-shot?",
+  "about.body": "<p>El modelo se pre-entrenó con miles de millones de puntos de series de todos los dominios, y pronostica una serie nueva <b>sin entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a cambio de ser menos interpretable y más conservador en rupturas.</p>",
   "bench.h2": "Benchmark", "bench.series": "Serie", "bench.filter": "Filtro",
   "bench.searchPh": "buscar serie…", "bench.searchAria": "Filtrar series",
   "bench.chartAria": "Serie histórica con pronóstico e intervalo de predicción",
@@ -82,6 +83,7 @@ en: {
   "kpi.wins": "TimesFM-3 wins", "kpi.train": "Per-series training",
   "about.p": "Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.",
   "about.details": "How does zero-shot forecasting work?",
+  "about.body": "<p>The model was pretrained on billions of time-series points from every domain, and forecasts a new series <b>without training on it</b> — like an LLM answering without fine-tuning. Unlike <b>ARIMA</b> (classical statistics: one fitted model per series, assumes linearity, needs enough history) and Meta's <b>Prophet</b> (additive trend + seasonality + holidays model, also fitted per series with manual setup), here there is <b>a single model for everything</b>, at the cost of lower interpretability and more conservative behavior on breaks.</p>",
   "bench.h2": "Benchmark", "bench.series": "Series", "bench.filter": "Filter",
   "bench.searchPh": "search series…", "bench.searchAria": "Filter series",
   "bench.chartAria": "Historical series with forecast and prediction interval",
@@ -423,27 +425,52 @@ function buildRanking() {
     }));
 }
 
+function fiveNum(xs) {
+  const s = [...xs].sort((a, b) => a - b);
+  const q = (p) => {
+    const i = (s.length - 1) * p;
+    const lo = Math.floor(i);
+    return s[lo] + (s[lo + 1] - s[lo] || 0) * (i - lo);
+  };
+  const q1 = q(0.25), med = q(0.5), q3 = q(0.75);
+  const iqr = q3 - q1;
+  const lo = s.find((v) => v >= q1 - 1.5 * iqr);
+  const hi = [...s].reverse().find((v) => v <= q3 + 1.5 * iqr);
+  return { box: [lo, q1, med, q3, hi],
+    out: s.filter((v) => v < lo || v > hi) };
+}
+
 function cmpDotOption(rows) {
   const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
-  const dot = (k, color) => rows.map((d, i) =>
-    d[k].mape != null ? { value: [i, +d[k].mape.toFixed(2)], name: d.name } : null)
-    .filter(Boolean);
+  const vals = (k) => rows.map((d) => d[k].mape).filter((v) => v != null);
+  const b3 = fiveNum(vals("v3")), b25 = fiveNum(vals("v25"));
+  const jit = (arr, x) => arr.map((v, i) =>
+    ({ value: [x + (i % 2 ? 0.08 : -0.08), +v.toFixed(2)] }));
   return {
     animation: false, backgroundColor: "transparent",
     textStyle: { color: c.text },
     tooltip: { trigger: "item", formatter: (p) =>
-      `${p.name}<br/>${p.seriesName}: <b>${p.value[1]}%</b>` },
+      p.value.length === 5
+        ? `${p.seriesName}<br/>min ${p.value[0]}% · Q1 ${p.value[1]}% · med ${p.value[2]}% · Q3 ${p.value[3]}% · max ${p.value[4]}%`
+        : `${p.seriesName}: <b>${p.value[1]}%</b>` },
     grid: { left: 8, right: 16, top: 30, bottom: 28, containLabel: true },
     legend: { textStyle: { color: c.text }, top: 0 },
-    xAxis: { type: "value", name: LANG === "es" ? "serie (ordenada por MAPE v3)" : "series (ranked by v3 MAPE)",
-      splitLine: { lineStyle: { color: c.grid } } },
+    xAxis: { type: "category", data: ["TimesFM-3", "TimesFM-2.5"],
+      axisLabel: { color: c.text } },
     yAxis: { type: "log",
       splitLine: { lineStyle: { color: c.grid } } },
     series: [
-      { name: "v3", type: "scatter", symbolSize: 7,
-        data: dot("v3", 0), color: c.accent },
-      { name: "v2.5", type: "scatter", symbolSize: 7,
-        data: dot("v25", 0), color: "#8a8a8a" },
+      { name: "MAPE distribution", type: "boxplot",
+        data: [b3.box, b25.box],
+        itemStyle: { color: "transparent", borderColor: c.accent, borderWidth: 2 } },
+      { name: "v3", type: "scatter", symbolSize: 5,
+        data: jit(vals("v3"), 0), color: c.accent },
+      { name: "v2.5", type: "scatter", symbolSize: 5,
+        data: jit(vals("v25"), 1), color: "#8a8a8a" },
+      { name: "outlier", type: "scatter", symbolSize: 7,
+        data: [...b3.out.map((v) => ({ value: [0, +v.toFixed(2)] })),
+               ...b25.out.map((v) => ({ value: [1, +v.toFixed(2)] }))],
+        color: "#e05252" },
     ],
   };
 }
@@ -467,11 +494,46 @@ function cmpBarOption(st) {
   };
 }
 
+let cmpSort = { key: "v3", dir: 1 };
+
+function buildCompareTable() {
+  if (!cmpRowsCache) return;
+  const val = (d) => cmpSort.key === "diff"
+    ? (d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null)
+    : (d[cmpSort.key].mape ?? null);
+  const rows = [...cmpRowsCache].sort((x, y) => {
+    const a = val(x), b = val(y);
+    if (a == null && b == null) return 0;
+    if (a == null) return 1;
+    if (b == null) return -1;
+    return (a - b) * cmpSort.dir;
+  });
+  const arrow = (k) => cmpSort.key === k ? (cmpSort.dir > 0 ? " ▲" : " ▼") : "";
+  let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th>` +
+    `<th scope="col"><button class="linklike" data-sort="v3">v3 MAPE${arrow("v3")}</button></th>` +
+    `<th scope="col"><button class="linklike" data-sort="v25">2.5 MAPE${arrow("v25")}</button></th>` +
+    `<th scope="col"><button class="linklike" data-sort="diff">Δ pp (v3−v2.5)${arrow("diff")}</button></th></tr>`;
+  for (const d of rows) {
+    const diff = d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null;
+    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
+    const ds = diff == null ? "—" : (diff > 0 ? "+" : "") + diff.toFixed(2);
+    html += `<tr><td>${pretty(d.name)}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
+      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${ds}</td></tr>`;
+  }
+  $("compare-table").innerHTML = html + "</table>";
+  $("compare-table").querySelectorAll("[data-sort]").forEach((b) => {
+    b.onclick = () => {
+      const k = b.dataset.sort;
+      cmpSort = cmpSort.key === k ? { key: k, dir: -cmpSort.dir } : { key: k, dir: 1 };
+      buildCompareTable();
+    };
+  });
+}
+
 function buildCompare() {
-  const div = $("compare-table");
-  div.innerHTML = "";
   $("kpis").innerHTML = "";
-  $("cmp-kpis").innerHTML = "";
   $("cmp-kpis").innerHTML = "";
   if (!cmpData || !cmpData.datasets || !cmpData.datasets.length) return;
   const both = cmpData.datasets.filter(
@@ -496,18 +558,7 @@ function buildCompare() {
   cmpRowsCache = rows;
   if (!cmpDots) cmpDots = echarts.init($("cmp-dots"));
   cmpDots.setOption(cmpDotOption(rows));
-  let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th><th scope="col">v3 MAPE</th>` +
-    `<th scope="col">2.5 MAPE</th><th scope="col">Δ pp (v3−v2.5)</th></tr>`;
-  for (const d of rows) {
-    const diff = d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null;
-    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
-    const ds = diff == null ? "—" : (diff > 0 ? "+" : "") + diff.toFixed(2);
-    html += `<tr><td>${pretty(d.name)}</td>` +
-      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
-      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
-      `<td class="${w === "v3" ? "win" : ""}">${ds}</td></tr>`;
-  }
-  div.innerHTML = html + "</table>";
+  buildCompareTable();
   // Learn + conclusion paragraphs (dynamic numbers).
   const best = Math.min(...both.map((d) => d.v3.mape));
   const worst = Math.max(...both.map((d) => d.v3.mape));
