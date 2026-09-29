@@ -125,8 +125,14 @@ const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
 
 const CONCL = {
 es: [
-  "<b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó {N} series sin un minuto de entrenamiento por serie</b>, con mediana de MAPE {MED3}% y un mejor caso de {BEST}%. La mediana —no el promedio— porque unas pocas series con ruptura (hasta 445%) distorsionan la media. Frente a ARIMA/Prophet las ventajas son operativas: cero modelos que mantener (uno solo), cero supuestos de estacionariedad, cero configuración manual de estacionalidad, múltiples frecuencias directo de caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad, peor reacción a rupturas y más cómputo por forecast (amortizado al escalar).",
-  "Probé los dos modelos fundacionales de series de Google en las mismas {BOTH} series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana {W3}–{W25} y la mediana es {MED3}% vs {MED25}%</b>. El modelo nuevo no aplasta al anterior.",
+  "Un único modelo pudo pronosticar <b>{N} series sin entrenamiento específico para ninguna de ellas</b>, alcanzando una <b>mediana de MAPE de {MED3}%</b> y un mejor caso de <b>{BEST}%</b>.",
+  "Usamos la mediana como métrica central porque unas pocas series con quiebres estructurales —con errores de hasta <b>{MAX}%</b>— distorsionan fuertemente el promedio. Esto también muestra uno de los principales límites del enfoque: los modelos fundacionales pueden ser robustos en muchas series, pero tienen dificultades frente a cambios abruptos en el comportamiento de una serie.",
+  "Frente a enfoques tradicionales como ARIMA o Prophet, la principal ventaja observada es <b>operativa</b>: un único modelo permite cubrir múltiples series y frecuencias sin mantener un modelo independiente ni configurar manualmente la estacionalidad para cada caso. Además, el forecast incluye intervalos de predicción de forma nativa.",
+  "El trade-off es claro: <b>menor interpretabilidad, peor comportamiento ante rupturas estructurales y mayor costo computacional por forecast</b>. A medida que aumenta el número de series, parte de ese costo puede amortizarse al reutilizar el mismo modelo y pipeline.",
+  "<h3>TimesFM-3 vs TimesFM-2.5</h3>",
+  "Sobre las <b>{BOTH} series comparables</b>, evaluamos TimesFM-3 y TimesFM-2.5 bajo las mismas condiciones: <b>mismo backtest y cero tuning específico por serie</b>.",
+  "TimesFM-3 obtuvo un MAPE menor en <b>{W3} de las {BOTH} series</b>, frente a {W25} para TimesFM-2.5. La <b>mediana de MAPE fue {MED3}% para TimesFM-3 frente a {MED25}% para TimesFM-2.5</b>.",
+  "La mejora existe, pero no es uniforme: <b>TimesFM-3 supera a TimesFM-2.5 en la mayoría de las series evaluadas, pero el modelo nuevo no domina en todos los casos</b>.",
 ],
 en: [
   "<b>Did we answer the question?</b> Yes: <b>one model forecast {N} series with zero per-series training</b>, at {MED3}% median MAPE and a best case of {BEST}%. Median —not mean— because a few broken series (up to 445%) skew the average. Against ARIMA/Prophet the advantages are operational: zero models to maintain (just one), zero stationarity assumptions, zero manual seasonality configuration, multiple frequencies out of the box and quantile bands included. The cost: lower interpretability, weaker reaction to breaks and more compute per forecast (amortized at scale).",
@@ -464,9 +470,11 @@ function buildCompare() {
   div.innerHTML = html + "</table>";
   // Learn + conclusion paragraphs (dynamic numbers).
   const best = Math.min(...both.map((d) => d.v3.mape));
+  const worst = Math.max(...both.map((d) => d.v3.mape));
   const o = { N: cmpData.datasets.length, BOTH: both.length,
     W3: wins, W25: both.length - wins, MED3: med3.toFixed(2),
-    MED25: med25.toFixed(2), BEST: best.toFixed(2) };
+    MED25: med25.toFixed(2), BEST: best.toFixed(2),
+    MAX: worst >= 100 ? Math.round(worst) : worst.toFixed(1) };
   $("learn-result").textContent = fmt(LANG === "es"
     ? "Un solo modelo pronosticó {N} series con cero entrenamiento por serie. Mediana de MAPE {MED3}%, mejor caso {BEST}%. La estacionalidad fuerte pronostica bien; las rupturas de régimen no."
     : "One model forecast {N} series with zero per-series training. Median MAPE {MED3}%, best case {BEST}%. Strong seasonality forecasts well; regime breaks do not.", o);
