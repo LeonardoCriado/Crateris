@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crateris — Forecasts TimesFM-3</title>
+<title>Crateris — Forecasts TimesFM-3 vs 2.5</title>
 <style>
   :root, [data-theme="dark"] {
     --bg: #0a0a0a; --panel: #141414; --line: #2a2a2a;
@@ -42,15 +42,17 @@
 </head>
 <body>
 <div class="top">
-  <h1>Crateris — forecasts zero-shot con TimesFM-3</h1>
+  <h1>Crateris 🏆 — forecasts zero-shot con TimesFM-3 y 2.5</h1>
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
 <details open>
 <summary>¿Qué es esto?</summary>
-<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
-descarga series temporales públicas y les aplica
-<a href="https://github.com/google-research/timesfm">TimesFM-3</a>, el modelo
-fundacional de series de Google (~330M parámetros), que pronostica <b>sin
+<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i> cuyo objetivo es
+validar si <b>un solo modelo puede pronosticar eficientemente un número alto de
+series temporales a la vez</b>: un pipeline descarga series públicas y les aplica
+<a href="https://github.com/google-research/timesfm">TimesFM-3</a> y
+<a href="https://huggingface.co/collections/google/timesfm-release-66e4be5fdb56e960c1e482a6">TimesFM-2.5</a>,
+los modelos fundacionales de series de Google, que pronostican <b>sin
 entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
 de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
 <p><b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
