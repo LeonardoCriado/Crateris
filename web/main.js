@@ -17,6 +17,7 @@ const num = (v) => v != null ? Number(v).toFixed(3) : "—";
 const I18N = {
 es: {
   "nav.skip": "Saltar al benchmark", "nav.theme": "Cambiar tema", "nav.themeLabel": "Tema",
+  "nav.data": "Datos al",
   "hero.eyebrow": "Showcase de investigación ML",
   "hero.h1": "¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?",
   "hero.sub": "Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.",
@@ -35,6 +36,7 @@ es: {
   "legend.fc25": "Pronóstico v2.5",
   "cmp.avg3": "Mediana MAPE · v3", "cmp.avg25": "Mediana MAPE · v2.5",
   "cmp.wins": "Victorias v3", "cmp.nomape": "Sin MAPE",
+  "cmp.dotsAria": "Distribución de errores por serie",
   "cmp.colSeries": "Serie", "cmp.cap": "MAPE por serie, mismo backtest, cero tuning",
   "top.h2": "Series con mejor desempeño",
   "top.sub": "Top 10 por MAPE. Elegí una serie para verla en el benchmark.",
@@ -52,7 +54,7 @@ es: {
   "method.context": "Contexto", "method.contextD": "Truncado a los 512 puntos más recientes por serie.",
   "method.inference": "Inferencia", "method.inferenceD": "CPU local, sin GPUs, sin entrenamiento por serie.",
   "lic.h2": "Licencias",
-  "lic.v25": "Los <i>pesos</i> de TimesFM-2.5 (los parámetros del modelo, es decir, los archivos que se descargan para usarlo) están publicados bajo licencia Apache-2.0, que permite el uso comercial en cualquier país, incluida Argentina.",
+  "lic.v25": "Los parámetros del modelo de TimesFM-2.5 —los archivos necesarios para ejecutarlo— están publicados bajo licencia Apache 2.0, que permite su uso, modificación y distribución, incluso con fines comerciales.",
   "lic.v3t": "Licencia no-comercial",
   "lic.v3": "Los pesos de TimesFM-3 tienen una licencia de Google solo para uso no-comercial.",
   "lic.disclaimer": "Disclaimer: esto no es asesoramiento legal. Antes de producción, verificá la licencia del checkpoint exacto que descargues, porque el código y los pesos pueden tener licencias distintas.",
@@ -60,6 +62,8 @@ es: {
   "foot.sourcesH": "Fuentes.",
   "foot.sources": "Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).",
   "foot.built": "Sin backend, sin paso de build.", "foot.code": "código y datos en",
+  "foot.linksH": "Enlaces oficiales de TimesFM.",
+  "foot.links": "Repositorio, paper, blog de investigación y checkpoints:",
   "meta.title": "Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?",
   "meta.desc": "Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales. Pronóstico zero-shot con backtesting.",
   "unavailable": "Serie no disponible", "noSeries": "Sin series disponibles",
@@ -69,6 +73,7 @@ es: {
 },
 en: {
   "nav.skip": "Skip to benchmark", "nav.theme": "Toggle color theme", "nav.themeLabel": "Theme",
+  "nav.data": "Data as of",
   "hero.eyebrow": "ML research showcase",
   "hero.h1": "Can one foundation model forecast dozens of time series without per-series training?",
   "hero.sub": "An empirical benchmark of Google's TimesFM foundation models across real-world time series.",
@@ -87,6 +92,7 @@ en: {
   "legend.fc25": "Forecast v2.5",
   "cmp.avg3": "Median MAPE · v3", "cmp.avg25": "Median MAPE · v2.5",
   "cmp.wins": "v3 wins", "cmp.nomape": "No MAPE",
+  "cmp.dotsAria": "Error distribution per series",
   "cmp.colSeries": "Series", "cmp.cap": "Per-series MAPE, same backtest, zero tuning",
   "top.h2": "Best-performing series",
   "top.sub": "Top 10 by MAPE. Select any series to inspect it in the benchmark above.",
@@ -104,7 +110,7 @@ en: {
   "method.context": "Context", "method.contextD": "Truncated to the most recent 512 points per series.",
   "method.inference": "Inference", "method.inferenceD": "Local CPU, no GPUs, no per-series training.",
   "lic.h2": "Licenses",
-  "lic.v25": "The <i>weights</i> of TimesFM-2.5 (the model parameters, i.e. the files you download to use it) are published under the Apache-2.0 license, which allows commercial use in any country, including Argentina.",
+  "lic.v25": "The TimesFM-2.5 model parameters —the files needed to run it— are published under the Apache 2.0 license, which allows use, modification and distribution, even for commercial purposes.",
   "lic.v3t": "Non-commercial license",
   "lic.v3": "The weights of TimesFM-3 carry a Google license for non-commercial use only.",
   "lic.disclaimer": "Disclaimer: this is not legal advice. Before production, verify the license of the exact checkpoint you download, as code and weights may carry different licenses.",
@@ -112,6 +118,8 @@ en: {
   "foot.sourcesH": "Sources.",
   "foot.sources": "Weather: Open-Meteo Archive API (CC-BY-4.0). Finance, energy and commodities: DataHub Core (ODC-PDDL). Argentine series: BCRA Statistics API (public use). INDEC via datos.gob.ar (CC-BY-4.0).",
   "foot.built": "No backend, no build step.", "foot.code": "code and data at",
+  "foot.linksH": "Official TimesFM links.",
+  "foot.links": "Repository, paper, research blog and checkpoints:",
   "meta.title": "Crateris — Can one foundation model forecast dozens of time series?",
   "meta.desc": "Crateris is an empirical benchmark of Google's TimesFM foundation models across 100+ real-world time series. Zero-shot forecasting with backtesting.",
   "unavailable": "Series unavailable", "noSeries": "No series available",
@@ -141,7 +149,8 @@ en: [
 
 let current = null, currentFile = null;
 const sparks = [];
-let cmpChart = null, cmpStats = null, cmpData = null, manifestData = null;
+let cmpChart = null, cmpDots = null, cmpStats = null, cmpData = null,
+  manifestData = null, cmpRowsCache = null;
 const rankData = [];
 
 const css = (name) => getComputedStyle(document.documentElement)
@@ -277,6 +286,7 @@ function renderAll() {
     current.a, current.hist, false, keepZoom(window.__main), current.fc25));
   sparks.forEach(({ chart, a }) => chart.setOption(sparkOption(a)));
   if (cmpChart && cmpStats) cmpChart.setOption(cmpBarOption(cmpStats));
+  if (cmpDots && cmpRowsCache) cmpDots.setOption(cmpDotOption(cmpRowsCache));
 }
 
 function applyI18n() {
@@ -292,6 +302,8 @@ function applyI18n() {
     el.setAttribute("content", t(el.dataset.i18nContent)));
   document.title = t("meta.title");
   $("lang").textContent = LANG === "es" ? "EN" : "ES";
+  if (manifestData && manifestData.generated_at) $("data-date").textContent =
+    `· ${t("nav.data")} ${manifestData.generated_at.slice(0, 10)}`;
   if (currentFile) show(currentFile);
   buildRanking();
   buildCompare();
@@ -411,6 +423,31 @@ function buildRanking() {
     }));
 }
 
+function cmpDotOption(rows) {
+  const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
+  const dot = (k, color) => rows.map((d, i) =>
+    d[k].mape != null ? { value: [i, +d[k].mape.toFixed(2)], name: d.name } : null)
+    .filter(Boolean);
+  return {
+    animation: false, backgroundColor: "transparent",
+    textStyle: { color: c.text },
+    tooltip: { trigger: "item", formatter: (p) =>
+      `${p.name}<br/>${p.seriesName}: <b>${p.value[1]}%</b>` },
+    grid: { left: 8, right: 16, top: 30, bottom: 28, containLabel: true },
+    legend: { textStyle: { color: c.text }, top: 0 },
+    xAxis: { type: "value", name: LANG === "es" ? "serie (ordenada por MAPE v3)" : "series (ranked by v3 MAPE)",
+      splitLine: { lineStyle: { color: c.grid } } },
+    yAxis: { type: "log",
+      splitLine: { lineStyle: { color: c.grid } } },
+    series: [
+      { name: "v3", type: "scatter", symbolSize: 7,
+        data: dot("v3", 0), color: c.accent },
+      { name: "v2.5", type: "scatter", symbolSize: 7,
+        data: dot("v25", 0), color: "#8a8a8a" },
+    ],
+  };
+}
+
 function cmpBarOption(st) {
   const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
   return {
@@ -456,6 +493,9 @@ function buildCompare() {
   cmpChart.setOption(cmpBarOption(cmpStats));
   const rows = [...cmpData.datasets].sort(
     (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
+  cmpRowsCache = rows;
+  if (!cmpDots) cmpDots = echarts.init($("cmp-dots"));
+  cmpDots.setOption(cmpDotOption(rows));
   let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th><th scope="col">v3 MAPE</th>` +
     `<th scope="col">2.5 MAPE</th><th scope="col">Δ pp (v3−v2.5)</th></tr>`;
   for (const d of rows) {
@@ -514,6 +554,8 @@ async function load() {
 
   const m = await (await fetch("data/manifest.json")).json();
   manifestData = m;
+  if (m.generated_at) $("data-date").textContent =
+    `· ${t("nav.data")} ${m.generated_at.slice(0, 10)}`;
   try {
     cmpData = await (await fetch("data/compare.json")).json();
   } catch { cmpData = null; }
