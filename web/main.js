@@ -6,6 +6,11 @@ const $ = (id) => document.getElementById(id);
 const NEED = ["meta", "history", "forecast", "quantiles", "metrics", "generated_at"];
 const valid = (a) => a && NEED.every((k) => k in a);
 const pretty = (s) => String(s).replaceAll("_", " ");
+const median = (xs) => {
+  const s = [...xs].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
 const pct = (v) => v != null ? v.toFixed(2) + "%" : "—";
 const num = (v) => v != null ? Number(v).toFixed(3) : "—";
 
@@ -16,7 +21,7 @@ es: {
   "hero.h1": "¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?",
   "hero.sub": "Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.",
   "hero.cta1": "Explorar el benchmark ↓", "hero.cta2": "Ver en GitHub ↗",
-  "kpi.series": "Series evaluadas", "kpi.avg": "MAPE promedio · TimesFM-3",
+  "kpi.series": "Series evaluadas", "kpi.avg": "Mediana MAPE · TimesFM-3",
   "kpi.wins": "Victorias TimesFM-3", "kpi.train": "Entrenamiento por serie",
   "about.p": "Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.",
   "about.details": "¿Cómo funciona el pronóstico zero-shot?",
@@ -27,12 +32,15 @@ es: {
   "fact.horizon": "Horizonte de pronóstico", "fact.backtest": "Horizonte de backtest",
   "freq.M": "Mensual", "freq.D": "Diaria", "freq.H": "Horaria", "freq.B": "Días hábiles",
   "legend.hist": "Historia", "legend.fc": "Pronóstico", "legend.band": "Intervalo",
-  "cmp.avg3": "MAPE prom. · v3", "cmp.avg25": "MAPE prom. · v2.5",
+  "legend.fc25": "Pronóstico v2.5",
+  "cmp.avg3": "Mediana MAPE · v3", "cmp.avg25": "Mediana MAPE · v2.5",
   "cmp.wins": "Victorias v3", "cmp.nomape": "Sin MAPE",
   "cmp.colSeries": "Serie", "cmp.cap": "MAPE por serie, mismo backtest, cero tuning",
   "top.h2": "Series con mejor desempeño",
   "top.sub": "Top 10 por MAPE. Elegí una serie para verla en el benchmark.",
   "top.inspect": "Inspeccionar ↑", "top.noMape": "sin MAPE",
+  "worst.h2": "Series con peor desempeño",
+  "worst.sub": "Bottom 5 por MAPE: donde el modelo sufre.",
   "learn.h2": "¿Qué aprendimos?", "learn.resultH": "El resultado", "learn.compareH": "La comparación",
   "learn.tradeH": "Los trade-offs",
   "learn.t1": "Menos modelos individuales que mantener", "learn.t2": "Menos configuración manual",
@@ -65,7 +73,7 @@ en: {
   "hero.h1": "Can one foundation model forecast dozens of time series without per-series training?",
   "hero.sub": "An empirical benchmark of Google's TimesFM foundation models across real-world time series.",
   "hero.cta1": "Explore the benchmark ↓", "hero.cta2": "View on GitHub ↗",
-  "kpi.series": "Series evaluated", "kpi.avg": "Average MAPE · TimesFM-3",
+  "kpi.series": "Series evaluated", "kpi.avg": "Median MAPE · TimesFM-3",
   "kpi.wins": "TimesFM-3 wins", "kpi.train": "Per-series training",
   "about.p": "Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.",
   "about.details": "How does zero-shot forecasting work?",
@@ -76,12 +84,15 @@ en: {
   "fact.horizon": "Forecast horizon", "fact.backtest": "Backtest horizon",
   "freq.M": "Monthly", "freq.D": "Daily", "freq.H": "Hourly", "freq.B": "Business-daily",
   "legend.hist": "Historical", "legend.fc": "Forecast", "legend.band": "Prediction interval",
-  "cmp.avg3": "Avg MAPE · v3", "cmp.avg25": "Avg MAPE · v2.5",
+  "legend.fc25": "Forecast v2.5",
+  "cmp.avg3": "Median MAPE · v3", "cmp.avg25": "Median MAPE · v2.5",
   "cmp.wins": "v3 wins", "cmp.nomape": "No MAPE",
   "cmp.colSeries": "Series", "cmp.cap": "Per-series MAPE, same backtest, zero tuning",
   "top.h2": "Best-performing series",
   "top.sub": "Top 10 by MAPE. Select any series to inspect it in the benchmark above.",
   "top.inspect": "Inspect ↑", "top.noMape": "no MAPE",
+  "worst.h2": "Worst-performing series",
+  "worst.sub": "Bottom 5 by MAPE: where the model struggles.",
   "learn.h2": "What did we learn?", "learn.resultH": "The result", "learn.compareH": "The comparison",
   "learn.tradeH": "The trade-offs",
   "learn.t1": "Fewer individual models to maintain", "learn.t2": "Less manual configuration",
@@ -114,12 +125,12 @@ const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
 
 const CONCL = {
 es: [
-  "<b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó {N} series sin un minuto de entrenamiento por serie</b>, con MAPE medio {AVG}% y un mejor caso de {BEST}%. Frente a ARIMA/Prophet las ventajas son operativas: cero modelos que mantener (uno solo), cero supuestos de estacionariedad, cero configuración manual de estacionalidad, múltiples frecuencias directo de caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad, peor reacción a rupturas y más cómputo por forecast (amortizado al escalar).",
-  "Probé los dos modelos fundacionales de series de Google en las mismas {BOTH} series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana {W3}–{W25} y el MAPE medio es {A3}% vs {A25}%</b>. El modelo nuevo no aplasta al anterior.",
+  "<b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó {N} series sin un minuto de entrenamiento por serie</b>, con mediana de MAPE {MED3}% y un mejor caso de {BEST}%. La mediana —no el promedio— porque unas pocas series con ruptura (hasta 445%) distorsionan la media. Frente a ARIMA/Prophet las ventajas son operativas: cero modelos que mantener (uno solo), cero supuestos de estacionariedad, cero configuración manual de estacionalidad, múltiples frecuencias directo de caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad, peor reacción a rupturas y más cómputo por forecast (amortizado al escalar).",
+  "Probé los dos modelos fundacionales de series de Google en las mismas {BOTH} series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana {W3}–{W25} y la mediana es {MED3}% vs {MED25}%</b>. El modelo nuevo no aplasta al anterior.",
 ],
 en: [
-  "<b>Did we answer the question?</b> Yes: <b>one model forecast {N} series with zero per-series training</b>, at {AVG}% average MAPE and a best case of {BEST}%. Against ARIMA/Prophet the advantages are operational: zero models to maintain (just one), zero stationarity assumptions, zero manual seasonality configuration, multiple frequencies out of the box and quantile bands included. The cost: lower interpretability, weaker reaction to breaks and more compute per forecast (amortized at scale).",
-  "I ran both Google time-series foundation models on the same {BOTH} comparable series, same backtest, zero tuning: <b>TimesFM-3 wins {W3}–{W25} with {A3}% vs {A25}% average MAPE</b>. Newer does not crush older.",
+  "<b>Did we answer the question?</b> Yes: <b>one model forecast {N} series with zero per-series training</b>, at {MED3}% median MAPE and a best case of {BEST}%. Median —not mean— because a few broken series (up to 445%) skew the average. Against ARIMA/Prophet the advantages are operational: zero models to maintain (just one), zero stationarity assumptions, zero manual seasonality configuration, multiple frequencies out of the box and quantile bands included. The cost: lower interpretability, weaker reaction to breaks and more compute per forecast (amortized at scale).",
+  "I ran both Google time-series foundation models on the same {BOTH} comparable series, same backtest, zero tuning: <b>TimesFM-3 wins {W3}–{W25} with {MED3}% vs {MED25}% median MAPE</b>. Newer does not crush older.",
 ]};
 
 let current = null, currentFile = null;
@@ -177,14 +188,14 @@ function seriesFor(a, hist) {
 function tipFmt(ps) {
   let s = `<b>${ps[0].axisValue}</b>`;
   ps.forEach((p) => {
-    if ((p.seriesName === t("legend.hist") || p.seriesName === t("legend.fc")) &&
-        p.value != null)
+    if ((p.seriesName === t("legend.hist") || p.seriesName === t("legend.fc") ||
+         p.seriesName === t("legend.fc25")) && p.value != null)
       s += `<br/>${p.marker} ${p.seriesName}: <b>${p.value}</b>`;
   });
   return s;
 }
 
-function optionFor(a, hist, framed, keep) {
+function optionFor(a, hist, framed, keep, fc25) {
   const h = a.forecast.length;
   const hx = hist.map((p) => p[0]);
   const fx = projectDates(hx[hx.length - 1], a.meta.freq, h);
@@ -219,6 +230,11 @@ function optionFor(a, hist, framed, keep) {
         color: css("--muted") })),
       { name: t("legend.fc"), type: "line", showSymbol: false,
         data: pad, color: css("--fc"), lineStyle: { width: 2 } },
+      ...(fc25 && fc25.length === h ? [{
+        name: t("legend.fc25"), type: "line", showSymbol: false,
+        data: [...new Array(hist.length - 1).fill(null),
+          hist[hist.length - 1][1], ...fc25],
+        color: "#8a8a8a", lineStyle: { width: 1.5, type: "dashed" } }] : []),
     ],
   };
 }
@@ -252,7 +268,7 @@ function keepZoom(chart) {
 
 function renderAll() {
   if (current) window.__main.setOption(optionFor(
-    current.a, current.hist, false, keepZoom(window.__main)));
+    current.a, current.hist, false, keepZoom(window.__main), current.fc25));
   sparks.forEach(({ chart, a }) => chart.setOption(sparkOption(a)));
   if (cmpChart && cmpStats) cmpChart.setOption(cmpBarOption(cmpStats));
 }
@@ -304,8 +320,10 @@ async function show(file) {
     a = await (await fetch(file)).json();
   } catch { return void ($("unavailable").textContent = t("unavailable")); }
   if (!valid(a)) return void ($("unavailable").textContent = t("unavailable"));
-  current = { a, hist: a.history.slice(-2000) };
-  window.__main.setOption(optionFor(a, current.hist, false), true);
+  const row = cmpData ? cmpData.datasets.find((d) => d.id === a.meta.dataset_id) : null;
+  const fc25 = row && row.v25_fc && row.v25_fc.length === a.forecast.length ? row.v25_fc : null;
+  current = { a, hist: a.history.slice(-2000), fc25 };
+  window.__main.setOption(optionFor(a, current.hist, false, null, fc25), true);
   const mt = a.metrics || {};
   const facts = [
     [t("fact.series"), pretty(a.meta.name), ""],
@@ -326,24 +344,18 @@ async function show(file) {
     `TimesFM-3 weights under non-commercial license (showcase only).`;
 }
 
-function buildRanking() {
-  const rank = $("ranking");
+function buildList(elId, items) {
+  const rank = $(elId);
   rank.innerHTML = "";
-  sparks.length = 0;
-  if (!manifestData) return;
-  const top = manifestData.datasets
-    .filter((d) => d.file)
-    .sort((x, y) => (x.mape ?? Infinity) - (y.mape ?? Infinity))
-    .slice(0, 10);
-  let i = 0;
-  const jobs = top.map(async (d) => {
+  const jobs = items.map(async (d) => {
     let a;
     try {
       a = await (await fetch(d.file)).json();
     } catch { return null; }
     return valid(a) ? { d, a } : null;
   });
-  Promise.all(jobs).then((res) => {
+  return Promise.all(jobs).then((res) => {
+    let i = 0;
     res.forEach((r) => {
       if (!r) return;
       i++;
@@ -368,8 +380,29 @@ function buildRanking() {
         $("benchmark").scrollIntoView({ behavior: "smooth" });
       };
     });
-    if (!i) $("unavailable").textContent = t("noSeries");
+    return i;
   });
+}
+
+function buildRanking() {
+  const rank = $("ranking");
+  rank.innerHTML = "";
+  const worst = $("ranking-worst");
+  if (worst) worst.innerHTML = "";
+  sparks.length = 0;
+  if (!manifestData) return Promise.resolve();
+  const top = manifestData.datasets
+    .filter((d) => d.file)
+    .sort((x, y) => (x.mape ?? Infinity) - (y.mape ?? Infinity))
+    .slice(0, 10);
+  const bad = [...manifestData.datasets]
+    .filter((d) => d.file && d.mape != null)
+    .sort((x, y) => y.mape - x.mape)
+    .slice(0, 5);
+  return buildList("ranking", top).then((n) =>
+    buildList("ranking-worst", bad).then((m) => {
+      if (!n && !m) $("unavailable").textContent = t("noSeries");
+    }));
 }
 
 function cmpBarOption(st) {
@@ -382,7 +415,7 @@ function cmpBarOption(st) {
     grid: { left: 8, right: 8, top: 8, bottom: 28, containLabel: true },
     xAxis: { type: "category", data: ["TimesFM-3", "TimesFM-2.5"],
       axisLabel: { color: c.text } },
-    yAxis: { type: "value", name: "avg MAPE %",
+    yAxis: { type: "value", name: "median MAPE %",
       splitLine: { lineStyle: { color: c.grid } } },
     series: [{ type: "bar", barWidth: "38%",
       data: [{ value: st.avg3, itemStyle: { color: c.accent } },
@@ -402,15 +435,15 @@ function buildCompare() {
     (d) => d.v3.mape != null && d.v25.mape != null);
   if (!both.length) return;
   const wins = both.filter((d) => d.v3.mape <= d.v25.mape).length;
-  const avg3 = both.reduce((s, d) => s + d.v3.mape, 0) / both.length;
-  const avg25 = both.reduce((s, d) => s + d.v25.mape, 0) / both.length;
-  cmpStats = { avg3: +avg3.toFixed(2), avg25: +avg25.toFixed(2) };
+  const med3 = median(both.map((d) => d.v3.mape));
+  const med25 = median(both.map((d) => d.v25.mape));
+  cmpStats = { avg3: +med3.toFixed(2), avg25: +med25.toFixed(2) };
   kpi("kpis", cmpData.datasets.length, t("kpi.series"));
-  kpi("kpis", avg3.toFixed(2) + "%", t("kpi.avg"));
+  kpi("kpis", med3.toFixed(2) + "%", t("kpi.avg"));
   kpi("kpis", `${wins} / ${both.length}`, t("kpi.wins"));
   kpi("kpis", "0", t("kpi.train"));
-  kpi("cmp-kpis", avg3.toFixed(2) + "%", t("cmp.avg3"));
-  kpi("cmp-kpis", avg25.toFixed(2) + "%", t("cmp.avg25"));
+  kpi("cmp-kpis", med3.toFixed(2) + "%", t("cmp.avg3"));
+  kpi("cmp-kpis", med25.toFixed(2) + "%", t("cmp.avg25"));
   kpi("cmp-kpis", `${wins} / ${both.length}`, t("cmp.wins"));
   kpi("cmp-kpis", cmpData.datasets.length - both.length, t("cmp.nomape"));
   if (!cmpChart) cmpChart = echarts.init($("cmp-visual"));
@@ -418,26 +451,28 @@ function buildCompare() {
   const rows = [...cmpData.datasets].sort(
     (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
   let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th><th scope="col">v3 MAPE</th>` +
-    `<th scope="col">2.5 MAPE</th><th scope="col">${LANG === "es" ? "Mejor" : "Better"}</th></tr>`;
+    `<th scope="col">2.5 MAPE</th><th scope="col">Δ pp (v3−v2.5)</th></tr>`;
   for (const d of rows) {
+    const diff = d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null;
     const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
+    const ds = diff == null ? "—" : (diff > 0 ? "+" : "") + diff.toFixed(2);
     html += `<tr><td>${pretty(d.name)}</td>` +
       `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
       `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
-      `<td>${w}</td></tr>`;
+      `<td class="${w === "v3" ? "win" : ""}">${ds}</td></tr>`;
   }
   div.innerHTML = html + "</table>";
   // Learn + conclusion paragraphs (dynamic numbers).
   const best = Math.min(...both.map((d) => d.v3.mape));
   const o = { N: cmpData.datasets.length, BOTH: both.length,
-    W3: wins, W25: both.length - wins, A3: avg3.toFixed(2),
-    A25: avg25.toFixed(2), AVG: avg3.toFixed(2), BEST: best.toFixed(2) };
+    W3: wins, W25: both.length - wins, MED3: med3.toFixed(2),
+    MED25: med25.toFixed(2), BEST: best.toFixed(2) };
   $("learn-result").textContent = fmt(LANG === "es"
-    ? "Un solo modelo pronosticó {N} series con cero entrenamiento por serie. MAPE medio {AVG}%, mejor caso {BEST}%. La estacionalidad fuerte pronostica bien; las rupturas de régimen no."
-    : "One model forecast {N} series with zero per-series training. Average MAPE {AVG}%, best case {BEST}%. Strong seasonality forecasts well; regime breaks do not.", o);
+    ? "Un solo modelo pronosticó {N} series con cero entrenamiento por serie. Mediana de MAPE {MED3}%, mejor caso {BEST}%. La estacionalidad fuerte pronostica bien; las rupturas de régimen no."
+    : "One model forecast {N} series with zero per-series training. Median MAPE {MED3}%, best case {BEST}%. Strong seasonality forecasts well; regime breaks do not.", o);
   $("learn-compare").textContent = fmt(LANG === "es"
-    ? "TimesFM-3 le gana a 2.5 {W3}–{W25} en MAPE, {A3}% vs {A25}% en promedio. Lo nuevo no aplasta a lo anterior."
-    : "TimesFM-3 beats 2.5 {W3}–{W25} on MAPE, {A3}% vs {A25}% on average. Newer does not crush older.", o);
+    ? "TimesFM-3 le gana a 2.5 {W3}–{W25} en MAPE, mediana {MED3}% vs {MED25}%. Lo nuevo no aplasta a lo anterior."
+    : "TimesFM-3 beats 2.5 {W3}–{W25} on MAPE, {MED3}% vs {MED25}% median. Newer does not crush older.", o);
   $("conclusion-body").innerHTML = CONCL[LANG].map((p) =>
     `<p>${fmt(p, o)}</p>`).join("");
 }

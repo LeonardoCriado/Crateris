@@ -23,8 +23,9 @@ def main() -> None:
         art = json.load(open(os.path.join("web/data", cfg["id"] + ".json")))
         v25 = evaluate.backtest(series, cfg["horizon"],
                                 predict=forecast25.predict)
+        full25 = forecast25.predict(series, cfg["horizon"])["forecast"]
         rows.append({"id": cfg["id"], "name": cfg["name"],
-                     "v3": art["metrics"], "v25": v25})
+                     "v3": art["metrics"], "v25": v25, "v25_fc": full25})
         print(f"{cfg['id']}: v3={pct(art['metrics']['mape'])} "
               f"v25={pct(v25['mape'])}", flush=True)
     with open(OUT, "w", encoding="utf-8") as f:
