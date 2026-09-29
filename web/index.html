@@ -20,6 +20,11 @@
   button { cursor: pointer; }
   button:hover { border-color: var(--accent); }
   #chart { width: 100%; height: 420px; margin-top: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .5rem; box-sizing: border-box; }
+  .item { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem; margin-top: 1.2rem; }
+  .item h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
+  .item h3 .badge { color: var(--accent); font-weight: normal; font-size: .9rem; margin-left: .5rem; }
+  .item .chart { width: 100%; height: 240px; }
+  .item .meta { margin: .4rem 0 0; }
   .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
   .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
   .card b { display: block; font-size: 1.2rem; color: var(--accent); }
@@ -35,7 +40,6 @@
   <h1>Crateris — forecasts zero-shot con TimesFM-3</h1>
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
-<label>Dataset: <select id="ds"></select></label>
 <details open>
 <summary>¿Qué es esto?</summary>
 <p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
@@ -45,9 +49,8 @@ fundacional de series de Google (~330M parámetros), que pronostica <b>sin
 entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
 de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
 </details>
-<div id="chart"></div>
-<div class="cards" id="cards"></div>
-<p class="meta" id="meta"></p>
+<h2>Top 10 forecasts por MAPE</h2>
+<div id="ranking"></div>
 <p id="unavailable"></p>
 <footer>
 <b>¿Sirve realmente?</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
