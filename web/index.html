@@ -20,10 +20,18 @@
   button { cursor: pointer; }
   button:hover { border-color: var(--accent); }
   #chart { width: 100%; height: 420px; margin-top: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .5rem; box-sizing: border-box; }
+  .item .chart { background: transparent; border: none; padding: 0; }
+  .item { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem; margin-top: 1.2rem; }
+  .item h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
+  .item h3 .badge { color: var(--accent); font-weight: normal; font-size: .9rem; margin-left: .5rem; }
+  .item .chart { width: 100%; height: 240px; }
+  .item .meta { margin: .4rem 0 0; }
   .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
   .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
   .card b { display: block; font-size: 1.2rem; color: var(--accent); }
   .meta { color: var(--muted); font-size: .85rem; margin-top: 1rem; }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  footer b { color: var(--text); }
   #unavailable { color: #f66; }
   .top { display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 </style>
@@ -33,7 +41,6 @@
   <h1>Crateris — forecasts zero-shot con TimesFM-3</h1>
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
-<label>Dataset: <select id="ds"></select></label>
 <details open>
 <summary>¿Qué es esto?</summary>
 <p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
@@ -43,10 +50,31 @@ fundacional de series de Google (~330M parámetros), que pronostica <b>sin
 entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
 de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
 </details>
+<label>Dataset: <select id="ds"></select></label>
 <div id="chart"></div>
 <div class="cards" id="cards"></div>
 <p class="meta" id="meta"></p>
+<h2>Top 10 forecasts por MAPE</h2>
+<div id="ranking"></div>
 <p id="unavailable"></p>
+<footer>
+<b>¿Sirve realmente?</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
+y regímenes estables (clima, CO₂: MAPE &lt;1%). Flojea ante cambios de régimen
+que no vio (rally del oro 2024–26, shocks cambiarios): ahí el pronóstico puntual
+se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
+<i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
+un techo: con covariables y contexto completo (soportado por el modelo) hay
+margen real de mejora.
+<br><br>
+<b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
+puntos de series de todos los dominios, y pronostica una serie nueva <b>sin
+entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia
+con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume
+linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo
+aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y
+con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a
+cambio de ser menos interpretable y más conservador en rupturas.
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
 </body>

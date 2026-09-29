@@ -1,18 +1,17 @@
-/* Lee manifest.json + artefactos. Sin build. Las etiquetas del forecast
-   son h+1..h+n (ponytail: para freq B caen en finde; el upgrade es
-   proyectar fechas por calendario). */
+/* General con selector + ranking top-10 por MAPE (encuadre inicial
+   50% historia / 50% forecast, dataZoom inside para explorar).
+   Sin build. Fechas del forecast proyectadas en UTC (ponytail: para
+   freq B caen en finde; el upgrade es proyectar por calendario). */
 const $ = (id) => document.getElementById(id);
-const chart = echarts.init($("chart"));
 const NEED = ["meta", "history", "forecast", "quantiles", "metrics", "generated_at"];
 const valid = (a) => a && NEED.every((k) => k in a);
+const mainChart = echarts.init($("chart"));
+const charts = []; // ranking: {chart, a, hist} para re-render por tema
 let current = null;
 
 const css = (name) => getComputedStyle(document.documentElement)
   .getPropertyValue(name).trim();
 
-/* Proyecta fechas reales desde el último dato según frecuencia.
-   B salta fines de semana (ponytail: feriados no contemplados, igual que
-   en el pipeline). */
 function projectDates(last, freq, n) {
   const iso = last.length === 7 ? last + "-01" : last;
   // Todo en UTC: los setters locales derivan el día según el TZ del browser.
@@ -31,15 +30,23 @@ function projectDates(last, freq, n) {
   return out;
 }
 
-function optionFor(a, hist) {
+// framed=true: vista completa inicial (ranking). false: vista completa (general).
+// keep={start,end}: conserva el zoom actual (cambio de tema).
+function optionFor(a, hist, framed, keep) {
+  const h = a.forecast.length;
   const hx = hist.map((p) => p[0]);
-  const fx = projectDates(hx[hx.length - 1], a.meta.freq, a.forecast.length);
+  const fx = projectDates(hx[hx.length - 1], a.meta.freq, h);
   const q = a.quantiles;
   const pad = (vals) => [...new Array(hist.length - 1).fill(null),
     hist[hist.length - 1][1], ...vals];
   const blanks = new Array(hist.length).fill(null);
+  const init = keep || { start: 0, end: 100 }; // zoom-out máximo inicial
+  const zoom = framed
+    ? [{ type: "inside", xAxisIndex: 0, ...init }]
+    : [{ type: "inside", xAxisIndex: 0 },
+       { type: "slider", xAxisIndex: 0 }];
   return {
-    animation: false, // headless/throttled rAF deja la animación a medias
+    animation: false,
     backgroundColor: "transparent",
     textStyle: { color: css("--text") },
     tooltip: { trigger: "axis" },
@@ -47,7 +54,7 @@ function optionFor(a, hist) {
       splitLine: { lineStyle: { color: css("--grid") } } },
     yAxis: { type: "value", scale: true,
       splitLine: { lineStyle: { color: css("--grid") } } },
-    dataZoom: [{ type: "inside", xAxisIndex: 0 }, { type: "slider", xAxisIndex: 0 }],
+    dataZoom: zoom,
     series: [
       { name: "historia", type: "line", showSymbol: false,
         data: hist.map((p) => p[1]), color: css("--hist") },
@@ -63,14 +70,49 @@ function optionFor(a, hist) {
   };
 }
 
-function render() {
-  if (current) chart.setOption(optionFor(current.a, current.hist), true);
+const HELP = {
+  mae: "MAE — error absoluto medio: promedio de los errores en las mismas unidades de la serie. Menor es mejor.",
+  rmse: "RMSE — raíz del error cuadrático medio: como el MAE pero penaliza más los errores grandes.",
+  mape: "MAPE — error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
+};
+
+function keepZoom(chart) {
+  try {
+    const dz = chart.getOption().dataZoom[0];
+    return { start: dz.start, end: dz.end };
+  } catch { return null; }
+}
+
+function renderAll() {
+  // conserva el zoom/filtros del usuario al cambiar tema
+  if (current) mainChart.setOption(optionFor(
+    current.a, current.hist, false, keepZoom(mainChart)));
+  charts.forEach(({ chart, a, hist }) =>
+    chart.setOption(optionFor(a, hist, true, keepZoom(chart))));
 }
 
 function setTheme(t) {
   document.documentElement.dataset.theme = t;
   try { localStorage.setItem("crateris-theme", t); } catch {}
-  render();
+  renderAll();
+}
+
+async function show(file) {
+  $("unavailable").textContent = "";
+  let a;
+  try {
+    a = await (await fetch(file)).json();
+  } catch { return void ($("unavailable").textContent = "dataset no disponible"); }
+  if (!valid(a)) return void ($("unavailable").textContent = "dataset no disponible");
+  current = { a, hist: a.history.slice(-2000) };
+  mainChart.setOption(optionFor(a, current.hist, false), true);
+  const mt = a.metrics || {};
+  $("cards").innerHTML = ["mae", "rmse", "mape"].map((k) =>
+    `<div class="card" title="${HELP[k]}">${k.toUpperCase()}<b>${mt[k] != null ? Number(mt[k]).toFixed(3) : "—"}</b></div>`).join("");
+  $("meta").textContent =
+    `${a.meta.name} · fuente: ${a.meta.source.url} (${a.meta.source.license}) · ` +
+    `modelo: ${a.meta.model || "pendiente"} · generado: ${a.generated_at} · ` +
+    `Pesos TimesFM-3 bajo licencia no-comercial (solo portfolio).`;
 }
 
 async function load() {
@@ -94,30 +136,35 @@ async function load() {
   });
   sel.onchange = () => show(sel.value);
   if (m.datasets.length) show(m.datasets[0].file);
-}
-
-async function show(file) {
-  $("unavailable").textContent = "";
-  let a;
-  try {
-    a = await (await fetch(file)).json();
-  } catch { return void ($("unavailable").textContent = "dataset no disponible"); }
-  if (!valid(a)) return void ($("unavailable").textContent = "dataset no disponible");
-  const N = 2000; // dataZoom recorta la vista; se carga más historia
-  current = { a, hist: a.history.slice(-N) };
-  render();
-  const mt = a.metrics || {};
-  const HELP = {
-    mae: "MAE — error absoluto medio: promedio de los errores en las mismas unidades de la serie. Menor es mejor.",
-    rmse: "RMSE — raíz del error cuadrático medio: como el MAE pero penaliza más los errores grandes.",
-    mape: "MAPE — error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
-  };
-  $("cards").innerHTML = ["mae", "rmse", "mape"].map((k) =>
-    `<div class="card" title="${HELP[k]}">${k.toUpperCase()}<b>${mt[k] != null ? Number(mt[k]).toFixed(3) : "—"}</b></div>`).join("");
-  $("meta").textContent =
-    `${a.meta.name} · fuente: ${a.meta.source.url} (${a.meta.source.license}) · ` +
-    `modelo: ${a.meta.model || "pendiente"} · generado: ${a.generated_at} · ` +
-    `Pesos TimesFM-3 bajo licencia no-comercial (solo portfolio).`;
+  const top = m.datasets
+    .filter((d) => d.mape != null)
+    .sort((x, y) => x.mape - y.mape)
+    .slice(0, 10);
+  const rank = $("ranking");
+  let i = 0;
+  for (const d of top) {
+    let a;
+    try {
+      a = await (await fetch(d.file)).json();
+    } catch { continue; }
+    if (!valid(a)) continue;
+    i++;
+    const h = a.forecast.length;
+    const hist = a.history.slice(-6 * h);
+    const sec = document.createElement("section");
+    sec.className = "item";
+    const mt = a.metrics || {};
+    sec.innerHTML =
+      `<h3>#${i} ${a.meta.name}<span class="badge">MAPE ${Number(mt.mape).toFixed(2)}%</span></h3>` +
+      `<div class="chart" id="c-${a.meta.dataset_id}"></div>` +
+      `<p class="meta">MAE ${Number(mt.mae).toFixed(3)} · RMSE ${Number(mt.rmse).toFixed(3)} · ` +
+      `fuente: ${a.meta.source.url} (${a.meta.source.license}) · modelo: ${a.meta.model}</p>`;
+    rank.appendChild(sec);
+    const chart = echarts.init(sec.querySelector(".chart"));
+    charts.push({ chart, a, hist });
+    chart.setOption(optionFor(a, hist, true));
+  }
+  if (!i) $("unavailable").textContent = "sin datasets disponibles";
 }
 
 load();

@@ -61,7 +61,8 @@ def main() -> None:
         manifest["datasets"].append({
             "id": cfg["id"], "name": cfg["name"],
             "category": cfg["category"], "freq": cfg["freq"],
-            "horizon": cfg["horizon"], "file": f"data/{cfg['id']}.json"})
+            "horizon": cfg["horizon"], "file": f"data/{cfg['id']}.json",
+            "mape": art["metrics"].get("mape")})
     with open(os.path.join(OUT, "manifest.json"), "w",
               encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
