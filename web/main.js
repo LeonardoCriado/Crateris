@@ -17,6 +17,7 @@ const num = (v) => v != null ? Number(v).toFixed(3) : "—";
 const I18N = {
 es: {
   "nav.skip": "Saltar al benchmark", "nav.theme": "Cambiar tema", "nav.themeLabel": "Tema",
+  "nav.data": "Datos al",
   "hero.eyebrow": "Showcase de investigación ML",
   "hero.h1": "¿Puede un solo modelo fundacional pronosticar decenas de series temporales sin entrenamiento por serie?",
   "hero.sub": "Un benchmark empírico de los modelos fundacionales TimesFM de Google sobre series temporales reales.",
@@ -25,6 +26,7 @@ es: {
   "kpi.wins": "Victorias TimesFM-3", "kpi.train": "Entrenamiento por serie",
   "about.p": "Crateris evalúa si un único modelo fundacional preentrenado puede pronosticar muchas series temporales nunca vistas sin entrenar un modelo separado para cada serie.",
   "about.details": "¿Cómo funciona el pronóstico zero-shot?",
+  "about.body": "<p>El modelo se pre-entrenó con miles de millones de puntos de series de todos los dominios, y pronostica una serie nueva <b>sin entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a cambio de ser menos interpretable y más conservador en rupturas.</p>",
   "bench.h2": "Benchmark", "bench.series": "Serie", "bench.filter": "Filtro",
   "bench.searchPh": "buscar serie…", "bench.searchAria": "Filtrar series",
   "bench.chartAria": "Serie histórica con pronóstico e intervalo de predicción",
@@ -35,6 +37,7 @@ es: {
   "legend.fc25": "Pronóstico v2.5",
   "cmp.avg3": "Mediana MAPE · v3", "cmp.avg25": "Mediana MAPE · v2.5",
   "cmp.wins": "Victorias v3", "cmp.nomape": "Sin MAPE",
+  "cmp.dotsAria": "Distribución de errores por serie",
   "cmp.colSeries": "Serie", "cmp.cap": "MAPE por serie, mismo backtest, cero tuning",
   "top.h2": "Series con mejor desempeño",
   "top.sub": "Top 10 por MAPE. Elegí una serie para verla en el benchmark.",
@@ -52,7 +55,7 @@ es: {
   "method.context": "Contexto", "method.contextD": "Truncado a los 512 puntos más recientes por serie.",
   "method.inference": "Inferencia", "method.inferenceD": "CPU local, sin GPUs, sin entrenamiento por serie.",
   "lic.h2": "Licencias",
-  "lic.v25": "Los <i>pesos</i> de TimesFM-2.5 (los parámetros del modelo, es decir, los archivos que se descargan para usarlo) están publicados bajo licencia Apache-2.0, que permite el uso comercial en cualquier país, incluida Argentina.",
+  "lic.v25": "Los parámetros del modelo de TimesFM-2.5 —los archivos necesarios para ejecutarlo— están publicados bajo licencia Apache 2.0, que permite su uso, modificación y distribución, incluso con fines comerciales.",
   "lic.v3t": "Licencia no-comercial",
   "lic.v3": "Los pesos de TimesFM-3 tienen una licencia de Google solo para uso no-comercial.",
   "lic.disclaimer": "Disclaimer: esto no es asesoramiento legal. Antes de producción, verificá la licencia del checkpoint exacto que descargues, porque el código y los pesos pueden tener licencias distintas.",
@@ -60,6 +63,8 @@ es: {
   "foot.sourcesH": "Fuentes.",
   "foot.sources": "Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).",
   "foot.built": "Sin backend, sin paso de build.", "foot.code": "código y datos en",
+  "foot.linksH": "Enlaces oficiales de TimesFM.",
+  "foot.links": "Repositorio, paper, blog de investigación y checkpoints:",
   "meta.title": "Crateris — ¿Puede un solo modelo fundacional pronosticar decenas de series temporales?",
   "meta.desc": "Crateris es un benchmark empírico de los modelos fundacionales TimesFM de Google sobre más de 100 series temporales reales. Pronóstico zero-shot con backtesting.",
   "unavailable": "Serie no disponible", "noSeries": "Sin series disponibles",
@@ -69,6 +74,7 @@ es: {
 },
 en: {
   "nav.skip": "Skip to benchmark", "nav.theme": "Toggle color theme", "nav.themeLabel": "Theme",
+  "nav.data": "Data as of",
   "hero.eyebrow": "ML research showcase",
   "hero.h1": "Can one foundation model forecast dozens of time series without per-series training?",
   "hero.sub": "An empirical benchmark of Google's TimesFM foundation models across real-world time series.",
@@ -77,6 +83,7 @@ en: {
   "kpi.wins": "TimesFM-3 wins", "kpi.train": "Per-series training",
   "about.p": "Crateris tests whether a single pretrained foundation model can forecast many previously unseen time series without training a separate model for each series.",
   "about.details": "How does zero-shot forecasting work?",
+  "about.body": "<p>The model was pretrained on billions of time-series points from every domain, and forecasts a new series <b>without training on it</b> — like an LLM answering without fine-tuning. Unlike <b>ARIMA</b> (classical statistics: one fitted model per series, assumes linearity, needs enough history) and Meta's <b>Prophet</b> (additive trend + seasonality + holidays model, also fitted per series with manual setup), here there is <b>a single model for everything</b>, at the cost of lower interpretability and more conservative behavior on breaks.</p>",
   "bench.h2": "Benchmark", "bench.series": "Series", "bench.filter": "Filter",
   "bench.searchPh": "search series…", "bench.searchAria": "Filter series",
   "bench.chartAria": "Historical series with forecast and prediction interval",
@@ -87,6 +94,7 @@ en: {
   "legend.fc25": "Forecast v2.5",
   "cmp.avg3": "Median MAPE · v3", "cmp.avg25": "Median MAPE · v2.5",
   "cmp.wins": "v3 wins", "cmp.nomape": "No MAPE",
+  "cmp.dotsAria": "Error distribution per series",
   "cmp.colSeries": "Series", "cmp.cap": "Per-series MAPE, same backtest, zero tuning",
   "top.h2": "Best-performing series",
   "top.sub": "Top 10 by MAPE. Select any series to inspect it in the benchmark above.",
@@ -104,7 +112,7 @@ en: {
   "method.context": "Context", "method.contextD": "Truncated to the most recent 512 points per series.",
   "method.inference": "Inference", "method.inferenceD": "Local CPU, no GPUs, no per-series training.",
   "lic.h2": "Licenses",
-  "lic.v25": "The <i>weights</i> of TimesFM-2.5 (the model parameters, i.e. the files you download to use it) are published under the Apache-2.0 license, which allows commercial use in any country, including Argentina.",
+  "lic.v25": "The TimesFM-2.5 model parameters —the files needed to run it— are published under the Apache 2.0 license, which allows use, modification and distribution, even for commercial purposes.",
   "lic.v3t": "Non-commercial license",
   "lic.v3": "The weights of TimesFM-3 carry a Google license for non-commercial use only.",
   "lic.disclaimer": "Disclaimer: this is not legal advice. Before production, verify the license of the exact checkpoint you download, as code and weights may carry different licenses.",
@@ -112,6 +120,8 @@ en: {
   "foot.sourcesH": "Sources.",
   "foot.sources": "Weather: Open-Meteo Archive API (CC-BY-4.0). Finance, energy and commodities: DataHub Core (ODC-PDDL). Argentine series: BCRA Statistics API (public use). INDEC via datos.gob.ar (CC-BY-4.0).",
   "foot.built": "No backend, no build step.", "foot.code": "code and data at",
+  "foot.linksH": "Official TimesFM links.",
+  "foot.links": "Repository, paper, research blog and checkpoints:",
   "meta.title": "Crateris — Can one foundation model forecast dozens of time series?",
   "meta.desc": "Crateris is an empirical benchmark of Google's TimesFM foundation models across 100+ real-world time series. Zero-shot forecasting with backtesting.",
   "unavailable": "Series unavailable", "noSeries": "No series available",
@@ -125,8 +135,14 @@ const fmt = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
 
 const CONCL = {
 es: [
-  "<b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó {N} series sin un minuto de entrenamiento por serie</b>, con mediana de MAPE {MED3}% y un mejor caso de {BEST}%. La mediana —no el promedio— porque unas pocas series con ruptura (hasta 445%) distorsionan la media. Frente a ARIMA/Prophet las ventajas son operativas: cero modelos que mantener (uno solo), cero supuestos de estacionariedad, cero configuración manual de estacionalidad, múltiples frecuencias directo de caja y bandas de cuantiles incluidas. El costo: menos interpretabilidad, peor reacción a rupturas y más cómputo por forecast (amortizado al escalar).",
-  "Probé los dos modelos fundacionales de series de Google en las mismas {BOTH} series comparables, mismo backtest, cero tuning: <b>TimesFM-3 gana {W3}–{W25} y la mediana es {MED3}% vs {MED25}%</b>. El modelo nuevo no aplasta al anterior.",
+  "Un único modelo pudo pronosticar <b>{N} series sin entrenamiento específico para ninguna de ellas</b>, alcanzando una <b>mediana de MAPE de {MED3}%</b> y un mejor caso de <b>{BEST}%</b>.",
+  "Usamos la mediana como métrica central porque unas pocas series con quiebres estructurales —con errores de hasta <b>{MAX}%</b>— distorsionan fuertemente el promedio. Esto también muestra uno de los principales límites del enfoque: los modelos fundacionales pueden ser robustos en muchas series, pero tienen dificultades frente a cambios abruptos en el comportamiento de una serie.",
+  "Frente a enfoques tradicionales como ARIMA o Prophet, la principal ventaja observada es <b>operativa</b>: un único modelo permite cubrir múltiples series y frecuencias sin mantener un modelo independiente ni configurar manualmente la estacionalidad para cada caso. Además, el forecast incluye intervalos de predicción de forma nativa.",
+  "El trade-off es claro: <b>menor interpretabilidad, peor comportamiento ante rupturas estructurales y mayor costo computacional por forecast</b>. A medida que aumenta el número de series, parte de ese costo puede amortizarse al reutilizar el mismo modelo y pipeline.",
+  "<h3>TimesFM-3 vs TimesFM-2.5</h3>",
+  "Sobre las <b>{BOTH} series comparables</b>, evaluamos TimesFM-3 y TimesFM-2.5 bajo las mismas condiciones: <b>mismo backtest y cero tuning específico por serie</b>.",
+  "TimesFM-3 obtuvo un MAPE menor en <b>{W3} de las {BOTH} series</b>, frente a {W25} para TimesFM-2.5. La <b>mediana de MAPE fue {MED3}% para TimesFM-3 frente a {MED25}% para TimesFM-2.5</b>.",
+  "La mejora existe, pero no es uniforme: <b>TimesFM-3 supera a TimesFM-2.5 en la mayoría de las series evaluadas, pero el modelo nuevo no domina en todos los casos</b>.",
 ],
 en: [
   "<b>Did we answer the question?</b> Yes: <b>one model forecast {N} series with zero per-series training</b>, at {MED3}% median MAPE and a best case of {BEST}%. Median —not mean— because a few broken series (up to 445%) skew the average. Against ARIMA/Prophet the advantages are operational: zero models to maintain (just one), zero stationarity assumptions, zero manual seasonality configuration, multiple frequencies out of the box and quantile bands included. The cost: lower interpretability, weaker reaction to breaks and more compute per forecast (amortized at scale).",
@@ -135,7 +151,8 @@ en: [
 
 let current = null, currentFile = null;
 const sparks = [];
-let cmpChart = null, cmpStats = null, cmpData = null, manifestData = null;
+let cmpChart = null, cmpDots = null, cmpStats = null, cmpData = null,
+  manifestData = null, cmpRowsCache = null;
 const rankData = [];
 
 const css = (name) => getComputedStyle(document.documentElement)
@@ -271,6 +288,7 @@ function renderAll() {
     current.a, current.hist, false, keepZoom(window.__main), current.fc25));
   sparks.forEach(({ chart, a }) => chart.setOption(sparkOption(a)));
   if (cmpChart && cmpStats) cmpChart.setOption(cmpBarOption(cmpStats));
+  if (cmpDots && cmpRowsCache) cmpDots.setOption(cmpDotOption(cmpRowsCache));
 }
 
 function applyI18n() {
@@ -286,6 +304,8 @@ function applyI18n() {
     el.setAttribute("content", t(el.dataset.i18nContent)));
   document.title = t("meta.title");
   $("lang").textContent = LANG === "es" ? "EN" : "ES";
+  if (manifestData && manifestData.generated_at) $("data-date").textContent =
+    `· ${t("nav.data")} ${manifestData.generated_at.slice(0, 10)}`;
   if (currentFile) show(currentFile);
   buildRanking();
   buildCompare();
@@ -405,6 +425,56 @@ function buildRanking() {
     }));
 }
 
+function fiveNum(xs) {
+  const s = [...xs].sort((a, b) => a - b);
+  const q = (p) => {
+    const i = (s.length - 1) * p;
+    const lo = Math.floor(i);
+    return s[lo] + (s[lo + 1] - s[lo] || 0) * (i - lo);
+  };
+  const q1 = q(0.25), med = q(0.5), q3 = q(0.75);
+  const iqr = q3 - q1;
+  const lo = s.find((v) => v >= q1 - 1.5 * iqr);
+  const hi = [...s].reverse().find((v) => v <= q3 + 1.5 * iqr);
+  return { box: [lo, q1, med, q3, hi],
+    out: s.filter((v) => v < lo || v > hi) };
+}
+
+function cmpDotOption(rows) {
+  const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
+  const vals = (k) => rows.map((d) => d[k].mape).filter((v) => v != null);
+  const b3 = fiveNum(vals("v3")), b25 = fiveNum(vals("v25"));
+  const jit = (arr, x) => arr.map((v, i) =>
+    ({ value: [x + (i % 2 ? 0.08 : -0.08), +v.toFixed(2)] }));
+  return {
+    animation: false, backgroundColor: "transparent",
+    textStyle: { color: c.text },
+    tooltip: { trigger: "item", formatter: (p) =>
+      p.value.length === 5
+        ? `${p.seriesName}<br/>min ${p.value[0]}% · Q1 ${p.value[1]}% · med ${p.value[2]}% · Q3 ${p.value[3]}% · max ${p.value[4]}%`
+        : `${p.seriesName}: <b>${p.value[1]}%</b>` },
+    grid: { left: 8, right: 16, top: 30, bottom: 28, containLabel: true },
+    legend: { textStyle: { color: c.text }, top: 0 },
+    xAxis: { type: "category", data: ["TimesFM-3", "TimesFM-2.5"],
+      axisLabel: { color: c.text } },
+    yAxis: { type: "log",
+      splitLine: { lineStyle: { color: c.grid } } },
+    series: [
+      { name: "MAPE distribution", type: "boxplot",
+        data: [b3.box, b25.box],
+        itemStyle: { color: "transparent", borderColor: c.accent, borderWidth: 2 } },
+      { name: "v3", type: "scatter", symbolSize: 5,
+        data: jit(vals("v3"), 0), color: c.accent },
+      { name: "v2.5", type: "scatter", symbolSize: 5,
+        data: jit(vals("v25"), 1), color: "#8a8a8a" },
+      { name: "outlier", type: "scatter", symbolSize: 7,
+        data: [...b3.out.map((v) => ({ value: [0, +v.toFixed(2)] })),
+               ...b25.out.map((v) => ({ value: [1, +v.toFixed(2)] }))],
+        color: "#e05252" },
+    ],
+  };
+}
+
 function cmpBarOption(st) {
   const c = { text: css("--text"), accent: css("--accent"), grid: css("--grid") };
   return {
@@ -424,11 +494,46 @@ function cmpBarOption(st) {
   };
 }
 
+let cmpSort = { key: "v3", dir: 1 };
+
+function buildCompareTable() {
+  if (!cmpRowsCache) return;
+  const val = (d) => cmpSort.key === "diff"
+    ? (d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null)
+    : (d[cmpSort.key].mape ?? null);
+  const rows = [...cmpRowsCache].sort((x, y) => {
+    const a = val(x), b = val(y);
+    if (a == null && b == null) return 0;
+    if (a == null) return 1;
+    if (b == null) return -1;
+    return (a - b) * cmpSort.dir;
+  });
+  const arrow = (k) => cmpSort.key === k ? (cmpSort.dir > 0 ? " ▲" : " ▼") : "";
+  let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th>` +
+    `<th scope="col"><button class="linklike" data-sort="v3">v3 MAPE${arrow("v3")}</button></th>` +
+    `<th scope="col"><button class="linklike" data-sort="v25">2.5 MAPE${arrow("v25")}</button></th>` +
+    `<th scope="col"><button class="linklike" data-sort="diff">Δ pp (v3−v2.5)${arrow("diff")}</button></th></tr>`;
+  for (const d of rows) {
+    const diff = d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null;
+    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
+    const ds = diff == null ? "—" : (diff > 0 ? "+" : "") + diff.toFixed(2);
+    html += `<tr><td>${pretty(d.name)}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
+      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
+      `<td class="${w === "v3" ? "win" : ""}">${ds}</td></tr>`;
+  }
+  $("compare-table").innerHTML = html + "</table>";
+  $("compare-table").querySelectorAll("[data-sort]").forEach((b) => {
+    b.onclick = () => {
+      const k = b.dataset.sort;
+      cmpSort = cmpSort.key === k ? { key: k, dir: -cmpSort.dir } : { key: k, dir: 1 };
+      buildCompareTable();
+    };
+  });
+}
+
 function buildCompare() {
-  const div = $("compare-table");
-  div.innerHTML = "";
   $("kpis").innerHTML = "";
-  $("cmp-kpis").innerHTML = "";
   $("cmp-kpis").innerHTML = "";
   if (!cmpData || !cmpData.datasets || !cmpData.datasets.length) return;
   const both = cmpData.datasets.filter(
@@ -450,23 +555,17 @@ function buildCompare() {
   cmpChart.setOption(cmpBarOption(cmpStats));
   const rows = [...cmpData.datasets].sort(
     (x, y) => (x.v3.mape ?? Infinity) - (y.v3.mape ?? Infinity));
-  let html = `<table class="cmp"><caption style="text-align:left;color:var(--muted);padding-bottom:.4rem">${t("cmp.cap")}</caption><tr><th scope="col">${t("cmp.colSeries")}</th><th scope="col">v3 MAPE</th>` +
-    `<th scope="col">2.5 MAPE</th><th scope="col">Δ pp (v3−v2.5)</th></tr>`;
-  for (const d of rows) {
-    const diff = d.v3.mape != null && d.v25.mape != null ? d.v3.mape - d.v25.mape : null;
-    const w = (d.v25.mape ?? Infinity) < (d.v3.mape ?? Infinity) ? "v25" : "v3";
-    const ds = diff == null ? "—" : (diff > 0 ? "+" : "") + diff.toFixed(2);
-    html += `<tr><td>${pretty(d.name)}</td>` +
-      `<td class="${w === "v3" ? "win" : ""}">${pct(d.v3.mape)}</td>` +
-      `<td class="${w === "v25" ? "win" : ""}">${pct(d.v25.mape)}</td>` +
-      `<td class="${w === "v3" ? "win" : ""}">${ds}</td></tr>`;
-  }
-  div.innerHTML = html + "</table>";
+  cmpRowsCache = rows;
+  if (!cmpDots) cmpDots = echarts.init($("cmp-dots"));
+  cmpDots.setOption(cmpDotOption(rows));
+  buildCompareTable();
   // Learn + conclusion paragraphs (dynamic numbers).
   const best = Math.min(...both.map((d) => d.v3.mape));
+  const worst = Math.max(...both.map((d) => d.v3.mape));
   const o = { N: cmpData.datasets.length, BOTH: both.length,
     W3: wins, W25: both.length - wins, MED3: med3.toFixed(2),
-    MED25: med25.toFixed(2), BEST: best.toFixed(2) };
+    MED25: med25.toFixed(2), BEST: best.toFixed(2),
+    MAX: worst >= 100 ? Math.round(worst) : worst.toFixed(1) };
   $("learn-result").textContent = fmt(LANG === "es"
     ? "Un solo modelo pronosticó {N} series con cero entrenamiento por serie. Mediana de MAPE {MED3}%, mejor caso {BEST}%. La estacionalidad fuerte pronostica bien; las rupturas de régimen no."
     : "One model forecast {N} series with zero per-series training. Median MAPE {MED3}%, best case {BEST}%. Strong seasonality forecasts well; regime breaks do not.", o);
@@ -506,6 +605,8 @@ async function load() {
 
   const m = await (await fetch("data/manifest.json")).json();
   manifestData = m;
+  if (m.generated_at) $("data-date").textContent =
+    `· ${t("nav.data")} ${m.generated_at.slice(0, 10)}`;
   try {
     cmpData = await (await fetch("data/compare.json")).json();
   } catch { cmpData = null; }

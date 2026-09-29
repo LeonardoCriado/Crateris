@@ -38,7 +38,7 @@
   .skip { position: absolute; left: -999px; }
   .skip:focus { left: 1rem; top: 1rem; background: var(--panel); padding: .5rem 1rem; z-index: 10; }
   header.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
-  header.nav .brand { font-weight: 700; font-size: 1.1rem; }
+  header.nav .brand { font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
   header.nav nav { display: flex; gap: .6rem; align-items: center; }
   .hero { padding: 3.5rem 0 2.5rem; background-image: radial-gradient(circle, rgba(0,230,118,.07) 1px, transparent 1.5px); background-size: 26px 26px; }
   .eyebrow { color: var(--accent); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .8rem; }
@@ -51,6 +51,7 @@
   [data-theme="light"] .btn.primary { color: #fff; }
   .btn:hover { filter: brightness(1.12); }
   button.btn { font: inherit; }
+  .linklike { background: none; border: none; padding: 0; color: inherit; font: inherit; cursor: pointer; text-decoration: underline dotted; }
   .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; margin: 0 0 2.5rem; }
   .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; }
   .kpi .v { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 750; color: var(--accent); line-height: 1.1; }
@@ -70,6 +71,7 @@
   .fact .w { font-size: 1rem; }
   .fact .w[title] { cursor: help; border-bottom: 1px dotted var(--muted); }
   #cmp-visual { width: 100%; height: 240px; }
+  #cmp-dots { width: 100%; height: 300px; }
   .table-wrap { overflow-x: auto; }
   table.cmp { width: 100%; border-collapse: collapse; margin-top: .8rem; font-size: .88rem; min-width: 560px; }
   table.cmp th, table.cmp td { padding: .4rem .55rem; border-bottom: 1px solid var(--line); text-align: right; }
@@ -117,6 +119,7 @@
 <a class="skip" href="#benchmark" data-i18n="nav.skip">Saltar al benchmark</a>
 <header class="nav">
   <span class="brand">Crateris 🏆</span>
+  <span id="data-date" style="color:var(--muted);font-size:.82rem"></span>
   <nav>
     <a class="btn" href="https://github.com/LeonardoCriado/Crateris">GitHub ↗</a>
     <button class="btn" id="lang" aria-label="Switch language">EN</button>
@@ -162,6 +165,7 @@
   <p class="sub2"><code>Same data. Same backtest. Zero tuning.</code></p>
   <div class="kpis" id="cmp-kpis"></div>
   <div class="panel"><div id="cmp-visual" role="img" data-i18n-aria="cmp.visualAria" aria-label="Gráfico comparativo de MAPE promedio"></div></div>
+  <div class="panel" style="margin-top:.9rem"><div id="cmp-dots" role="img" data-i18n-aria="cmp.dotsAria" aria-label="Distribución de errores por serie"></div></div>
   <div class="table-wrap"><div id="compare-table"></div></div>
 </section>
 
@@ -226,6 +230,14 @@
 <footer>
   <p><b data-i18n="foot.sourcesH">Fuentes.</b> <span data-i18n="foot.sources">Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas del BCRA (uso público). INDEC vía datos.gob.ar (CC-BY-4.0).</span></p>
   <p><b>Built with</b> ECharts · TimesFM · GitHub Pages. <span data-i18n="foot.built">Sin backend, sin paso de build.</span></p>
+  <p><b data-i18n="foot.linksH">Enlaces oficiales de TimesFM.</b> <span data-i18n="foot.links">Repositorio, paper, blog de investigación y checkpoints:</span></p>
+  <ul style="margin-top:.3rem">
+    <li><a href="https://github.com/google-research/timesfm">google-research/timesfm</a></li>
+    <li><a href="https://arxiv.org/abs/2310.10688">Paper: A decoder-only foundation model for time-series forecasting</a></li>
+    <li><a href="https://research.google/blog/timesfm-3-a-zero-shot-foundation-model-for-multivariate-forecasting/">Research blog: TimesFM-3</a></li>
+    <li><a href="https://huggingface.co/collections/google/timesfm-release-66e4be5fdb56e960c1e482a6">Hugging Face: TimesFM collection</a></li>
+    <li><a href="https://cloud.google.com/bigquery/docs/timesfm-model">TimesFM en BigQuery ML</a></li>
+  </ul>
   <p>Leonardo Criado — <span data-i18n="foot.code">código y datos en</span> <a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a></p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
