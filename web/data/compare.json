@@ -655,6 +655,188 @@
       }
     },
     {
+      "id": "cap_caucho_plastico",
+      "name": "Capacidad: caucho_plastico (INDEC)",
+      "v3": {
+        "mae": 5.235486972443515,
+        "rmse": 5.777078925758913,
+        "mape": 6.987239152549171
+      },
+      "v25": {
+        "mae": 4.754899864833253,
+        "rmse": 5.2724667211374445,
+        "mape": 6.415818568229277
+      }
+    },
+    {
+      "id": "cap_edicion_impresion",
+      "name": "Capacidad: edicion_impresion (INDEC)",
+      "v3": {
+        "mae": 5.122287437051569,
+        "rmse": 5.947289310462709,
+        "mape": 6.665712142859262
+      },
+      "v25": {
+        "mae": 5.664539023965632,
+        "rmse": 6.538454368345438,
+        "mape": 7.331652069750978
+      }
+    },
+    {
+      "id": "cap_industrias_metalicas_basicas",
+      "name": "Capacidad: industrias_metalicas_basicas (INDEC)",
+      "v3": {
+        "mae": 9.389673166650718,
+        "rmse": 10.534040633163002,
+        "mape": 13.94782121170387
+      },
+      "v25": {
+        "mae": 11.190380030054039,
+        "rmse": 12.386739295599765,
+        "mape": 16.607265284777537
+      }
+    },
+    {
+      "id": "cap_metalmecanica_no_industria_a",
+      "name": "Capacidad: metalmecanica_no_industria_automotriz (INDEC)",
+      "v3": {
+        "mae": 3.72690194382909,
+        "rmse": 4.381725801068356,
+        "mape": 6.577707772190576
+      },
+      "v25": {
+        "mae": 5.895467203899074,
+        "rmse": 6.629303741690075,
+        "mape": 10.39575466188935
+      }
+    },
+    {
+      "id": "cap_minerales_no_metalicos",
+      "name": "Capacidad: minerales_no_metalicos (INDEC)",
+      "v3": {
+        "mae": 2.574401999641951,
+        "rmse": 3.2700069780766614,
+        "mape": 3.24875354349341
+      },
+      "v25": {
+        "mae": 6.07934628217344,
+        "rmse": 7.287425581636072,
+        "mape": 7.875347225520052
+      }
+    },
+    {
+      "id": "cap_nivel_general",
+      "name": "Capacidad: nivel_general (INDEC)",
+      "v3": {
+        "mae": 1.987891993487749,
+        "rmse": 2.4863093334214916,
+        "mape": 2.9849250117992066
+      },
+      "v25": {
+        "mae": 5.090689679377878,
+        "rmse": 6.02461065604639,
+        "mape": 7.635620063108241
+      }
+    },
+    {
+      "id": "cap_papel_carton",
+      "name": "Capacidad: papel_carton (INDEC)",
+      "v3": {
+        "mae": 4.586213608040205,
+        "rmse": 5.294281594525709,
+        "mape": 5.539360004217412
+      },
+      "v25": {
+        "mae": 4.417277196500492,
+        "rmse": 5.030849124788074,
+        "mape": 5.366919053031313
+      }
+    },
+    {
+      "id": "cap_productos_alimenticios_bebid",
+      "name": "Capacidad: productos_alimenticios_bebidas (INDEC)",
+      "v3": {
+        "mae": 2.9026092767600478,
+        "rmse": 3.263704946697922,
+        "mape": 4.221693378396805
+      },
+      "v25": {
+        "mae": 5.173932745435683,
+        "rmse": 6.385567142260046,
+        "mape": 7.809860142756365
+      }
+    },
+    {
+      "id": "cap_productos_tabaco",
+      "name": "Capacidad: productos_tabaco (INDEC)",
+      "v3": {
+        "mae": 6.28310012828215,
+        "rmse": 7.007868392439207,
+        "mape": 10.758351774885105
+      },
+      "v25": {
+        "mae": 3.800095128116164,
+        "rmse": 4.796233719053493,
+        "mape": 6.598025041154301
+      }
+    },
+    {
+      "id": "cap_productos_textiles",
+      "name": "Capacidad: productos_textiles (INDEC)",
+      "v3": {
+        "mae": 5.0756913500649015,
+        "rmse": 7.132409412428574,
+        "mape": 8.270049139928966
+      },
+      "v25": {
+        "mae": 4.88531075731888,
+        "rmse": 6.635383629472069,
+        "mape": 7.8588678605977496
+      }
+    },
+    {
+      "id": "cap_refinacion_petroleo",
+      "name": "Capacidad: refinacion_petroleo (INDEC)",
+      "v3": {
+        "mae": 2.7569369294358985,
+        "rmse": 3.2487626836411567,
+        "mape": 3.23146111124299
+      },
+      "v25": {
+        "mae": 2.494778354367458,
+        "rmse": 3.0177675463159583,
+        "mape": 2.978769319655375
+      }
+    },
+    {
+      "id": "cap_sustancias_productos_quimico",
+      "name": "Capacidad: sustancias_productos_quimicos (INDEC)",
+      "v3": {
+        "mae": 4.226571322995919,
+        "rmse": 5.235044560592749,
+        "mape": 6.000418744871922
+      },
+      "v25": {
+        "mae": 6.528633048579003,
+        "rmse": 7.724646821538219,
+        "mape": 9.249312228885092
+      }
+    },
+    {
+      "id": "cap_vehiculosautomotores",
+      "name": "Capacidad: vehiculosautomotores (INDEC)",
+      "v3": {
+        "mae": 8.603954958327192,
+        "rmse": 10.231738696159296,
+        "mape": 21.94266467816183
+      },
+      "v25": {
+        "mae": 13.91487534858033,
+        "rmse": 15.9679717253321,
+        "mape": 35.6812884153606
+      }
+    },
+    {
       "id": "co2_monthly",
       "name": "CO\u2082 Mauna Loa mensual",
       "v3": {
@@ -767,6 +949,76 @@
       }
     },
     {
+      "id": "emae_actividades_inmobiliarias_em",
+      "name": "EMAE actividades_inmobiliarias_empresariales_ (INDEC)",
+      "v3": {
+        "mae": 1.5097424395169459,
+        "rmse": 1.652633495066009,
+        "mape": 0.9466354119957924
+      },
+      "v25": {
+        "mae": 3.155853422060384,
+        "rmse": 3.6840999296163974,
+        "mape": 1.9736766044618277
+      }
+    },
+    {
+      "id": "emae_admin_publica_planes_segurid",
+      "name": "EMAE admin_publica_planes_seguridad_social_af (INDEC)",
+      "v3": {
+        "mae": 2.1219739704534035,
+        "rmse": 2.4055819468052975,
+        "mape": 1.3300309500732785
+      },
+      "v25": {
+        "mae": 1.3885933348739765,
+        "rmse": 1.6928284455419025,
+        "mape": 0.8715223915785991
+      }
+    },
+    {
+      "id": "emae_agricultura_ganaderia_caza_s",
+      "name": "EMAE agricultura_ganaderia_caza_silvicultura (INDEC)",
+      "v3": {
+        "mae": 17.64140699827857,
+        "rmse": 24.23116297222727,
+        "mape": 11.7029944912655
+      },
+      "v25": {
+        "mae": 65.35041518887031,
+        "rmse": 82.22414629040401,
+        "mape": 44.50255696223904
+      }
+    },
+    {
+      "id": "emae_comercio_mayorista_minorista",
+      "name": "EMAE comercio_mayorista_minorista_reparacione (INDEC)",
+      "v3": {
+        "mae": 4.297120446183773,
+        "rmse": 4.744122434433484,
+        "mape": 2.7968984185800574
+      },
+      "v25": {
+        "mae": 4.954870358500524,
+        "rmse": 5.836539571309167,
+        "mape": 3.29062763740565
+      }
+    },
+    {
+      "id": "emae_construccion",
+      "name": "EMAE construccion (INDEC)",
+      "v3": {
+        "mae": 3.289068968940865,
+        "rmse": 4.071191763443548,
+        "mape": 2.4572547683784944
+      },
+      "v25": {
+        "mae": 5.197847881084544,
+        "rmse": 5.989868912601898,
+        "mape": 3.9886073996961438
+      }
+    },
+    {
       "id": "emae_desest",
       "name": "EMAE desestacionalizada (INDEC)",
       "v3": {
@@ -778,6 +1030,160 @@
         "mae": 2.7034879446179354,
         "rmse": 3.0812819528343436,
         "mape": 1.7482968158440133
+      }
+    },
+    {
+      "id": "emae_electricidad_gas_agua",
+      "name": "EMAE electricidad_gas_agua (INDEC)",
+      "v3": {
+        "mae": 2.8107139623904374,
+        "rmse": 3.8282220306421193,
+        "mape": 1.8264166425217485
+      },
+      "v25": {
+        "mae": 10.906434265370256,
+        "rmse": 14.426595399122618,
+        "mape": 7.6530799590830405
+      }
+    },
+    {
+      "id": "emae_ensenianza",
+      "name": "EMAE ensenianza (INDEC)",
+      "v3": {
+        "mae": 1.756466488662556,
+        "rmse": 1.9580204101195726,
+        "mape": 1.0221484894131514
+      },
+      "v25": {
+        "mae": 1.8053774054834288,
+        "rmse": 2.500202071376814,
+        "mape": 1.058753826601814
+      }
+    },
+    {
+      "id": "emae_explotacion_minas_canteras",
+      "name": "EMAE explotacion_minas_canteras (INDEC)",
+      "v3": {
+        "mae": 5.342909671388011,
+        "rmse": 6.99728481546105,
+        "mape": 3.879256457848653
+      },
+      "v25": {
+        "mae": 6.841551942537418,
+        "rmse": 8.313973633831665,
+        "mape": 5.043467389645281
+      }
+    },
+    {
+      "id": "emae_hoteles_restaurantes",
+      "name": "EMAE hoteles_restaurantes (INDEC)",
+      "v3": {
+        "mae": 2.5363685280354944,
+        "rmse": 3.0659967553085785,
+        "mape": 1.5407444822183674
+      },
+      "v25": {
+        "mae": 20.470837037515338,
+        "rmse": 24.478340605912052,
+        "mape": 11.528030676682745
+      }
+    },
+    {
+      "id": "emae_impuestos_netos_subsidios",
+      "name": "EMAE impuestos_netos_subsidios (INDEC)",
+      "v3": {
+        "mae": 4.53629270333866,
+        "rmse": 5.3942326729386085,
+        "mape": 2.518027701671343
+      },
+      "v25": {
+        "mae": 6.152184664582606,
+        "rmse": 8.683787881253231,
+        "mape": 3.5228098217003656
+      }
+    },
+    {
+      "id": "emae_industria_manufacturera",
+      "name": "EMAE industria_manufacturera (INDEC)",
+      "v3": {
+        "mae": 2.9665753560581245,
+        "rmse": 3.4701414463968354,
+        "mape": 2.5441247642182
+      },
+      "v25": {
+        "mae": 9.753223846442843,
+        "rmse": 12.10886850613527,
+        "mape": 8.80523168684676
+      }
+    },
+    {
+      "id": "emae_intermediacion_financiera",
+      "name": "EMAE intermediacion_financiera (INDEC)",
+      "v3": {
+        "mae": 8.077402344480412,
+        "rmse": 12.237230870311627,
+        "mape": 3.8833824707665214
+      },
+      "v25": {
+        "mae": 9.379389038816349,
+        "rmse": 12.03415366684058,
+        "mape": 4.583338177869997
+      }
+    },
+    {
+      "id": "emae_otras_actividades_servicios_",
+      "name": "EMAE otras_actividades_servicios_comunitarias (INDEC)",
+      "v3": {
+        "mae": 3.4278887211663367,
+        "rmse": 4.14943470430562,
+        "mape": 2.6024140480196736
+      },
+      "v25": {
+        "mae": 8.406895538889186,
+        "rmse": 9.543287699345253,
+        "mape": 6.75349207460124
+      }
+    },
+    {
+      "id": "emae_pesca",
+      "name": "EMAE pesca (INDEC)",
+      "v3": {
+        "mae": 89.36428206711184,
+        "rmse": 118.50657448943441,
+        "mape": 33.45563873992489
+      },
+      "v25": {
+        "mae": 136.2429936837375,
+        "rmse": 166.19202197882325,
+        "mape": 55.589264875122424
+      }
+    },
+    {
+      "id": "emae_servicios_sociales_salud",
+      "name": "EMAE servicios_sociales_salud (INDEC)",
+      "v3": {
+        "mae": 0.9994955662867776,
+        "rmse": 1.2838875462920643,
+        "mape": 0.530317347239705
+      },
+      "v25": {
+        "mae": 9.272554375174005,
+        "rmse": 10.91525020604539,
+        "mape": 5.007863318234405
+      }
+    },
+    {
+      "id": "emae_transporte_comunicaciones",
+      "name": "EMAE transporte_comunicaciones (INDEC)",
+      "v3": {
+        "mae": 2.612227463573722,
+        "rmse": 3.2936208225528434,
+        "mape": 1.380830886996571
+      },
+      "v25": {
+        "mae": 5.462607376520414,
+        "rmse": 6.603649992265704,
+        "mape": 2.9235096836815067
       }
     },
     {
@@ -809,6 +1215,20 @@
       }
     },
     {
+      "id": "ipc_estacionales",
+      "name": "IPC estacionales (INDEC)",
+      "v3": {
+        "mae": 0.017967292769667447,
+        "rmse": 0.020699115116066088,
+        "mape": 445.1739763640767
+      },
+      "v25": {
+        "mae": 0.027074759516968527,
+        "rmse": 0.03360547618791494,
+        "mape": 250.34817704445166
+      }
+    },
+    {
       "id": "ipc_gba",
       "name": "IPC GBA mensual (INDEC)",
       "v3": {
@@ -837,6 +1257,20 @@
       }
     },
     {
+      "id": "ipc_n\u00facleo",
+      "name": "IPC n\u00facleo (INDEC)",
+      "v3": {
+        "mae": 0.005357026266677167,
+        "rmse": 0.0065291957833057265,
+        "mape": 21.229076168388303
+      },
+      "v25": {
+        "mae": 0.0050274906569450955,
+        "rmse": 0.0062340711283279055,
+        "mape": 19.718737787219098
+      }
+    },
+    {
       "id": "ipc_patagonia",
       "name": "IPC Patagonia mensual (INDEC)",
       "v3": {
@@ -848,6 +1282,62 @@
         "mae": 1617.8424342447918,
         "rmse": 1827.2241480889993,
         "mape": 14.24570262611631
+      }
+    },
+    {
+      "id": "ipc_regulados",
+      "name": "IPC regulados (INDEC)",
+      "v3": {
+        "mae": 0.008379339446867806,
+        "rmse": 0.011807174337496854,
+        "mape": 23.58705044830638
+      },
+      "v25": {
+        "mae": 0.007400710955693742,
+        "rmse": 0.010707502225301459,
+        "mape": 20.211477184149683
+      }
+    },
+    {
+      "id": "isac_desestacionalizado",
+      "name": "ISAC desestacionalizado (INDEC)",
+      "v3": {
+        "mae": 9.095903319296623,
+        "rmse": 10.594864041686357,
+        "mape": 6.303074796400939
+      },
+      "v25": {
+        "mae": 3.1079123611245456,
+        "rmse": 3.9002532494440496,
+        "mape": 2.142732334713587
+      }
+    },
+    {
+      "id": "isac_general",
+      "name": "ISAC general (INDEC)",
+      "v3": {
+        "mae": 9.499544860922926,
+        "rmse": 11.237169503887145,
+        "mape": 6.693075892716223
+      },
+      "v25": {
+        "mae": 13.962186232584932,
+        "rmse": 15.730912750176014,
+        "mape": 9.913395835693734
+      }
+    },
+    {
+      "id": "isac_tendencia",
+      "name": "ISAC tendencia (INDEC)",
+      "v3": {
+        "mae": 12.272473649588848,
+        "rmse": 15.657052442803298,
+        "mape": 8.453773445852857
+      },
+      "v25": {
+        "mae": 2.5187063902603604,
+        "rmse": 4.1277631128873455,
+        "mape": 1.7424847293585584
       }
     },
     {
@@ -876,6 +1366,48 @@
         "mae": 767.5027901785714,
         "rmse": 864.9165310606518,
         "mape": 1.525593277052244
+      }
+    },
+    {
+      "id": "salario_privado",
+      "name": "Salario privado (INDEC)",
+      "v3": {
+        "mae": 466.1821940104166,
+        "rmse": 634.7840661584404,
+        "mape": 4.992963632666986
+      },
+      "v25": {
+        "mae": 1129.6600748697915,
+        "rmse": 1322.0951601371655,
+        "mape": 12.379340660404377
+      }
+    },
+    {
+      "id": "salario_p\u00fablico",
+      "name": "Salario p\u00fablico (INDEC)",
+      "v3": {
+        "mae": 355.5708789062501,
+        "rmse": 512.672189241711,
+        "mape": 4.6526880348063235
+      },
+      "v25": {
+        "mae": 812.6701725260417,
+        "rmse": 982.6272503386471,
+        "mape": 10.9270828850273
+      }
+    },
+    {
+      "id": "salario_registrado",
+      "name": "Salario registrado (INDEC)",
+      "v3": {
+        "mae": 318.643053385417,
+        "rmse": 429.9704664816716,
+        "mape": 3.6773882773356035
+      },
+      "v25": {
+        "mae": 1041.6125130208336,
+        "rmse": 1226.300897750317,
+        "mape": 12.273306165434505
       }
     },
     {
@@ -921,5 +1453,5 @@
       }
     }
   ],
-  "generated_at": "2026-09-29T21:07:09.440314+00:00"
+  "generated_at": "2026-09-29T21:51:27.951073+00:00"
 }
