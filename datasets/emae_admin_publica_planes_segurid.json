@@ -1,0 +1,16 @@
+{
+  "id": "emae_admin_publica_planes_segurid",
+  "name": "EMAE admin_publica_planes_seguridad_social_af (INDEC)",
+  "description": "EMAE apertura sectorial base 2004. INDEC vía datos.gob.ar.",
+  "category": "actividad",
+  "theme": "Argentina · Actividad",
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/11/distribution/11.3/download/emae-apertura-por-sectores-valores-mensuales-indice-base-2004.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
+  "date_col": "indice_tiempo",
+  "value_col": "admin_publica_planes_seguridad_social_afiliacion_obligatoria",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

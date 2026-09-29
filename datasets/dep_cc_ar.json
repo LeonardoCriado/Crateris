@@ -3,8 +3,13 @@
   "name": "Depósitos en cuenta corriente — Argentina (BCRA)",
   "description": "Depósitos en efectivo en cuentas corrientes, en millones de pesos. API del BCRA.",
   "category": "argentina",
-  "source": {"url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/22", "license": "BCRA (uso público)", "format": "bcra-json"},
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/22",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
   "freq": "B",
   "horizon": 28,
-  "covariates": []
+  "covariates": [],
+  "theme": "Argentina · Depósitos y préstamos"
 }

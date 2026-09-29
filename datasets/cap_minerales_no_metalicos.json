@@ -1,0 +1,16 @@
+{
+  "id": "cap_minerales_no_metalicos",
+  "name": "Capacidad: minerales_no_metalicos (INDEC)",
+  "description": "Utilización capacidad instalada. INDEC vía datos.gob.ar.",
+  "category": "salarios",
+  "theme": "Argentina · Actividad",
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/30/distribution/30.3/download/utilizacion-capacidad-instalada-industria-valores-mensuales-base-2012.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
+  "date_col": "indice_tiempo",
+  "value_col": "ucii_minerales_no_metalicos",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

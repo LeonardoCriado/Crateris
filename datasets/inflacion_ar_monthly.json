@@ -10,5 +10,6 @@
   },
   "freq": "M",
   "horizon": 12,
-  "covariates": []
+  "covariates": [],
+  "theme": "Argentina · Precios"
 }

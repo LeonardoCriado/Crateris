@@ -1,0 +1,16 @@
+{
+  "id": "salario_registrado",
+  "name": "Salario registrado (INDEC)",
+  "description": "Índice de salarios base oct-2016. INDEC vía datos.gob.ar.",
+  "category": "salarios",
+  "theme": "Argentina · Salarios",
+  "source": {
+    "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/149/distribution/149.1/download/indice-salarios-periodicidad-mensual-base-octubre-2016.csv",
+    "license": "CC-BY-4.0 (datos.gob.ar)"
+  },
+  "date_col": "indice_tiempo",
+  "value_col": "indice_salarios_registrado",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}
