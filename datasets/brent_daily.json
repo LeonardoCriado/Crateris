@@ -7,6 +7,6 @@
   "date_col": "Date",
   "value_col": "Price",
   "freq": "B",
-  "horizon": 30,
+  "horizon": 28,
   "covariates": []
 }

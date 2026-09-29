@@ -1,6 +1,14 @@
 {
   "datasets": [
     {
+      "id": "badlar",
+      "name": "Tasa BADLAR \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/badlar.json"
+    },
+    {
       "id": "bonds10y_monthly",
       "name": "Bono EEUU 10Y mensual",
       "category": "finanzas",
@@ -13,7 +21,7 @@
       "name": "Petr\u00f3leo Brent diario",
       "category": "energia",
       "freq": "B",
-      "horizon": 30,
+      "horizon": 28,
       "file": "data/brent_daily.json"
     },
     {
@@ -33,6 +41,14 @@
       "file": "data/cpi_gb_monthly.json"
     },
     {
+      "id": "dolar_mayorista",
+      "name": "D\u00f3lar mayorista \u2014 Argentina (BCRA)",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/dolar_mayorista.json"
+    },
+    {
       "id": "gold_monthly",
       "name": "Oro mensual (LBMA)",
       "category": "finanzas",
@@ -43,7 +59,7 @@
     {
       "id": "inflacion_ar_monthly",
       "name": "Inflaci\u00f3n mensual \u2014 Argentina (BCRA)",
-      "category": "inflacion",
+      "category": "argentina",
       "freq": "M",
       "horizon": 12,
       "file": "data/inflacion_ar_monthly.json"
@@ -55,6 +71,14 @@
       "freq": "M",
       "horizon": 12,
       "file": "data/natgas_monthly.json"
+    },
+    {
+      "id": "reservas_bcra",
+      "name": "Reservas internacionales \u2014 BCRA",
+      "category": "argentina",
+      "freq": "B",
+      "horizon": 28,
+      "file": "data/reservas_bcra.json"
     },
     {
       "id": "temp_berlin_hourly",
@@ -77,9 +101,9 @@
       "name": "VIX diario",
       "category": "finanzas",
       "freq": "B",
-      "horizon": 30,
+      "horizon": 28,
       "file": "data/vix_daily.json"
     }
   ],
-  "generated_at": "2026-09-29T15:26:04.292733+00:00"
+  "generated_at": "2026-09-29T16:36:50.212136+00:00"
 }
