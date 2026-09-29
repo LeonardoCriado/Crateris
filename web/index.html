@@ -49,6 +49,14 @@ descarga series temporales públicas y les aplica
 fundacional de series de Google (~330M parámetros), que pronostica <b>sin
 entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
 de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
+<p><b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
+puntos de series de todos los dominios, y pronostica una serie nueva <b>sin
+entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia
+con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume
+linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo
+aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y
+con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a
+cambio de ser menos interpretable y más conservador en rupturas.</p>
 </details>
 <label>Dataset: <select id="ds"></select></label>
 <div id="chart"></div>
@@ -58,22 +66,13 @@ de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p
 <div id="ranking"></div>
 <p id="unavailable"></p>
 <footer>
-<b>¿Sirve realmente?</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
+<b>Conclusión.</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
 y regímenes estables (clima, CO₂: MAPE &lt;1%). Flojea ante cambios de régimen
 que no vio (rally del oro 2024–26, shocks cambiarios): ahí el pronóstico puntual
 se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
 <i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
 un techo: con covariables y contexto completo (soportado por el modelo) hay
 margen real de mejora.
-<br><br>
-<b>¿Qué es "zero-shot"?</b> El modelo se pre-entrenó con miles de millones de
-puntos de series de todos los dominios, y pronostica una serie nueva <b>sin
-entrenarse en ella</b> — como un LLM que responde sin fine-tuning. La diferencia
-con <b>ARIMA</b> (estadística clásica: se ajusta un modelo por serie, asume
-linealidad y necesita historia suficiente) y con <b>Prophet</b> de Meta (modelo
-aditivo de tendencia + estacionalidad + feriados, también ajustado por serie y
-con configuración manual) es que acá hay <b>un solo modelo para todo</b>, a
-cambio de ser menos interpretable y más conservador en rupturas.
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
