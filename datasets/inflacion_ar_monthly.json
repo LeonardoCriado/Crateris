@@ -2,8 +2,12 @@
   "id": "inflacion_ar_monthly",
   "name": "Inflación mensual — Argentina (BCRA)",
   "description": "Variación mensual del IPC, API de Principales Variables del BCRA.",
-  "category": "inflacion",
-  "source": {"url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/27", "license": "BCRA (uso público)", "format": "bcra-json"},
+  "category": "argentina",
+  "source": {
+    "url": "https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/27",
+    "license": "BCRA (uso público)",
+    "format": "bcra-json"
+  },
   "freq": "M",
   "horizon": 12,
   "covariates": []

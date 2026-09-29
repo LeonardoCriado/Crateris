@@ -19,7 +19,7 @@
   select, button { font-size: 1rem; padding: .4rem; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; }
   button { cursor: pointer; }
   button:hover { border-color: var(--accent); }
-  #chart { width: 100%; height: 420px; margin-top: 1rem; }
+  #chart { width: 100%; height: 420px; margin-top: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .5rem; box-sizing: border-box; }
   .cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
   .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
   .card b { display: block; font-size: 1.2rem; color: var(--accent); }
@@ -34,7 +34,7 @@
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
 <label>Dataset: <select id="ds"></select></label>
-<details>
+<details open>
 <summary>¿Qué es esto?</summary>
 <p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
 descarga series temporales públicas y les aplica

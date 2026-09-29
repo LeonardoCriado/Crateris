@@ -7,6 +7,6 @@
   "date_col": "DATE",
   "value_col": "CLOSE",
   "freq": "B",
-  "horizon": 30,
+  "horizon": 28,
   "covariates": []
 }
