@@ -10,9 +10,30 @@ let current = null;
 const css = (name) => getComputedStyle(document.documentElement)
   .getPropertyValue(name).trim();
 
+/* Proyecta fechas reales desde el último dato según frecuencia.
+   B salta fines de semana (ponytail: feriados no contemplados, igual que
+   en el pipeline). */
+function projectDates(last, freq, n) {
+  const iso = last.length === 7 ? last + "-01" : last;
+  // Todo en UTC: los setters locales derivan el día según el TZ del browser.
+  const d = new Date(iso.length === 10 ? iso + "T00:00:00Z"
+    : /Z|[+-]\d{2}:?\d{2}$/.test(iso) ? iso : iso + "Z");
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    if (freq === "M") d.setUTCMonth(d.getUTCMonth() + 1);
+    else if (freq === "H") d.setUTCHours(d.getUTCHours() + 1);
+    else d.setUTCDate(d.getUTCDate() + 1);
+    if (freq === "B") while (d.getUTCDay() === 0 || d.getUTCDay() === 6)
+      d.setUTCDate(d.getUTCDate() + 1);
+    out.push(d.toISOString().slice(0, freq === "H" ? 13 : 10) +
+      (freq === "H" ? ":00" : ""));
+  }
+  return out;
+}
+
 function optionFor(a, hist) {
   const hx = hist.map((p) => p[0]);
-  const fx = a.forecast.map((_, i) => `h+${i + 1}`);
+  const fx = projectDates(hx[hx.length - 1], a.meta.freq, a.forecast.length);
   const q = a.quantiles;
   const pad = (vals) => [...new Array(hist.length - 1).fill(null),
     hist[hist.length - 1][1], ...vals];
@@ -86,8 +107,13 @@ async function show(file) {
   current = { a, hist: a.history.slice(-N) };
   render();
   const mt = a.metrics || {};
+  const HELP = {
+    mae: "MAE — error absoluto medio: promedio de los errores en las mismas unidades de la serie. Menor es mejor.",
+    rmse: "RMSE — raíz del error cuadrático medio: como el MAE pero penaliza más los errores grandes.",
+    mape: "MAPE — error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
+  };
   $("cards").innerHTML = ["mae", "rmse", "mape"].map((k) =>
-    `<div class="card">${k.toUpperCase()}<b>${mt[k] != null ? Number(mt[k]).toFixed(3) : "—"}</b></div>`).join("");
+    `<div class="card" title="${HELP[k]}">${k.toUpperCase()}<b>${mt[k] != null ? Number(mt[k]).toFixed(3) : "—"}</b></div>`).join("");
   $("meta").textContent =
     `${a.meta.name} · fuente: ${a.meta.source.url} (${a.meta.source.license}) · ` +
     `modelo: ${a.meta.model || "pendiente"} · generado: ${a.generated_at} · ` +

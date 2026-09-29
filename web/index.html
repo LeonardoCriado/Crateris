@@ -34,6 +34,15 @@
   <button id="theme" title="Cambiar tema">◐ tema</button>
 </div>
 <label>Dataset: <select id="ds"></select></label>
+<details>
+<summary>¿Qué es esto?</summary>
+<p><b>Crateris</b> es un showcase de pronóstico <i>zero-shot</i>: un pipeline
+descarga series temporales públicas y les aplica
+<a href="https://github.com/google-research/timesfm">TimesFM-3</a>, el modelo
+fundacional de series de Google (~330M parámetros), que pronostica <b>sin
+entrenarse en cada serie</b>. Esta página muestra historia + forecast con banda
+de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p>
+</details>
 <div id="chart"></div>
 <div class="cards" id="cards"></div>
 <p class="meta" id="meta"></p>
