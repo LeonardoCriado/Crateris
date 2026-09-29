@@ -165,6 +165,28 @@ async function load() {
     chart.setOption(optionFor(a, hist, true));
   }
   if (!i) $("unavailable").textContent = "sin datasets disponibles";
+  await renderCompare();
+}
+
+async function renderCompare() {
+  let c;
+  try {
+    c = await (await fetch("data/compare.json")).json();
+  } catch { return; } // comparativa aún no generada
+  if (!c.datasets || !c.datasets.length) return;
+  $("cmp-title").style.display = "";
+  const rows = [...c.datasets].sort((x, y) => x.v3.mape - y.v3.mape);
+  const div = $("compare");
+  let html = `<table class="cmp"><tr><th>Dataset</th><th>v3 MAPE</th>` +
+    `<th>2.5 MAPE</th><th>Mejor</th></tr>`;
+  for (const d of rows) {
+    const w = d.v3.mape <= d.v25.mape ? ["v3", "v3"] : ["v25", "v25"];
+    html += `<tr><td>${d.name}</td>` +
+      `<td class="${w[0] === "v3" ? "win" : ""}">${d.v3.mape.toFixed(2)}%</td>` +
+      `<td class="${w[0] === "v25" ? "win" : ""}">${d.v25.mape.toFixed(2)}%</td>` +
+      `<td>${w[1]}</td></tr>`;
+  }
+  div.innerHTML = html + "</table>";
 }
 
 load();
