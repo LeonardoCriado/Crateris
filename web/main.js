@@ -1,11 +1,13 @@
-/* Ranking top-10 por MAPE: un gráfico por dataset, encuadre inicial
-   50% historia / 50% forecast (dataZoom inside para explorar).
+/* General con selector + ranking top-10 por MAPE (encuadre inicial
+   50% historia / 50% forecast, dataZoom inside para explorar).
    Sin build. Fechas del forecast proyectadas en UTC (ponytail: para
    freq B caen en finde; el upgrade es proyectar por calendario). */
 const $ = (id) => document.getElementById(id);
 const NEED = ["meta", "history", "forecast", "quantiles", "metrics", "generated_at"];
 const valid = (a) => a && NEED.every((k) => k in a);
-const charts = []; // {chart, a, hist} para re-render por tema
+const mainChart = echarts.init($("chart"));
+const charts = []; // ranking: {chart, a, hist} para re-render por tema
+let current = null;
 
 const css = (name) => getComputedStyle(document.documentElement)
   .getPropertyValue(name).trim();
@@ -28,7 +30,8 @@ function projectDates(last, freq, n) {
   return out;
 }
 
-function optionFor(a, hist) {
+// framed=true: zoom inicial 50/50 (ranking). false: vista completa (general).
+function optionFor(a, hist, framed) {
   const h = a.forecast.length;
   const hx = hist.map((p) => p[0]);
   const fx = projectDates(hx[hx.length - 1], a.meta.freq, h);
@@ -37,7 +40,11 @@ function optionFor(a, hist) {
     hist[hist.length - 1][1], ...vals];
   const blanks = new Array(hist.length).fill(null);
   const L = hist.length + h;
-  const start = Math.max(0, (L - 2 * h) / L * 100); // 50/50 historia/forecast
+  const zoom = framed
+    ? [{ type: "inside", xAxisIndex: 0,
+         start: Math.max(0, (L - 2 * h) / L * 100), end: 100 }]
+    : [{ type: "inside", xAxisIndex: 0 },
+       { type: "slider", xAxisIndex: 0 }];
   return {
     animation: false,
     backgroundColor: "transparent",
@@ -47,7 +54,7 @@ function optionFor(a, hist) {
       splitLine: { lineStyle: { color: css("--grid") } } },
     yAxis: { type: "value", scale: true,
       splitLine: { lineStyle: { color: css("--grid") } } },
-    dataZoom: [{ type: "inside", xAxisIndex: 0, start, end: 100 }],
+    dataZoom: zoom,
     series: [
       { name: "historia", type: "line", showSymbol: false,
         data: hist.map((p) => p[1]), color: css("--hist") },
@@ -63,15 +70,40 @@ function optionFor(a, hist) {
   };
 }
 
+const HELP = {
+  mae: "MAE — error absoluto medio: promedio de los errores en las mismas unidades de la serie. Menor es mejor.",
+  rmse: "RMSE — raíz del error cuadrático medio: como el MAE pero penaliza más los errores grandes.",
+  mape: "MAPE — error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
+};
+
 function renderAll() {
+  if (current) mainChart.setOption(optionFor(current.a, current.hist, false), true);
   charts.forEach(({ chart, a, hist }) =>
-    chart.setOption(optionFor(a, hist), true));
+    chart.setOption(optionFor(a, hist, true), true));
 }
 
 function setTheme(t) {
   document.documentElement.dataset.theme = t;
   try { localStorage.setItem("crateris-theme", t); } catch {}
   renderAll();
+}
+
+async function show(file) {
+  $("unavailable").textContent = "";
+  let a;
+  try {
+    a = await (await fetch(file)).json();
+  } catch { return void ($("unavailable").textContent = "dataset no disponible"); }
+  if (!valid(a)) return void ($("unavailable").textContent = "dataset no disponible");
+  current = { a, hist: a.history.slice(-2000) };
+  mainChart.setOption(optionFor(a, current.hist, false), true);
+  const mt = a.metrics || {};
+  $("cards").innerHTML = ["mae", "rmse", "mape"].map((k) =>
+    `<div class="card" title="${HELP[k]}">${k.toUpperCase()}<b>${mt[k] != null ? Number(mt[k]).toFixed(3) : "—"}</b></div>`).join("");
+  $("meta").textContent =
+    `${a.meta.name} · fuente: ${a.meta.source.url} (${a.meta.source.license}) · ` +
+    `modelo: ${a.meta.model || "pendiente"} · generado: ${a.generated_at} · ` +
+    `Pesos TimesFM-3 bajo licencia no-comercial (solo portfolio).`;
 }
 
 async function load() {
@@ -81,6 +113,20 @@ async function load() {
   $("theme").onclick = () => setTheme(
     document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   const m = await (await fetch("data/manifest.json")).json();
+  const sel = $("ds");
+  const groups = {};
+  m.datasets.forEach((d) => { (groups[d.category] ||= []).push(d); });
+  Object.entries(groups).forEach(([cat, ds]) => {
+    const g = document.createElement("optgroup");
+    g.label = cat;
+    ds.forEach((d) => {
+      const o = document.createElement("option");
+      o.value = d.file; o.textContent = d.name; g.appendChild(o);
+    });
+    sel.appendChild(g);
+  });
+  sel.onchange = () => show(sel.value);
+  if (m.datasets.length) show(m.datasets[0].file);
   const top = m.datasets
     .filter((d) => d.mape != null)
     .sort((x, y) => x.mape - y.mape)
@@ -95,7 +141,7 @@ async function load() {
     if (!valid(a)) continue;
     i++;
     const h = a.forecast.length;
-    const hist = a.history.slice(-6 * h); // contexto para el zoom
+    const hist = a.history.slice(-6 * h);
     const sec = document.createElement("section");
     sec.className = "item";
     const mt = a.metrics || {};
@@ -107,7 +153,7 @@ async function load() {
     rank.appendChild(sec);
     const chart = echarts.init(sec.querySelector(".chart"));
     charts.push({ chart, a, hist });
-    chart.setOption(optionFor(a, hist));
+    chart.setOption(optionFor(a, hist, true));
   }
   if (!i) $("unavailable").textContent = "sin datasets disponibles";
 }
