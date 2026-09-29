@@ -24,6 +24,8 @@
   .card { background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem; border-radius: 8px; }
   .card b { display: block; font-size: 1.2rem; color: var(--accent); }
   .meta { color: var(--muted); font-size: .85rem; margin-top: 1rem; }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  footer b { color: var(--text); }
   #unavailable { color: #f66; }
   .top { display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 </style>
@@ -47,6 +49,15 @@ de cuantiles 0.1–0.9 y el error medido con backtest en los últimos puntos.</p
 <div class="cards" id="cards"></div>
 <p class="meta" id="meta"></p>
 <p id="unavailable"></p>
+<footer>
+<b>¿Sirve realmente?</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
+y regímenes estables (clima, CO₂: MAPE &lt;1%). Flojea ante cambios de régimen
+que no vio (rally del oro 2024–26, shocks cambiarios): ahí el pronóstico puntual
+se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
+<i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
+un techo: con covariables y contexto completo (soportado por el modelo) hay
+margen real de mejora.
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
 </body>
