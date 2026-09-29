@@ -1,0 +1,12 @@
+{
+  "id": "cpi_gb_monthly",
+  "name": "IPC Reino Unido mensual",
+  "description": "Índice de precios al consumo mensual vía DataHub.",
+  "category": "inflacion",
+  "source": {"url": "https://datahub.io/core/cpi-gb/r/cpi-uk-monthly.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Date",
+  "value_col": "Price Index",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

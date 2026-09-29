@@ -1,0 +1,12 @@
+{
+  "id": "bonds10y_monthly",
+  "name": "Bono EEUU 10Y mensual",
+  "description": "Rendimiento mensual del Treasury a 10 años vía DataHub.",
+  "category": "finanzas",
+  "source": {"url": "https://datahub.io/core/bond-yields-us-10y/r/monthly.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Date",
+  "value_col": "Rate",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}

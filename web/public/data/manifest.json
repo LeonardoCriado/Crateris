@@ -1,13 +1,85 @@
 {
   "datasets": [
     {
-      "id": "_example",
-      "name": "Example (smoke test)",
-      "category": "general",
-      "freq": "D",
-      "horizon": 3,
-      "file": "data/_example.json"
+      "id": "bonds10y_monthly",
+      "name": "Bono EEUU 10Y mensual",
+      "category": "finanzas",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/bonds10y_monthly.json"
+    },
+    {
+      "id": "brent_daily",
+      "name": "Petr\u00f3leo Brent diario",
+      "category": "energia",
+      "freq": "B",
+      "horizon": 30,
+      "file": "data/brent_daily.json"
+    },
+    {
+      "id": "co2_monthly",
+      "name": "CO\u2082 Mauna Loa mensual",
+      "category": "tierra",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/co2_monthly.json"
+    },
+    {
+      "id": "cpi_gb_monthly",
+      "name": "IPC Reino Unido mensual",
+      "category": "inflacion",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/cpi_gb_monthly.json"
+    },
+    {
+      "id": "gold_monthly",
+      "name": "Oro mensual (LBMA)",
+      "category": "finanzas",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/gold_monthly.json"
+    },
+    {
+      "id": "inflacion_ar_monthly",
+      "name": "Inflaci\u00f3n mensual \u2014 Argentina (BCRA)",
+      "category": "inflacion",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/inflacion_ar_monthly.json"
+    },
+    {
+      "id": "natgas_monthly",
+      "name": "Gas natural mensual (Henry Hub)",
+      "category": "energia",
+      "freq": "M",
+      "horizon": 12,
+      "file": "data/natgas_monthly.json"
+    },
+    {
+      "id": "temp_berlin_hourly",
+      "name": "Temperatura horaria \u2014 Berl\u00edn",
+      "category": "clima",
+      "freq": "H",
+      "horizon": 24,
+      "file": "data/temp_berlin_hourly.json"
+    },
+    {
+      "id": "temp_bsas_hourly",
+      "name": "Temperatura horaria \u2014 Buenos Aires",
+      "category": "clima",
+      "freq": "H",
+      "horizon": 24,
+      "file": "data/temp_bsas_hourly.json"
+    },
+    {
+      "id": "vix_daily",
+      "name": "VIX diario",
+      "category": "finanzas",
+      "freq": "B",
+      "horizon": 30,
+      "file": "data/vix_daily.json"
     }
   ],
-  "generated_at": "2026-09-29T01:38:16.234940+00:00"
+  "generated_at": "2026-09-29T15:26:04.292733+00:00"
 }

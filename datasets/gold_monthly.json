@@ -1,0 +1,12 @@
+{
+  "id": "gold_monthly",
+  "name": "Oro mensual (LBMA)",
+  "description": "Precio mensual del oro vía DataHub.",
+  "category": "finanzas",
+  "source": {"url": "https://datahub.io/core/gold-prices/r/monthly.csv", "license": "ODC-PDDL (DataHub)"},
+  "date_col": "Date",
+  "value_col": "Price",
+  "freq": "M",
+  "horizon": 12,
+  "covariates": []
+}
