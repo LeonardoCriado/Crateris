@@ -73,7 +73,7 @@ cambio de ser menos interpretable y más conservador en rupturas.</p>
 <p id="unavailable"></p>
 <h2 id="cmp-title" style="display:none">Comparativa TimesFM-3 vs 2.5 (MAPE %)</h2>
 <div id="compare"></div>
-<h2>Conclusión comparativa</h2>
+<h2>Conclusión</h2>
 <div class="item" id="linkedin">
 <p><b>¿Respondimos la pregunta?</b> Sí: <b>un solo modelo pronosticó las 17
 series sin un minuto de entrenamiento por serie</b>, con MAPE medio ~7% y un
@@ -101,13 +101,12 @@ verificá la licencia del checkpoint exacto que descargues, porque el código y
 los pesos pueden tener licencias distintas.</p>
 </div>
 <footer>
-<b>Conclusión.</b> TimesFM-3 rinde mejor donde hay estacionalidad fuerte
-y regímenes estables (clima, CO₂: MAPE &lt;1%). Flojea ante cambios de régimen
-que no vio (rally del oro 2024–26, shocks cambiarios): ahí el pronóstico puntual
-se aplana y la señal honesta está en la banda de cuantiles. Todo acá es
-<i>zero-shot</i> sin tuning y con contexto truncado a 512 puntos — un piso, no
-un techo: con covariables y contexto completo (soportado por el modelo) hay
-margen real de mejora.
+<b>Fuentes.</b> Clima: Open-Meteo Archive API (CC-BY-4.0). Finanzas, energía y
+materias primas: DataHub Core (ODC-PDDL). Series argentinas: API de Estadísticas
+del BCRA (uso público).
+<br><br>
+Leonardo Criado — código y datos en
+<a href="https://github.com/LeonardoCriado/Crateris">github.com/LeonardoCriado/Crateris</a>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="main.js"></script>
