@@ -31,7 +31,8 @@ function projectDates(last, freq, n) {
 }
 
 // framed=true: zoom inicial 50/50 (ranking). false: vista completa (general).
-function optionFor(a, hist, framed) {
+// keep={start,end}: conserva el zoom actual (cambio de tema).
+function optionFor(a, hist, framed, keep) {
   const h = a.forecast.length;
   const hx = hist.map((p) => p[0]);
   const fx = projectDates(hx[hx.length - 1], a.meta.freq, h);
@@ -40,9 +41,10 @@ function optionFor(a, hist, framed) {
     hist[hist.length - 1][1], ...vals];
   const blanks = new Array(hist.length).fill(null);
   const L = hist.length + h;
+  const init = keep || { start: framed
+    ? Math.max(0, (L - 2 * h) / L * 100) : 0, end: 100 };
   const zoom = framed
-    ? [{ type: "inside", xAxisIndex: 0,
-         start: Math.max(0, (L - 2 * h) / L * 100), end: 100 }]
+    ? [{ type: "inside", xAxisIndex: 0, ...init }]
     : [{ type: "inside", xAxisIndex: 0 },
        { type: "slider", xAxisIndex: 0 }];
   return {
@@ -76,10 +78,19 @@ const HELP = {
   mape: "MAPE — error porcentual absoluto medio, en %. Ojo: se distorsiona si la serie pasa por cero.",
 };
 
+function keepZoom(chart) {
+  try {
+    const dz = chart.getOption().dataZoom[0];
+    return { start: dz.start, end: dz.end };
+  } catch { return null; }
+}
+
 function renderAll() {
-  if (current) mainChart.setOption(optionFor(current.a, current.hist, false), true);
+  // conserva el zoom/filtros del usuario al cambiar tema
+  if (current) mainChart.setOption(optionFor(
+    current.a, current.hist, false, keepZoom(mainChart)));
   charts.forEach(({ chart, a, hist }) =>
-    chart.setOption(optionFor(a, hist, true), true));
+    chart.setOption(optionFor(a, hist, true, keepZoom(chart))));
 }
 
 function setTheme(t) {
